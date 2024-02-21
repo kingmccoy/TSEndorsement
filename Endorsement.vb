@@ -1,8 +1,10 @@
 ﻿Imports System.Data.Common
+Imports System.Data.SqlClient
 Imports System.Data.SQLite
+Imports System.Text.RegularExpressions
 
-Public Class Form1
-    Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
+Public Class Endorsement
+    'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         TboxEndorsementNo.ReadOnly = True
@@ -45,33 +47,19 @@ Public Class Form1
                     VALUES ('" & TboxEndorsementNo.Text & "','" & TBoxQtyEndorsed.Text & "','" & 1 & "','" & TBoxModel.Text & "','" & TBoxSerialNo.Text & "','" & TBoxPPONo.Text & "','" & TBoxPPOQty.Text & "','" & TBoxLotNo.Text & "',
             '" & TBoxWorkOrder.Text & "','" & TBoxStation.Text & "','" & TBoxFailureSymptoms.Text & "','" & DTPDateFailed.Value.ToString("MM-dd-yyyy") & "','" & DTPEndorsementDate.Value.ToString("MM-dd-yyyy") & "',
             '" & TBoxWorkweek.Text & "')"
-            dbCon.Open()
-            Using dbCmd As New SQLiteCommand(q, dbCon)
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(q, dbConn)
                 dbCmd.ExecuteNonQuery()
             End Using
-            dbCon.Close()
+            dbConn.Close()
         Catch ex As Exception
+            'dbConn.Close()
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
     Private Sub Load_QtyEndorsed()
-        Dim dtTable As New DataTable
-        Try
-            Dim q = "SELECT (SELECT endorsement_no FROM endorsement ORDER BY id DESC LIMIT 1) + 1 AS endorsement_no"
-            dbCon.Open()
-            Using dbCmd As New SQLiteCommand(q, dbCon)
-                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
-                    dbReader.Read()
-                    If dbReader.HasRows Then
-                        TboxEndorsementNo.Text = dbReader("endorsement_no").ToString
-                    End If
-                End Using
-            End Using
-            dbCon.Close()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        dbConn.Open()
     End Sub
 
     Private Sub Load_DataBase()
@@ -88,6 +76,49 @@ Public Class Form1
     End Sub
 
     Private Sub TBoxQtyEndorsed_TextChanged(sender As Object, e As EventArgs) Handles TBoxQtyEndorsed.TextChanged
+        TBoxQtyEndorsed.MaxLength = 6
 
+        Dim Qty = Regex.Match(TBoxQtyEndorsed.Text, "[0-9]+")
+
+        If TBoxQtyEndorsed.Text.Length > 0 Then
+            If TBoxQtyEndorsed.Text = Qty.Value Then
+                ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
+            Else
+                ErrorProvider1.SetError(TBoxQtyEndorsed, "Only number are allowed")
+            End If
+        Else
+            If TBoxQtyEndorsed.Text.Length = 0 Then
+                ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
+            End If
+        End If
+    End Sub
+
+    Private Sub TBoxPPONo_TextChanged(sender As Object, e As EventArgs) Handles TBoxPPONo.TextChanged
+        TBoxPPONo.MaxLength = 10
+
+        Dim PPONum = "[0-9]{10}"
+        If TBoxPPONo.Text.Length > 0 Then
+            If Regex.IsMatch(TBoxPPONo.Text, PPONum) Then
+                ErrorProvider1.Clear()
+            Else
+                ErrorProvider1.SetError(TBoxPPONo, "Invalid PPO number")
+            End If
+        Else
+            If TBoxPPONo.Text.Length = 0 Then
+                ErrorProvider1.Clear()
+            End If
+        End If
+    End Sub
+
+    Private Sub TBoxQtyEndorsed_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxQtyEndorsed.KeyPress
+        If TBoxQtyEndorsed.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
+
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
     End Sub
 End Class
