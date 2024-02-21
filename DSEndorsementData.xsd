@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSEndorsementData" targetNamespace="http://tempuri.org/DSEndorsementData.xsd" xmlns:mstns="http://tempuri.org/DSEndorsementData.xsd" xmlns="http://tempuri.org/DSEndorsementData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSEndorsementData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSEndorsementData" msprop:Generator_DataSetName="DSEndorsementData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTEndorsementData" msprop:Generator_RowEvHandlerName="DTEndorsementDataRowChangeEventHandler" msprop:Generator_RowDeletedName="DTEndorsementDataRowDeleted" msprop:Generator_RowDeletingName="DTEndorsementDataRowDeleting" msprop:Generator_RowEvArgName="DTEndorsementDataRowChangeEvent" msprop:Generator_TablePropName="DTEndorsementData" msprop:Generator_RowChangedName="DTEndorsementDataRowChanged" msprop:Generator_RowChangingName="DTEndorsementDataRowChanging" msprop:Generator_TableClassName="DTEndorsementDataDataTable" msprop:Generator_RowClassName="DTEndorsementDataRow" msprop:Generator_TableVarName="tableDTEndorsementData" msprop:Generator_UserTableName="DTEndorsementData">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="model" msprop:Generator_ColumnPropNameInRow="model" msprop:Generator_ColumnPropNameInTable="modelColumn" msprop:Generator_ColumnVarNameInTable="columnmodel" msprop:Generator_UserColumnName="model" type="xs:string" minOccurs="0" />
+              <xs:element name="serial_no" msprop:Generator_ColumnPropNameInRow="serial_no" msprop:Generator_ColumnPropNameInTable="serial_noColumn" msprop:Generator_ColumnVarNameInTable="columnserial_no" msprop:Generator_UserColumnName="serial_no" type="xs:string" minOccurs="0" />
+              <xs:element name="ppo_no" msprop:Generator_ColumnPropNameInRow="ppo_no" msprop:Generator_ColumnPropNameInTable="ppo_noColumn" msprop:Generator_ColumnVarNameInTable="columnppo_no" msprop:Generator_UserColumnName="ppo_no" type="xs:string" minOccurs="0" />
+              <xs:element name="ppo_qty" msprop:Generator_ColumnPropNameInRow="ppo_qty" msprop:Generator_ColumnPropNameInTable="ppo_qtyColumn" msprop:Generator_ColumnVarNameInTable="columnppo_qty" msprop:Generator_UserColumnName="ppo_qty" type="xs:string" minOccurs="0" />
+              <xs:element name="lot_no" msprop:Generator_ColumnPropNameInRow="lot_no" msprop:Generator_ColumnPropNameInTable="lot_noColumn" msprop:Generator_ColumnVarNameInTable="columnlot_no" msprop:Generator_UserColumnName="lot_no" type="xs:string" minOccurs="0" />
+              <xs:element name="work_order" msprop:Generator_ColumnPropNameInRow="work_order" msprop:Generator_ColumnPropNameInTable="work_orderColumn" msprop:Generator_ColumnVarNameInTable="columnwork_order" msprop:Generator_UserColumnName="work_order" type="xs:string" minOccurs="0" />
+              <xs:element name="station" msprop:Generator_ColumnPropNameInRow="station" msprop:Generator_ColumnPropNameInTable="stationColumn" msprop:Generator_ColumnVarNameInTable="columnstation" msprop:Generator_UserColumnName="station" type="xs:string" minOccurs="0" />
+              <xs:element name="failure_symptoms" msprop:Generator_ColumnPropNameInRow="failure_symptoms" msprop:Generator_ColumnPropNameInTable="failure_symptomsColumn" msprop:Generator_ColumnVarNameInTable="columnfailure_symptoms" msprop:Generator_UserColumnName="failure_symptoms" type="xs:string" minOccurs="0" />
+              <xs:element name="endorsed_by" msprop:Generator_ColumnPropNameInRow="endorsed_by" msprop:Generator_ColumnPropNameInTable="endorsed_byColumn" msprop:Generator_ColumnVarNameInTable="columnendorsed_by" msprop:Generator_UserColumnName="endorsed_by" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTEndorsementData" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

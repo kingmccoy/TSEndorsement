@@ -7,15 +7,7 @@
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:endorsement.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\endorsement.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:endorsement.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\my project\\application.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:my project\\application.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\endorsement.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\endorsement.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:endorsement.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
@@ -23,10 +15,16 @@
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:databaseconnection.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Endorsement||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\endorsement.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:endorsement.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|8998e48e-b89a-4034-b66e-353d8c1fdc2e"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\dsmodel.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsmodel.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\dsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,32 +34,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Application.Designer.vb",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\My Project\\Application.Designer.vb",
-              "RelativeDocumentMoniker": "My Project\\Application.Designer.vb",
-              "ToolTip": "D:\\macky_program\\Endorsement\\My Project\\Application.Designer.vb",
-              "RelativeToolTip": "My Project\\Application.Designer.vb",
-              "ViewState": "AQIAABcAAAAAAAAAAAAQwBoAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-02-21T08:23:52.047Z",
+              "DocumentIndex": 4,
+              "Title": "DSModel.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSModel.xsd",
+              "RelativeDocumentMoniker": "DSModel.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSModel.xsd",
+              "RelativeToolTip": "DSModel.xsd",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
+              "WhenOpened": "2024-02-21T09:10:11.568Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "DSEndorsementData.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSEndorsementData.xsd",
+              "RelativeDocumentMoniker": "DSEndorsementData.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSEndorsementData.xsd",
+              "RelativeToolTip": "DSEndorsementData.xsd",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
+              "WhenOpened": "2024-02-21T09:00:21.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Endorsement.Designer.vb",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\Endorsement.Designer.vb",
               "RelativeDocumentMoniker": "Endorsement.Designer.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\Endorsement.Designer.vb",
               "RelativeToolTip": "Endorsement.Designer.vb",
-              "ViewState": "AQIAAEwDAAAAAAAAAAAAAFoDAAAoAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAMADAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-02-21T08:20:40.962Z",
+              "WhenOpened": "2024-02-21T08:54:51.038Z",
               "EditorCaption": ""
             },
             {
@@ -95,36 +104,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Endorsement",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\Endorsement.vbproj",
-              "RelativeDocumentMoniker": "Endorsement.vbproj",
-              "ToolTip": "D:\\macky_program\\Endorsement\\Endorsement.vbproj",
-              "RelativeToolTip": "Endorsement.vbproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-02-21T06:13:08.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Endorsement.vb",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\Endorsement.vb",
               "RelativeDocumentMoniker": "Endorsement.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\Endorsement.vb",
               "RelativeToolTip": "Endorsement.vb",
-              "ViewState": "AQIAABsAAAAAAAAAAAAMwDsAAAAAAAAA",
+              "ViewState": "AQIAABUAAAAAAAAAAAAMwEEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2024-02-21T02:13:52.194Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "DataBaseConnection.vb",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\DataBaseConnection.vb",
               "RelativeDocumentMoniker": "DataBaseConnection.vb",

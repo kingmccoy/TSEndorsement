@@ -75,30 +75,32 @@ Partial Class Endorsement
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.DTPDateFailed = New System.Windows.Forms.DateTimePicker()
         Me.DTPEndorsementDate = New System.Windows.Forms.DateTimePicker()
-        Me.BtnAdd = New System.Windows.Forms.Button()
+        Me.BtnEndorse = New System.Windows.Forms.Button()
         Me.BtnClear = New System.Windows.Forms.Button()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TboxEndorsementNo = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageEndorsement = New System.Windows.Forms.TabPage()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.GBoxData = New System.Windows.Forms.GroupBox()
+        Me.BtnDataClear = New System.Windows.Forms.Button()
+        Me.GBoxInformation = New System.Windows.Forms.GroupBox()
+        Me.BtnScan = New System.Windows.Forms.Button()
         Me.GBoxEndorsmentData = New System.Windows.Forms.GroupBox()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.CBoxModel = New System.Windows.Forms.ComboBox()
+        Me.CBoxStation = New System.Windows.Forms.ComboBox()
         Me.TabPageReceiving = New System.Windows.Forms.TabPage()
         Me.TabPageTS = New System.Windows.Forms.TabPage()
         Me.TabPageInquiry = New System.Windows.Forms.TabPage()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.DGVEndorsementData = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.GBoxData.SuspendLayout()
+        Me.GBoxInformation.SuspendLayout()
         Me.GBoxEndorsmentData.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPageTS.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -612,15 +614,15 @@ Partial Class Endorsement
         Me.DTPEndorsementDate.Size = New System.Drawing.Size(143, 23)
         Me.DTPEndorsementDate.TabIndex = 2
         '
-        'BtnAdd
+        'BtnEndorse
         '
-        Me.BtnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnAdd.Location = New System.Drawing.Point(7, 154)
-        Me.BtnAdd.Name = "BtnAdd"
-        Me.BtnAdd.Size = New System.Drawing.Size(69, 23)
-        Me.BtnAdd.TabIndex = 3
-        Me.BtnAdd.Text = "Endorse"
-        Me.BtnAdd.UseVisualStyleBackColor = True
+        Me.BtnEndorse.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnEndorse.Location = New System.Drawing.Point(7, 154)
+        Me.BtnEndorse.Name = "BtnEndorse"
+        Me.BtnEndorse.Size = New System.Drawing.Size(69, 23)
+        Me.BtnEndorse.TabIndex = 3
+        Me.BtnEndorse.Text = "Endorse"
+        Me.BtnEndorse.UseVisualStyleBackColor = True
         '
         'BtnClear
         '
@@ -669,8 +671,10 @@ Partial Class Endorsement
         '
         Me.TabPageEndorsement.BackColor = System.Drawing.SystemColors.Control
         Me.TabPageEndorsement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.TabPageEndorsement.Controls.Add(Me.GroupBox2)
-        Me.TabPageEndorsement.Controls.Add(Me.GroupBox1)
+        Me.TabPageEndorsement.Controls.Add(Me.CBoxStation)
+        Me.TabPageEndorsement.Controls.Add(Me.CBoxModel)
+        Me.TabPageEndorsement.Controls.Add(Me.GBoxData)
+        Me.TabPageEndorsement.Controls.Add(Me.GBoxInformation)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxEndorsmentData)
         Me.TabPageEndorsement.Controls.Add(Me.Label27)
         Me.TabPageEndorsement.Controls.Add(Me.TboxEndorsementNo)
@@ -681,80 +685,80 @@ Partial Class Endorsement
         Me.TabPageEndorsement.TabIndex = 0
         Me.TabPageEndorsement.Text = "Endorsement"
         '
-        'GroupBox2
+        'GBoxData
         '
-        Me.GroupBox2.Controls.Add(Me.Button1)
-        Me.GroupBox2.Controls.Add(Me.Label9)
-        Me.GroupBox2.Controls.Add(Me.TBoxSerialNo)
-        Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Controls.Add(Me.TBoxStation)
-        Me.GroupBox2.Controls.Add(Me.TBoxFailureSymptoms)
-        Me.GroupBox2.Controls.Add(Me.BtnAdd)
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 535)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(170, 191)
-        Me.GroupBox2.TabIndex = 6
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Data"
+        Me.GBoxData.Controls.Add(Me.BtnDataClear)
+        Me.GBoxData.Controls.Add(Me.Label9)
+        Me.GBoxData.Controls.Add(Me.TBoxSerialNo)
+        Me.GBoxData.Controls.Add(Me.Label8)
+        Me.GBoxData.Controls.Add(Me.TBoxStation)
+        Me.GBoxData.Controls.Add(Me.TBoxFailureSymptoms)
+        Me.GBoxData.Controls.Add(Me.BtnEndorse)
+        Me.GBoxData.Controls.Add(Me.Label3)
+        Me.GBoxData.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GBoxData.Location = New System.Drawing.Point(6, 535)
+        Me.GBoxData.Name = "GBoxData"
+        Me.GBoxData.Size = New System.Drawing.Size(170, 191)
+        Me.GBoxData.TabIndex = 6
+        Me.GBoxData.TabStop = False
+        Me.GBoxData.Text = "Data"
         '
-        'Button1
+        'BtnDataClear
         '
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(81, 154)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 23)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Clear"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BtnDataClear.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnDataClear.Location = New System.Drawing.Point(81, 154)
+        Me.BtnDataClear.Name = "BtnDataClear"
+        Me.BtnDataClear.Size = New System.Drawing.Size(69, 23)
+        Me.BtnDataClear.TabIndex = 4
+        Me.BtnDataClear.Text = "Clear"
+        Me.BtnDataClear.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'GBoxInformation
         '
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.LblQtyEndorsed)
-        Me.GroupBox1.Controls.Add(Me.TBoxQtyEndorsed)
-        Me.GroupBox1.Controls.Add(Me.DTPEndorsementDate)
-        Me.GroupBox1.Controls.Add(Me.DTPDateFailed)
-        Me.GroupBox1.Controls.Add(Me.LblDateFailed)
-        Me.GroupBox1.Controls.Add(Me.LblModel)
-        Me.GroupBox1.Controls.Add(Me.LblEndorsementDate)
-        Me.GroupBox1.Controls.Add(Me.BtnClear)
-        Me.GroupBox1.Controls.Add(Me.TBoxEndorsedBy)
-        Me.GroupBox1.Controls.Add(Me.TBoxModel)
-        Me.GroupBox1.Controls.Add(Me.LblEndorsedBy)
-        Me.GroupBox1.Controls.Add(Me.LblWorkWeek)
-        Me.GroupBox1.Controls.Add(Me.TBoxWorkweek)
-        Me.GroupBox1.Controls.Add(Me.LblPPONo)
-        Me.GroupBox1.Controls.Add(Me.TBoxPPONo)
-        Me.GroupBox1.Controls.Add(Me.LblPPOQty)
-        Me.GroupBox1.Controls.Add(Me.TBoxPPOQty)
-        Me.GroupBox1.Controls.Add(Me.LblLotNo)
-        Me.GroupBox1.Controls.Add(Me.TBoxLotNo)
-        Me.GroupBox1.Controls.Add(Me.LblWorkOrder)
-        Me.GroupBox1.Controls.Add(Me.TBoxWorkOrder)
-        Me.GroupBox1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 35)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(170, 494)
-        Me.GroupBox1.TabIndex = 5
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Information"
+        Me.GBoxInformation.Controls.Add(Me.BtnScan)
+        Me.GBoxInformation.Controls.Add(Me.LblQtyEndorsed)
+        Me.GBoxInformation.Controls.Add(Me.TBoxQtyEndorsed)
+        Me.GBoxInformation.Controls.Add(Me.DTPEndorsementDate)
+        Me.GBoxInformation.Controls.Add(Me.DTPDateFailed)
+        Me.GBoxInformation.Controls.Add(Me.LblDateFailed)
+        Me.GBoxInformation.Controls.Add(Me.LblModel)
+        Me.GBoxInformation.Controls.Add(Me.LblEndorsementDate)
+        Me.GBoxInformation.Controls.Add(Me.BtnClear)
+        Me.GBoxInformation.Controls.Add(Me.TBoxEndorsedBy)
+        Me.GBoxInformation.Controls.Add(Me.TBoxModel)
+        Me.GBoxInformation.Controls.Add(Me.LblEndorsedBy)
+        Me.GBoxInformation.Controls.Add(Me.LblWorkWeek)
+        Me.GBoxInformation.Controls.Add(Me.TBoxWorkweek)
+        Me.GBoxInformation.Controls.Add(Me.LblPPONo)
+        Me.GBoxInformation.Controls.Add(Me.TBoxPPONo)
+        Me.GBoxInformation.Controls.Add(Me.LblPPOQty)
+        Me.GBoxInformation.Controls.Add(Me.TBoxPPOQty)
+        Me.GBoxInformation.Controls.Add(Me.LblLotNo)
+        Me.GBoxInformation.Controls.Add(Me.TBoxLotNo)
+        Me.GBoxInformation.Controls.Add(Me.LblWorkOrder)
+        Me.GBoxInformation.Controls.Add(Me.TBoxWorkOrder)
+        Me.GBoxInformation.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GBoxInformation.Location = New System.Drawing.Point(6, 35)
+        Me.GBoxInformation.Name = "GBoxInformation"
+        Me.GBoxInformation.Size = New System.Drawing.Size(170, 494)
+        Me.GBoxInformation.TabIndex = 5
+        Me.GBoxInformation.TabStop = False
+        Me.GBoxInformation.Text = "Information"
         '
-        'Button2
+        'BtnScan
         '
-        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(7, 462)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 23)
-        Me.Button2.TabIndex = 5
-        Me.Button2.Text = "Scan"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BtnScan.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnScan.Location = New System.Drawing.Point(7, 462)
+        Me.BtnScan.Name = "BtnScan"
+        Me.BtnScan.Size = New System.Drawing.Size(69, 23)
+        Me.BtnScan.TabIndex = 5
+        Me.BtnScan.Text = "Scan"
+        Me.BtnScan.UseVisualStyleBackColor = True
         '
         'GBoxEndorsmentData
         '
         Me.GBoxEndorsmentData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.GBoxEndorsmentData.Controls.Add(Me.DataGridView1)
+        Me.GBoxEndorsmentData.Controls.Add(Me.DGVEndorsementData)
         Me.GBoxEndorsmentData.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBoxEndorsmentData.Location = New System.Drawing.Point(181, 5)
         Me.GBoxEndorsmentData.Margin = New System.Windows.Forms.Padding(2)
@@ -765,19 +769,21 @@ Partial Class Endorsement
         Me.GBoxEndorsmentData.TabStop = False
         Me.GBoxEndorsmentData.Text = "Endorsement Data"
         '
-        'DataGridView1
+        'CBoxModel
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView1.Location = New System.Drawing.Point(2, 18)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.Size = New System.Drawing.Size(789, 704)
-        Me.DataGridView1.TabIndex = 0
+        Me.CBoxModel.FormattingEnabled = True
+        Me.CBoxModel.Location = New System.Drawing.Point(236, 272)
+        Me.CBoxModel.Name = "CBoxModel"
+        Me.CBoxModel.Size = New System.Drawing.Size(143, 23)
+        Me.CBoxModel.TabIndex = 1
+        '
+        'CBoxStation
+        '
+        Me.CBoxStation.FormattingEnabled = True
+        Me.CBoxStation.Location = New System.Drawing.Point(236, 243)
+        Me.CBoxStation.Name = "CBoxStation"
+        Me.CBoxStation.Size = New System.Drawing.Size(143, 23)
+        Me.CBoxStation.TabIndex = 1
         '
         'TabPageReceiving
         '
@@ -839,6 +845,20 @@ Partial Class Endorsement
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
+        'DGVEndorsementData
+        '
+        Me.DGVEndorsementData.AllowUserToAddRows = False
+        Me.DGVEndorsementData.AllowUserToDeleteRows = False
+        Me.DGVEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.DGVEndorsementData.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.DGVEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DGVEndorsementData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DGVEndorsementData.Location = New System.Drawing.Point(2, 18)
+        Me.DGVEndorsementData.Name = "DGVEndorsementData"
+        Me.DGVEndorsementData.ReadOnly = True
+        Me.DGVEndorsementData.Size = New System.Drawing.Size(789, 704)
+        Me.DGVEndorsementData.TabIndex = 2
+        '
         'Endorsement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -856,15 +876,15 @@ Partial Class Endorsement
         Me.TabControl1.ResumeLayout(False)
         Me.TabPageEndorsement.ResumeLayout(False)
         Me.TabPageEndorsement.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GBoxData.ResumeLayout(False)
+        Me.GBoxData.PerformLayout()
+        Me.GBoxInformation.ResumeLayout(False)
+        Me.GBoxInformation.PerformLayout()
         Me.GBoxEndorsmentData.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPageTS.ResumeLayout(False)
         Me.TabPageTS.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -920,7 +940,7 @@ Partial Class Endorsement
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents DTPDateFailed As DateTimePicker
     Friend WithEvents DTPEndorsementDate As DateTimePicker
-    Friend WithEvents BtnAdd As Button
+    Friend WithEvents BtnEndorse As Button
     Friend WithEvents BtnClear As Button
     Friend WithEvents Label27 As Label
     Friend WithEvents TboxEndorsementNo As TextBox
@@ -930,21 +950,13 @@ Partial Class Endorsement
     Friend WithEvents TabPageInquiry As TabPage
     Friend WithEvents Label9 As Label
     Friend WithEvents GBoxEndorsmentData As GroupBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GBoxInformation As GroupBox
+    Friend WithEvents GBoxData As GroupBox
     Friend WithEvents TabPageReceiving As TabPage
     Friend WithEvents ErrorProvider1 As ErrorProvider
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents ModelDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents SerialnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents PponoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents PpoqtyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents LotnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents WorkorderDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents StationDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents FailuresymptomsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents EndorsedbyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents BtnDataClear As Button
+    Friend WithEvents BtnScan As Button
+    Friend WithEvents CBoxModel As ComboBox
+    Friend WithEvents CBoxStation As ComboBox
+    Friend WithEvents DGVEndorsementData As DataGridView
 End Class

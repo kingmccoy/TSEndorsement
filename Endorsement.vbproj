@@ -110,6 +110,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseConnection.vb" />
+    <Compile Include="DSEndorsementData.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSEndorsementData.vb">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSModel.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Endorsement.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +159,28 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DSEndorsementData.xsc">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSEndorsementData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSEndorsementData.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSEndorsementData.xss">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSModel.xsc">
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </None>
+    <None Include="DSModel.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSModel.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSModel.xss">
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

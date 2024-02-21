@@ -41,7 +41,7 @@ Public Class Endorsement
         'TBoxRemarks.Clear()
     End Sub
 
-    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
         Try
             Dim q = "INSERT INTO endorsement (endorsement_no,qty_endorsed, qty, model, serial_no, ppo_no, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek)
                     VALUES ('" & TboxEndorsementNo.Text & "','" & TBoxQtyEndorsed.Text & "','" & 1 & "','" & TBoxModel.Text & "','" & TBoxSerialNo.Text & "','" & TBoxPPONo.Text & "','" & TBoxPPOQty.Text & "','" & TBoxLotNo.Text & "',
@@ -59,7 +59,17 @@ Public Class Endorsement
     End Sub
 
     Private Sub Load_QtyEndorsed()
-        dbConn.Open()
+        Try
+            Dim q = ""
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(q, dbConn)
+
+            End Using
+            dbConn.Close()
+        Catch ex As Exception
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub Load_DataBase()

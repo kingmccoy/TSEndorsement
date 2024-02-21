@@ -27,5 +27,45 @@ Endorsement
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="T:Endorsement.DSEndorsementData">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:Endorsement.DSEndorsementData.DTEndorsementDataDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSEndorsementData.DTEndorsementDataRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSEndorsementData.DTEndorsementDataRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Endorsement.DSModel">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:Endorsement.DSModel.DTModelDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSModel.DTModelRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSModel.DTModelRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
 </members>
 </doc>
