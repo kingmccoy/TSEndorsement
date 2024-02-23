@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="DSModel" targetNamespace="http://tempuri.org/DSModel.xsd" xmlns:mstns="http://tempuri.org/DSModel.xsd" xmlns="http://tempuri.org/DSModel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="DSStation" targetNamespace="http://tempuri.org/DSStation.xsd" xmlns:mstns="http://tempuri.org/DSStation.xsd" xmlns="http://tempuri.org/DSStation.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -9,10 +9,10 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="DSModel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSModel" msprop:Generator_DataSetName="DSModel">
+  <xs:element name="DSStation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSStation" msprop:Generator_DataSetName="DSStation">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTVariant" msprop:Generator_RowEvHandlerName="DTVariantRowChangeEventHandler" msprop:Generator_RowDeletedName="DTVariantRowDeleted" msprop:Generator_RowDeletingName="DTVariantRowDeleting" msprop:Generator_RowEvArgName="DTVariantRowChangeEvent" msprop:Generator_TablePropName="DTVariant" msprop:Generator_RowChangedName="DTVariantRowChanged" msprop:Generator_RowChangingName="DTVariantRowChanging" msprop:Generator_TableClassName="DTVariantDataTable" msprop:Generator_RowClassName="DTVariantRow" msprop:Generator_TableVarName="tableDTVariant" msprop:Generator_UserTableName="DTVariant">
+        <xs:element name="DTStations" msprop:Generator_RowEvHandlerName="DTStationsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTStationsRowDeleted" msprop:Generator_RowDeletingName="DTStationsRowDeleting" msprop:Generator_RowEvArgName="DTStationsRowChangeEvent" msprop:Generator_TablePropName="DTStations" msprop:Generator_RowChangedName="DTStationsRowChanged" msprop:Generator_RowChangingName="DTStationsRowChanging" msprop:Generator_TableClassName="DTStationsDataTable" msprop:Generator_RowClassName="DTStationsRow" msprop:Generator_TableVarName="tableDTStations" msprop:Generator_UserTableName="DTStations">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
@@ -23,7 +23,7 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:DTVariant" />
+      <xs:selector xpath=".//mstns:DTStations" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
   </xs:element>

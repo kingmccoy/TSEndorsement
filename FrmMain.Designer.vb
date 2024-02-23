@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Endorsement
+Partial Class FrmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,10 +23,10 @@ Partial Class Endorsement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LblQtyEndorsed = New System.Windows.Forms.Label()
         Me.TBoxQtyEndorsed = New System.Windows.Forms.TextBox()
         Me.LblModel = New System.Windows.Forms.Label()
-        Me.TBoxModel = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TBoxSerialNo = New System.Windows.Forms.TextBox()
         Me.LblPPONo = New System.Windows.Forms.Label()
@@ -38,7 +38,6 @@ Partial Class Endorsement
         Me.LblWorkOrder = New System.Windows.Forms.Label()
         Me.TBoxWorkOrder = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.TBoxStation = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TBoxFailureSymptoms = New System.Windows.Forms.TextBox()
         Me.LblEndorsedBy = New System.Windows.Forms.Label()
@@ -47,30 +46,30 @@ Partial Class Endorsement
         Me.LblEndorsementDate = New System.Windows.Forms.Label()
         Me.LblWorkWeek = New System.Windows.Forms.Label()
         Me.TBoxWorkweek = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
+        Me.LblValidatedBy = New System.Windows.Forms.Label()
         Me.TBoxValidatedBy = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
+        Me.LblAnalysis = New System.Windows.Forms.Label()
         Me.TBoxAnalysis = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.LblActionTaken = New System.Windows.Forms.Label()
         Me.TBoxActionTaken = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.LblLoc1 = New System.Windows.Forms.Label()
         Me.TBoxLocation1 = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
+        Me.LblLoc2 = New System.Windows.Forms.Label()
         Me.TBoxLocation2 = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.LblLoc3 = New System.Windows.Forms.Label()
         Me.TBoxLocation3 = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
+        Me.LblLoc4 = New System.Windows.Forms.Label()
         Me.TBoxLocation4 = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.LblLoc5 = New System.Windows.Forms.Label()
         Me.TBoxLocation5 = New System.Windows.Forms.TextBox()
-        Me.Label22 = New System.Windows.Forms.Label()
+        Me.LblRepairedBy = New System.Windows.Forms.Label()
         Me.TBoxRepairedBy = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
+        Me.LblDateRepaired = New System.Windows.Forms.Label()
+        Me.LblDefectType = New System.Windows.Forms.Label()
         Me.TBoxDefectType = New System.Windows.Forms.TextBox()
-        Me.Label25 = New System.Windows.Forms.Label()
+        Me.LblStatus = New System.Windows.Forms.Label()
         Me.TBoxStatus = New System.Windows.Forms.TextBox()
-        Me.Label26 = New System.Windows.Forms.Label()
+        Me.LblRemarks = New System.Windows.Forms.Label()
         Me.TBoxRemarks = New System.Windows.Forms.TextBox()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.DTPDateFailed = New System.Windows.Forms.DateTimePicker()
@@ -82,25 +81,40 @@ Partial Class Endorsement
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageEndorsement = New System.Windows.Forms.TabPage()
         Me.GBoxData = New System.Windows.Forms.GroupBox()
+        Me.CBoxStation = New System.Windows.Forms.ComboBox()
         Me.BtnDataClear = New System.Windows.Forms.Button()
         Me.GBoxInformation = New System.Windows.Forms.GroupBox()
         Me.BtnScan = New System.Windows.Forms.Button()
-        Me.GBoxEndorsmentData = New System.Windows.Forms.GroupBox()
         Me.CBoxModel = New System.Windows.Forms.ComboBox()
-        Me.CBoxStation = New System.Windows.Forms.ComboBox()
+        Me.GBoxEndorsmentData = New System.Windows.Forms.GroupBox()
+        Me.DGVEndorsementData = New System.Windows.Forms.DataGridView()
         Me.TabPageReceiving = New System.Windows.Forms.TabPage()
         Me.TabPageTS = New System.Windows.Forms.TabPage()
         Me.TabPageInquiry = New System.Windows.Forms.TabPage()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.DGVEndorsementData = New System.Windows.Forms.DataGridView()
+        Me.BtnSubmit = New System.Windows.Forms.Button()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn20 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DTEndorsementDataBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DSEndorsementData = New Endorsement.DSEndorsementData()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
         Me.GBoxInformation.SuspendLayout()
         Me.GBoxEndorsmentData.SuspendLayout()
+        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPageTS.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -134,16 +148,6 @@ Partial Class Endorsement
         Me.LblModel.Size = New System.Drawing.Size(41, 15)
         Me.LblModel.TabIndex = 0
         Me.LblModel.Text = "Model"
-        '
-        'TBoxModel
-        '
-        Me.TBoxModel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBoxModel.Location = New System.Drawing.Point(7, 81)
-        Me.TBoxModel.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.TBoxModel.Name = "TBoxModel"
-        Me.TBoxModel.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxModel.TabIndex = 1
-        Me.TBoxModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label3
         '
@@ -261,16 +265,6 @@ Partial Class Endorsement
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "Station"
         '
-        'TBoxStation
-        '
-        Me.TBoxStation.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBoxStation.Location = New System.Drawing.Point(7, 81)
-        Me.TBoxStation.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.TBoxStation.Name = "TBoxStation"
-        Me.TBoxStation.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxStation.TabIndex = 1
-        Me.TBoxStation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Label9
         '
         Me.Label9.AutoSize = True
@@ -356,15 +350,15 @@ Partial Class Endorsement
         Me.TBoxWorkweek.TabIndex = 1
         Me.TBoxWorkweek.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Label14
+        'LblValidatedBy
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 3)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(74, 15)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "Validated by:"
+        Me.LblValidatedBy.AutoSize = True
+        Me.LblValidatedBy.Location = New System.Drawing.Point(7, 3)
+        Me.LblValidatedBy.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblValidatedBy.Name = "LblValidatedBy"
+        Me.LblValidatedBy.Size = New System.Drawing.Size(74, 15)
+        Me.LblValidatedBy.TabIndex = 0
+        Me.LblValidatedBy.Text = "Validated by:"
         '
         'TBoxValidatedBy
         '
@@ -374,15 +368,15 @@ Partial Class Endorsement
         Me.TBoxValidatedBy.Size = New System.Drawing.Size(116, 23)
         Me.TBoxValidatedBy.TabIndex = 1
         '
-        'Label15
+        'LblAnalysis
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(7, 49)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(50, 15)
-        Me.Label15.TabIndex = 0
-        Me.Label15.Text = "Analysis"
+        Me.LblAnalysis.AutoSize = True
+        Me.LblAnalysis.Location = New System.Drawing.Point(7, 49)
+        Me.LblAnalysis.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblAnalysis.Name = "LblAnalysis"
+        Me.LblAnalysis.Size = New System.Drawing.Size(50, 15)
+        Me.LblAnalysis.TabIndex = 0
+        Me.LblAnalysis.Text = "Analysis"
         '
         'TBoxAnalysis
         '
@@ -392,15 +386,15 @@ Partial Class Endorsement
         Me.TBoxAnalysis.Size = New System.Drawing.Size(116, 23)
         Me.TBoxAnalysis.TabIndex = 1
         '
-        'Label16
+        'LblActionTaken
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(7, 95)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(75, 15)
-        Me.Label16.TabIndex = 0
-        Me.Label16.Text = "Action Taken"
+        Me.LblActionTaken.AutoSize = True
+        Me.LblActionTaken.Location = New System.Drawing.Point(7, 95)
+        Me.LblActionTaken.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblActionTaken.Name = "LblActionTaken"
+        Me.LblActionTaken.Size = New System.Drawing.Size(75, 15)
+        Me.LblActionTaken.TabIndex = 0
+        Me.LblActionTaken.Text = "Action Taken"
         '
         'TBoxActionTaken
         '
@@ -410,15 +404,15 @@ Partial Class Endorsement
         Me.TBoxActionTaken.Size = New System.Drawing.Size(116, 23)
         Me.TBoxActionTaken.TabIndex = 1
         '
-        'Label17
+        'LblLoc1
         '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(7, 141)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(62, 15)
-        Me.Label17.TabIndex = 0
-        Me.Label17.Text = "Location 1"
+        Me.LblLoc1.AutoSize = True
+        Me.LblLoc1.Location = New System.Drawing.Point(7, 141)
+        Me.LblLoc1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblLoc1.Name = "LblLoc1"
+        Me.LblLoc1.Size = New System.Drawing.Size(62, 15)
+        Me.LblLoc1.TabIndex = 0
+        Me.LblLoc1.Text = "Location 1"
         '
         'TBoxLocation1
         '
@@ -428,15 +422,15 @@ Partial Class Endorsement
         Me.TBoxLocation1.Size = New System.Drawing.Size(116, 23)
         Me.TBoxLocation1.TabIndex = 1
         '
-        'Label18
+        'LblLoc2
         '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(7, 187)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(62, 15)
-        Me.Label18.TabIndex = 0
-        Me.Label18.Text = "Location 2"
+        Me.LblLoc2.AutoSize = True
+        Me.LblLoc2.Location = New System.Drawing.Point(7, 187)
+        Me.LblLoc2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblLoc2.Name = "LblLoc2"
+        Me.LblLoc2.Size = New System.Drawing.Size(62, 15)
+        Me.LblLoc2.TabIndex = 0
+        Me.LblLoc2.Text = "Location 2"
         '
         'TBoxLocation2
         '
@@ -446,15 +440,15 @@ Partial Class Endorsement
         Me.TBoxLocation2.Size = New System.Drawing.Size(116, 23)
         Me.TBoxLocation2.TabIndex = 1
         '
-        'Label19
+        'LblLoc3
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(7, 233)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(62, 15)
-        Me.Label19.TabIndex = 0
-        Me.Label19.Text = "Location 3"
+        Me.LblLoc3.AutoSize = True
+        Me.LblLoc3.Location = New System.Drawing.Point(7, 233)
+        Me.LblLoc3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblLoc3.Name = "LblLoc3"
+        Me.LblLoc3.Size = New System.Drawing.Size(62, 15)
+        Me.LblLoc3.TabIndex = 0
+        Me.LblLoc3.Text = "Location 3"
         '
         'TBoxLocation3
         '
@@ -464,15 +458,15 @@ Partial Class Endorsement
         Me.TBoxLocation3.Size = New System.Drawing.Size(116, 23)
         Me.TBoxLocation3.TabIndex = 1
         '
-        'Label20
+        'LblLoc4
         '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(7, 279)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(62, 15)
-        Me.Label20.TabIndex = 0
-        Me.Label20.Text = "Location 4"
+        Me.LblLoc4.AutoSize = True
+        Me.LblLoc4.Location = New System.Drawing.Point(7, 279)
+        Me.LblLoc4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblLoc4.Name = "LblLoc4"
+        Me.LblLoc4.Size = New System.Drawing.Size(62, 15)
+        Me.LblLoc4.TabIndex = 0
+        Me.LblLoc4.Text = "Location 4"
         '
         'TBoxLocation4
         '
@@ -482,15 +476,15 @@ Partial Class Endorsement
         Me.TBoxLocation4.Size = New System.Drawing.Size(116, 23)
         Me.TBoxLocation4.TabIndex = 1
         '
-        'Label21
+        'LblLoc5
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(185, 3)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(62, 15)
-        Me.Label21.TabIndex = 0
-        Me.Label21.Text = "Location 5"
+        Me.LblLoc5.AutoSize = True
+        Me.LblLoc5.Location = New System.Drawing.Point(185, 3)
+        Me.LblLoc5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblLoc5.Name = "LblLoc5"
+        Me.LblLoc5.Size = New System.Drawing.Size(62, 15)
+        Me.LblLoc5.TabIndex = 0
+        Me.LblLoc5.Text = "Location 5"
         '
         'TBoxLocation5
         '
@@ -500,15 +494,15 @@ Partial Class Endorsement
         Me.TBoxLocation5.Size = New System.Drawing.Size(116, 23)
         Me.TBoxLocation5.TabIndex = 1
         '
-        'Label22
+        'LblRepairedBy
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(185, 49)
-        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(72, 15)
-        Me.Label22.TabIndex = 0
-        Me.Label22.Text = "Repaired by:"
+        Me.LblRepairedBy.AutoSize = True
+        Me.LblRepairedBy.Location = New System.Drawing.Point(185, 49)
+        Me.LblRepairedBy.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblRepairedBy.Name = "LblRepairedBy"
+        Me.LblRepairedBy.Size = New System.Drawing.Size(72, 15)
+        Me.LblRepairedBy.TabIndex = 0
+        Me.LblRepairedBy.Text = "Repaired by:"
         '
         'TBoxRepairedBy
         '
@@ -518,25 +512,25 @@ Partial Class Endorsement
         Me.TBoxRepairedBy.Size = New System.Drawing.Size(116, 23)
         Me.TBoxRepairedBy.TabIndex = 1
         '
-        'Label23
+        'LblDateRepaired
         '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(185, 95)
-        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(80, 15)
-        Me.Label23.TabIndex = 0
-        Me.Label23.Text = "Date Repaired"
+        Me.LblDateRepaired.AutoSize = True
+        Me.LblDateRepaired.Location = New System.Drawing.Point(185, 95)
+        Me.LblDateRepaired.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblDateRepaired.Name = "LblDateRepaired"
+        Me.LblDateRepaired.Size = New System.Drawing.Size(80, 15)
+        Me.LblDateRepaired.TabIndex = 0
+        Me.LblDateRepaired.Text = "Date Repaired"
         '
-        'Label24
+        'LblDefectType
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(185, 141)
-        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(68, 15)
-        Me.Label24.TabIndex = 0
-        Me.Label24.Text = "Defect Type"
+        Me.LblDefectType.AutoSize = True
+        Me.LblDefectType.Location = New System.Drawing.Point(185, 141)
+        Me.LblDefectType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblDefectType.Name = "LblDefectType"
+        Me.LblDefectType.Size = New System.Drawing.Size(68, 15)
+        Me.LblDefectType.TabIndex = 0
+        Me.LblDefectType.Text = "Defect Type"
         '
         'TBoxDefectType
         '
@@ -546,15 +540,15 @@ Partial Class Endorsement
         Me.TBoxDefectType.Size = New System.Drawing.Size(116, 23)
         Me.TBoxDefectType.TabIndex = 1
         '
-        'Label25
+        'LblStatus
         '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(185, 187)
-        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(39, 15)
-        Me.Label25.TabIndex = 0
-        Me.Label25.Text = "Status"
+        Me.LblStatus.AutoSize = True
+        Me.LblStatus.Location = New System.Drawing.Point(185, 187)
+        Me.LblStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(39, 15)
+        Me.LblStatus.TabIndex = 0
+        Me.LblStatus.Text = "Status"
         '
         'TBoxStatus
         '
@@ -564,15 +558,15 @@ Partial Class Endorsement
         Me.TBoxStatus.Size = New System.Drawing.Size(116, 23)
         Me.TBoxStatus.TabIndex = 1
         '
-        'Label26
+        'LblRemarks
         '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(185, 233)
-        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(52, 15)
-        Me.Label26.TabIndex = 0
-        Me.Label26.Text = "Remarks"
+        Me.LblRemarks.AutoSize = True
+        Me.LblRemarks.Location = New System.Drawing.Point(185, 233)
+        Me.LblRemarks.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblRemarks.Name = "LblRemarks"
+        Me.LblRemarks.Size = New System.Drawing.Size(52, 15)
+        Me.LblRemarks.TabIndex = 0
+        Me.LblRemarks.Text = "Remarks"
         '
         'TBoxRemarks
         '
@@ -663,7 +657,7 @@ Partial Class Endorsement
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(987, 760)
+        Me.TabControl1.Size = New System.Drawing.Size(1067, 799)
         Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TabControl1.TabIndex = 4
         '
@@ -671,8 +665,7 @@ Partial Class Endorsement
         '
         Me.TabPageEndorsement.BackColor = System.Drawing.SystemColors.Control
         Me.TabPageEndorsement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.TabPageEndorsement.Controls.Add(Me.CBoxStation)
-        Me.TabPageEndorsement.Controls.Add(Me.CBoxModel)
+        Me.TabPageEndorsement.Controls.Add(Me.BtnSubmit)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxData)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxInformation)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxEndorsmentData)
@@ -681,17 +674,17 @@ Partial Class Endorsement
         Me.TabPageEndorsement.Location = New System.Drawing.Point(4, 24)
         Me.TabPageEndorsement.Name = "TabPageEndorsement"
         Me.TabPageEndorsement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEndorsement.Size = New System.Drawing.Size(979, 732)
+        Me.TabPageEndorsement.Size = New System.Drawing.Size(1059, 771)
         Me.TabPageEndorsement.TabIndex = 0
         Me.TabPageEndorsement.Text = "Endorsement"
         '
         'GBoxData
         '
+        Me.GBoxData.Controls.Add(Me.CBoxStation)
         Me.GBoxData.Controls.Add(Me.BtnDataClear)
         Me.GBoxData.Controls.Add(Me.Label9)
         Me.GBoxData.Controls.Add(Me.TBoxSerialNo)
         Me.GBoxData.Controls.Add(Me.Label8)
-        Me.GBoxData.Controls.Add(Me.TBoxStation)
         Me.GBoxData.Controls.Add(Me.TBoxFailureSymptoms)
         Me.GBoxData.Controls.Add(Me.BtnEndorse)
         Me.GBoxData.Controls.Add(Me.Label3)
@@ -702,6 +695,15 @@ Partial Class Endorsement
         Me.GBoxData.TabIndex = 6
         Me.GBoxData.TabStop = False
         Me.GBoxData.Text = "Data"
+        '
+        'CBoxStation
+        '
+        Me.CBoxStation.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBoxStation.FormattingEnabled = True
+        Me.CBoxStation.Location = New System.Drawing.Point(7, 81)
+        Me.CBoxStation.Name = "CBoxStation"
+        Me.CBoxStation.Size = New System.Drawing.Size(143, 23)
+        Me.CBoxStation.TabIndex = 1
         '
         'BtnDataClear
         '
@@ -716,6 +718,7 @@ Partial Class Endorsement
         'GBoxInformation
         '
         Me.GBoxInformation.Controls.Add(Me.BtnScan)
+        Me.GBoxInformation.Controls.Add(Me.CBoxModel)
         Me.GBoxInformation.Controls.Add(Me.LblQtyEndorsed)
         Me.GBoxInformation.Controls.Add(Me.TBoxQtyEndorsed)
         Me.GBoxInformation.Controls.Add(Me.DTPEndorsementDate)
@@ -725,7 +728,6 @@ Partial Class Endorsement
         Me.GBoxInformation.Controls.Add(Me.LblEndorsementDate)
         Me.GBoxInformation.Controls.Add(Me.BtnClear)
         Me.GBoxInformation.Controls.Add(Me.TBoxEndorsedBy)
-        Me.GBoxInformation.Controls.Add(Me.TBoxModel)
         Me.GBoxInformation.Controls.Add(Me.LblEndorsedBy)
         Me.GBoxInformation.Controls.Add(Me.LblWorkWeek)
         Me.GBoxInformation.Controls.Add(Me.TBoxWorkweek)
@@ -755,8 +757,20 @@ Partial Class Endorsement
         Me.BtnScan.Text = "Scan"
         Me.BtnScan.UseVisualStyleBackColor = True
         '
+        'CBoxModel
+        '
+        Me.CBoxModel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBoxModel.FormattingEnabled = True
+        Me.CBoxModel.Location = New System.Drawing.Point(7, 81)
+        Me.CBoxModel.Name = "CBoxModel"
+        Me.CBoxModel.Size = New System.Drawing.Size(143, 23)
+        Me.CBoxModel.TabIndex = 1
+        '
         'GBoxEndorsmentData
         '
+        Me.GBoxEndorsmentData.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GBoxEndorsmentData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.GBoxEndorsmentData.Controls.Add(Me.DGVEndorsementData)
         Me.GBoxEndorsmentData.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -764,26 +778,37 @@ Partial Class Endorsement
         Me.GBoxEndorsmentData.Margin = New System.Windows.Forms.Padding(2)
         Me.GBoxEndorsmentData.Name = "GBoxEndorsmentData"
         Me.GBoxEndorsmentData.Padding = New System.Windows.Forms.Padding(2)
-        Me.GBoxEndorsmentData.Size = New System.Drawing.Size(793, 724)
+        Me.GBoxEndorsmentData.Size = New System.Drawing.Size(873, 757)
         Me.GBoxEndorsmentData.TabIndex = 4
         Me.GBoxEndorsmentData.TabStop = False
         Me.GBoxEndorsmentData.Text = "Endorsement Data"
         '
-        'CBoxModel
+        'DGVEndorsementData
         '
-        Me.CBoxModel.FormattingEnabled = True
-        Me.CBoxModel.Location = New System.Drawing.Point(236, 272)
-        Me.CBoxModel.Name = "CBoxModel"
-        Me.CBoxModel.Size = New System.Drawing.Size(143, 23)
-        Me.CBoxModel.TabIndex = 1
-        '
-        'CBoxStation
-        '
-        Me.CBoxStation.FormattingEnabled = True
-        Me.CBoxStation.Location = New System.Drawing.Point(236, 243)
-        Me.CBoxStation.Name = "CBoxStation"
-        Me.CBoxStation.Size = New System.Drawing.Size(143, 23)
-        Me.CBoxStation.TabIndex = 1
+        Me.DGVEndorsementData.AllowUserToAddRows = False
+        Me.DGVEndorsementData.AllowUserToDeleteRows = False
+        Me.DGVEndorsementData.AutoGenerateColumns = False
+        Me.DGVEndorsementData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DGVEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.DGVEndorsementData.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.DGVEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DGVEndorsementData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19, Me.DataGridViewTextBoxColumn20})
+        Me.DGVEndorsementData.DataSource = Me.DTEndorsementDataBindingSource
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGVEndorsementData.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DGVEndorsementData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DGVEndorsementData.Location = New System.Drawing.Point(2, 18)
+        Me.DGVEndorsementData.Name = "DGVEndorsementData"
+        Me.DGVEndorsementData.ReadOnly = True
+        Me.DGVEndorsementData.RowHeadersVisible = False
+        Me.DGVEndorsementData.Size = New System.Drawing.Size(869, 737)
+        Me.DGVEndorsementData.TabIndex = 2
         '
         'TabPageReceiving
         '
@@ -791,42 +816,42 @@ Partial Class Endorsement
         Me.TabPageReceiving.Location = New System.Drawing.Point(4, 24)
         Me.TabPageReceiving.Name = "TabPageReceiving"
         Me.TabPageReceiving.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageReceiving.Size = New System.Drawing.Size(979, 732)
+        Me.TabPageReceiving.Size = New System.Drawing.Size(1059, 771)
         Me.TabPageReceiving.TabIndex = 3
         Me.TabPageReceiving.Text = "Receiving"
         '
         'TabPageTS
         '
-        Me.TabPageTS.Controls.Add(Me.Label14)
+        Me.TabPageTS.Controls.Add(Me.LblValidatedBy)
         Me.TabPageTS.Controls.Add(Me.DateTimePicker1)
-        Me.TabPageTS.Controls.Add(Me.Label21)
+        Me.TabPageTS.Controls.Add(Me.LblLoc5)
         Me.TabPageTS.Controls.Add(Me.TBoxLocation4)
         Me.TabPageTS.Controls.Add(Me.TBoxLocation5)
-        Me.TabPageTS.Controls.Add(Me.Label20)
-        Me.TabPageTS.Controls.Add(Me.Label22)
+        Me.TabPageTS.Controls.Add(Me.LblLoc4)
+        Me.TabPageTS.Controls.Add(Me.LblRepairedBy)
         Me.TabPageTS.Controls.Add(Me.TBoxLocation3)
         Me.TabPageTS.Controls.Add(Me.TBoxRepairedBy)
-        Me.TabPageTS.Controls.Add(Me.Label19)
-        Me.TabPageTS.Controls.Add(Me.Label23)
+        Me.TabPageTS.Controls.Add(Me.LblLoc3)
+        Me.TabPageTS.Controls.Add(Me.LblDateRepaired)
         Me.TabPageTS.Controls.Add(Me.TBoxLocation2)
-        Me.TabPageTS.Controls.Add(Me.Label24)
-        Me.TabPageTS.Controls.Add(Me.Label18)
+        Me.TabPageTS.Controls.Add(Me.LblDefectType)
+        Me.TabPageTS.Controls.Add(Me.LblLoc2)
         Me.TabPageTS.Controls.Add(Me.TBoxValidatedBy)
         Me.TabPageTS.Controls.Add(Me.TBoxLocation1)
         Me.TabPageTS.Controls.Add(Me.TBoxDefectType)
-        Me.TabPageTS.Controls.Add(Me.Label17)
-        Me.TabPageTS.Controls.Add(Me.Label15)
+        Me.TabPageTS.Controls.Add(Me.LblLoc1)
+        Me.TabPageTS.Controls.Add(Me.LblAnalysis)
         Me.TabPageTS.Controls.Add(Me.TBoxRemarks)
-        Me.TabPageTS.Controls.Add(Me.Label25)
+        Me.TabPageTS.Controls.Add(Me.LblStatus)
         Me.TabPageTS.Controls.Add(Me.TBoxActionTaken)
         Me.TabPageTS.Controls.Add(Me.TBoxAnalysis)
-        Me.TabPageTS.Controls.Add(Me.Label26)
+        Me.TabPageTS.Controls.Add(Me.LblRemarks)
         Me.TabPageTS.Controls.Add(Me.TBoxStatus)
-        Me.TabPageTS.Controls.Add(Me.Label16)
+        Me.TabPageTS.Controls.Add(Me.LblActionTaken)
         Me.TabPageTS.Location = New System.Drawing.Point(4, 24)
         Me.TabPageTS.Name = "TabPageTS"
         Me.TabPageTS.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageTS.Size = New System.Drawing.Size(979, 732)
+        Me.TabPageTS.Size = New System.Drawing.Size(1059, 771)
         Me.TabPageTS.TabIndex = 1
         Me.TabPageTS.Text = "TS"
         '
@@ -837,7 +862,7 @@ Partial Class Endorsement
         Me.TabPageInquiry.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPageInquiry.Name = "TabPageInquiry"
         Me.TabPageInquiry.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPageInquiry.Size = New System.Drawing.Size(979, 732)
+        Me.TabPageInquiry.Size = New System.Drawing.Size(1059, 771)
         Me.TabPageInquiry.TabIndex = 2
         Me.TabPageInquiry.Text = "Inquiry"
         '
@@ -845,33 +870,116 @@ Partial Class Endorsement
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
-        'DGVEndorsementData
+        'BtnSubmit
         '
-        Me.DGVEndorsementData.AllowUserToAddRows = False
-        Me.DGVEndorsementData.AllowUserToDeleteRows = False
-        Me.DGVEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.DGVEndorsementData.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DGVEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DGVEndorsementData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DGVEndorsementData.Location = New System.Drawing.Point(2, 18)
-        Me.DGVEndorsementData.Name = "DGVEndorsementData"
-        Me.DGVEndorsementData.ReadOnly = True
-        Me.DGVEndorsementData.Size = New System.Drawing.Size(789, 704)
-        Me.DGVEndorsementData.TabIndex = 2
+        Me.BtnSubmit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSubmit.Location = New System.Drawing.Point(6, 731)
+        Me.BtnSubmit.Name = "BtnSubmit"
+        Me.BtnSubmit.Size = New System.Drawing.Size(170, 31)
+        Me.BtnSubmit.TabIndex = 7
+        Me.BtnSubmit.Text = "Submit"
+        Me.BtnSubmit.UseVisualStyleBackColor = True
         '
-        'Endorsement
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "id"
+        Me.DataGridViewTextBoxColumn11.FillWeight = 50.0!
+        Me.DataGridViewTextBoxColumn11.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.DataPropertyName = "model"
+        Me.DataGridViewTextBoxColumn12.FillWeight = 60.0!
+        Me.DataGridViewTextBoxColumn12.HeaderText = "Model"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.DataPropertyName = "serial_no"
+        Me.DataGridViewTextBoxColumn13.FillWeight = 80.0!
+        Me.DataGridViewTextBoxColumn13.HeaderText = "Serial No"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.DataPropertyName = "ppo_no"
+        Me.DataGridViewTextBoxColumn14.HeaderText = "PPO No"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.DataPropertyName = "ppo_qty"
+        Me.DataGridViewTextBoxColumn15.FillWeight = 80.0!
+        Me.DataGridViewTextBoxColumn15.HeaderText = "PPO Qty"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        Me.DataGridViewTextBoxColumn16.DataPropertyName = "lot_no"
+        Me.DataGridViewTextBoxColumn16.FillWeight = 70.0!
+        Me.DataGridViewTextBoxColumn16.HeaderText = "Lot No"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "work_order"
+        Me.DataGridViewTextBoxColumn17.HeaderText = "Work Order"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "station"
+        Me.DataGridViewTextBoxColumn18.FillWeight = 80.0!
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Station"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn19
+        '
+        Me.DataGridViewTextBoxColumn19.DataPropertyName = "failure_symptoms"
+        Me.DataGridViewTextBoxColumn19.FillWeight = 130.0!
+        Me.DataGridViewTextBoxColumn19.HeaderText = "Failure Symptoms"
+        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
+        Me.DataGridViewTextBoxColumn19.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn20
+        '
+        Me.DataGridViewTextBoxColumn20.DataPropertyName = "endorsed_by"
+        Me.DataGridViewTextBoxColumn20.HeaderText = "Endorsed By"
+        Me.DataGridViewTextBoxColumn20.Name = "DataGridViewTextBoxColumn20"
+        Me.DataGridViewTextBoxColumn20.ReadOnly = True
+        '
+        'DTEndorsementDataBindingSource
+        '
+        Me.DTEndorsementDataBindingSource.DataMember = "DTEndorsementData"
+        Me.DTEndorsementDataBindingSource.DataSource = Me.DSEndorsementData
+        '
+        'DSEndorsementData
+        '
+        Me.DSEndorsementData.DataSetName = "DSEndorsementData"
+        Me.DSEndorsementData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.BackgroundImage = Global.Endorsement.My.Resources.Resources.silicon_labs
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ClientSize = New System.Drawing.Size(987, 760)
+        Me.ClientSize = New System.Drawing.Size(1067, 799)
         Me.Controls.Add(Me.TabControl1)
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.Name = "Endorsement"
+        Me.Name = "FrmMain"
         Me.Text = "Endorsement"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPageEndorsement.ResumeLayout(False)
@@ -881,10 +989,12 @@ Partial Class Endorsement
         Me.GBoxInformation.ResumeLayout(False)
         Me.GBoxInformation.PerformLayout()
         Me.GBoxEndorsmentData.ResumeLayout(False)
+        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPageTS.ResumeLayout(False)
         Me.TabPageTS.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -892,7 +1002,6 @@ Partial Class Endorsement
     Friend WithEvents LblQtyEndorsed As Label
     Friend WithEvents TBoxQtyEndorsed As TextBox
     Friend WithEvents LblModel As Label
-    Friend WithEvents TBoxModel As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents TBoxSerialNo As TextBox
     Friend WithEvents LblPPONo As Label
@@ -904,7 +1013,6 @@ Partial Class Endorsement
     Friend WithEvents LblWorkOrder As Label
     Friend WithEvents TBoxWorkOrder As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TBoxStation As TextBox
     Friend WithEvents TBoxFailureSymptoms As TextBox
     Friend WithEvents LblEndorsedBy As Label
     Friend WithEvents TBoxEndorsedBy As TextBox
@@ -912,30 +1020,30 @@ Partial Class Endorsement
     Friend WithEvents LblEndorsementDate As Label
     Friend WithEvents LblWorkWeek As Label
     Friend WithEvents TBoxWorkweek As TextBox
-    Friend WithEvents Label14 As Label
+    Friend WithEvents LblValidatedBy As Label
     Friend WithEvents TBoxValidatedBy As TextBox
-    Friend WithEvents Label15 As Label
+    Friend WithEvents LblAnalysis As Label
     Friend WithEvents TBoxAnalysis As TextBox
-    Friend WithEvents Label16 As Label
+    Friend WithEvents LblActionTaken As Label
     Friend WithEvents TBoxActionTaken As TextBox
-    Friend WithEvents Label17 As Label
+    Friend WithEvents LblLoc1 As Label
     Friend WithEvents TBoxLocation1 As TextBox
-    Friend WithEvents Label18 As Label
+    Friend WithEvents LblLoc2 As Label
     Friend WithEvents TBoxLocation2 As TextBox
-    Friend WithEvents Label19 As Label
+    Friend WithEvents LblLoc3 As Label
     Friend WithEvents TBoxLocation3 As TextBox
-    Friend WithEvents Label20 As Label
+    Friend WithEvents LblLoc4 As Label
     Friend WithEvents TBoxLocation4 As TextBox
-    Friend WithEvents Label21 As Label
+    Friend WithEvents LblLoc5 As Label
     Friend WithEvents TBoxLocation5 As TextBox
-    Friend WithEvents Label22 As Label
+    Friend WithEvents LblRepairedBy As Label
     Friend WithEvents TBoxRepairedBy As TextBox
-    Friend WithEvents Label23 As Label
-    Friend WithEvents Label24 As Label
+    Friend WithEvents LblDateRepaired As Label
+    Friend WithEvents LblDefectType As Label
     Friend WithEvents TBoxDefectType As TextBox
-    Friend WithEvents Label25 As Label
+    Friend WithEvents LblStatus As Label
     Friend WithEvents TBoxStatus As TextBox
-    Friend WithEvents Label26 As Label
+    Friend WithEvents LblRemarks As Label
     Friend WithEvents TBoxRemarks As TextBox
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents DTPDateFailed As DateTimePicker
@@ -959,4 +1067,37 @@ Partial Class Endorsement
     Friend WithEvents CBoxModel As ComboBox
     Friend WithEvents CBoxStation As ComboBox
     Friend WithEvents DGVEndorsementData As DataGridView
+    Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ModelDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SerialnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PponoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PpoqtyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents LotnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents WorkorderDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents StationDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FailuresymptomsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents EndorsedbyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn7 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
+    Friend WithEvents DTEndorsementDataBindingSource As BindingSource
+    Friend WithEvents DSEndorsementData As DSEndorsementData
+    Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn13 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn14 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn15 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn16 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn17 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn19 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn20 As DataGridViewTextBoxColumn
+    Friend WithEvents BtnSubmit As Button
 End Class

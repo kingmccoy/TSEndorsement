@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSModel" targetNamespace="http://tempuri.org/DSModel.xsd" xmlns:mstns="http://tempuri.org/DSModel.xsd" xmlns="http://tempuri.org/DSModel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="sli_endorsementConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="sli_endorsementConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Endorsement.My.MySettings.GlobalReference.Default.sli_endorsementConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources>
+          <DbSource ConnectionRef="sli_endorsementConnectionString (MySettings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="select_join_table" MethodsParameterType="CLR" Modifier="Public" Name="select_join_table" QueryType="Scalar" ScalarCallRetval="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="select_join_table">
+            <SelectCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>SELECT        model.model, variant.variant, station.station
+FROM            model INNER JOIN
+                         station ON model.id = station.model_id INNER JOIN
+                         variant ON model.id = variant.model_id</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="sli_endorsementConnectionString (MySettings)" DbObjectName="sli_endorsement.dbo.variant" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="select_variant" MethodsParameterType="CLR" Modifier="Public" Name="select_variant" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="select_variant">
+            <SelectCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>SELECT        id, variant
+FROM            variant</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="sli_endorsementConnectionString (MySettings)" DbObjectName="sli_endorsement.dbo.station" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="select_station" MethodsParameterType="CLR" Modifier="Public" Name="select_station" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="select_station">
+            <SelectCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>SELECT        id, station
+FROM            station</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="sli_endorsementConnectionString (MySettings)" DbObjectName="sli_endorsement.dbo.model" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="select_model" MethodsParameterType="CLR" Modifier="Public" Name="select_model" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="select_model">
+            <SelectCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>SELECT        id, model
+FROM            model</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSModel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSModel" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSModel">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTModel" msprop:Generator_RowClassName="DTModelRow" msprop:Generator_RowEvHandlerName="DTModelRowChangeEventHandler" msprop:Generator_RowDeletedName="DTModelRowDeleted" msprop:Generator_RowDeletingName="DTModelRowDeleting" msprop:Generator_RowEvArgName="DTModelRowChangeEvent" msprop:Generator_TablePropName="DTModel" msprop:Generator_RowChangedName="DTModelRowChanged" msprop:Generator_UserTableName="DTModel" msprop:Generator_RowChangingName="DTModelRowChanging" msprop:Generator_TableClassName="DTModelDataTable" msprop:Generator_TableVarName="tableDTModel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:string" />
+              <xs:element name="model" msprop:Generator_UserColumnName="model" msprop:Generator_ColumnPropNameInTable="modelColumn" msprop:Generator_ColumnPropNameInRow="model" msprop:Generator_ColumnVarNameInTable="columnmodel" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DTvariant" msprop:Generator_RowEvHandlerName="DTvariantRowChangeEventHandler" msprop:Generator_RowDeletedName="DTvariantRowDeleted" msprop:Generator_RowDeletingName="DTvariantRowDeleting" msprop:Generator_RowEvArgName="DTvariantRowChangeEvent" msprop:Generator_TablePropName="DTvariant" msprop:Generator_RowChangedName="DTvariantRowChanged" msprop:Generator_RowChangingName="DTvariantRowChanging" msprop:Generator_TableClassName="DTvariantDataTable" msprop:Generator_RowClassName="DTvariantRow" msprop:Generator_TableVarName="tableDTvariant" msprop:Generator_UserTableName="DTvariant">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="model_id" msprop:Generator_ColumnPropNameInRow="model_id" msprop:Generator_ColumnPropNameInTable="model_idColumn" msprop:Generator_ColumnVarNameInTable="columnmodel_id" msprop:Generator_UserColumnName="model_id" type="xs:string" minOccurs="0" />
+              <xs:element name="variant" msprop:Generator_ColumnPropNameInRow="_variant" msprop:Generator_ColumnPropNameInTable="variantColumn" msprop:Generator_ColumnVarNameInTable="columnvariant" msprop:Generator_UserColumnName="variant" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DTstation" msprop:Generator_RowEvHandlerName="DTstationRowChangeEventHandler" msprop:Generator_RowDeletedName="DTstationRowDeleted" msprop:Generator_RowDeletingName="DTstationRowDeleting" msprop:Generator_RowEvArgName="DTstationRowChangeEvent" msprop:Generator_TablePropName="DTstation" msprop:Generator_RowChangedName="DTstationRowChanged" msprop:Generator_RowChangingName="DTstationRowChanging" msprop:Generator_TableClassName="DTstationDataTable" msprop:Generator_RowClassName="DTstationRow" msprop:Generator_TableVarName="tableDTstation" msprop:Generator_UserTableName="DTstation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="model_id" msprop:Generator_ColumnPropNameInRow="model_id" msprop:Generator_ColumnPropNameInTable="model_idColumn" msprop:Generator_ColumnVarNameInTable="columnmodel_id" msprop:Generator_UserColumnName="model_id" type="xs:string" minOccurs="0" />
+              <xs:element name="station" msprop:Generator_ColumnPropNameInRow="station" msprop:Generator_ColumnPropNameInTable="stationColumn" msprop:Generator_ColumnVarNameInTable="columnstation" msprop:Generator_UserColumnName="station" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTModel" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="DTvariant_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTvariant" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="DTstation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTstation" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="DTModel_DTvariant" msdata:parent="DTModel" msdata:child="DTvariant" msdata:parentkey="id" msdata:childkey="model_id" msprop:Generator_UserParentTable="DTModel" msprop:Generator_UserChildTable="DTvariant" msprop:Generator_RelationVarName="relationDTModel_DTvariant" msprop:Generator_ChildPropName="GetDTvariantRows" msprop:Generator_ParentPropName="DTModelRow" msprop:Generator_UserRelationName="DTModel_DTvariant" />
+      <msdata:Relationship name="DTModel_DTstation" msdata:parent="DTModel" msdata:child="DTstation" msdata:parentkey="id" msdata:childkey="model_id" msprop:Generator_UserParentTable="DTModel" msprop:Generator_UserChildTable="DTstation" msprop:Generator_RelationVarName="relationDTModel_DTstation" msprop:Generator_ChildPropName="GetDTstationRows" msprop:Generator_ParentPropName="DTModelRow" msprop:Generator_UserRelationName="DTModel_DTstation" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

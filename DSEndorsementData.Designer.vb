@@ -285,6 +285,12 @@ Partial Public Class DSEndorsementData
         
         Private columnid As Global.System.Data.DataColumn
         
+        Private columnendorsement_no As Global.System.Data.DataColumn
+        
+        Private columnqty_endorsed As Global.System.Data.DataColumn
+        
+        Private columnqty As Global.System.Data.DataColumn
+        
         Private columnmodel As Global.System.Data.DataColumn
         
         Private columnserial_no As Global.System.Data.DataColumn
@@ -302,6 +308,16 @@ Partial Public Class DSEndorsementData
         Private columnfailure_symptoms As Global.System.Data.DataColumn
         
         Private columnendorsed_by As Global.System.Data.DataColumn
+        
+        Private columndate_failed As Global.System.Data.DataColumn
+        
+        Private columnendorsement_date As Global.System.Data.DataColumn
+        
+        Private columnworkweek As Global.System.Data.DataColumn
+        
+        Private columndate As Global.System.Data.DataColumn
+        
+        Private columntime As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
@@ -343,6 +359,30 @@ Partial Public Class DSEndorsementData
         Public ReadOnly Property idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnid
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property endorsement_noColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnendorsement_no
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property qty_endorsedColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnqty_endorsed
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property qtyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnqty
             End Get
         End Property
         
@@ -419,6 +459,46 @@ Partial Public Class DSEndorsementData
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property date_failedColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columndate_failed
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property endorsement_dateColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnendorsement_date
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property workweekColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnworkweek
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property dateColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columndate
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property timeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -455,9 +535,27 @@ Partial Public Class DSEndorsementData
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDTEndorsementDataRow(ByVal id As String, ByVal model As String, ByVal serial_no As String, ByVal ppo_no As String, ByVal ppo_qty As String, ByVal lot_no As String, ByVal work_order As String, ByVal station As String, ByVal failure_symptoms As String, ByVal endorsed_by As String) As DTEndorsementDataRow
+        Public Overloads Function AddDTEndorsementDataRow( _
+                    ByVal id As String,  _
+                    ByVal endorsement_no As String,  _
+                    ByVal qty_endorsed As String,  _
+                    ByVal qty As String,  _
+                    ByVal model As String,  _
+                    ByVal serial_no As String,  _
+                    ByVal ppo_no As String,  _
+                    ByVal ppo_qty As String,  _
+                    ByVal lot_no As String,  _
+                    ByVal work_order As String,  _
+                    ByVal station As String,  _
+                    ByVal failure_symptoms As String,  _
+                    ByVal endorsed_by As String,  _
+                    ByVal date_failed As String,  _
+                    ByVal endorsement_date As String,  _
+                    ByVal workweek As String,  _
+                    ByVal _date As String,  _
+                    ByVal time As String) As DTEndorsementDataRow
             Dim rowDTEndorsementDataRow As DTEndorsementDataRow = CType(Me.NewRow,DTEndorsementDataRow)
-            Dim columnValuesArray() As Object = New Object() {id, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by}
+            Dim columnValuesArray() As Object = New Object() {id, endorsement_no, qty_endorsed, qty, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek, _date, time}
             rowDTEndorsementDataRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDTEndorsementDataRow)
             Return rowDTEndorsementDataRow
@@ -487,6 +585,9 @@ Partial Public Class DSEndorsementData
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnid = MyBase.Columns("id")
+            Me.columnendorsement_no = MyBase.Columns("endorsement_no")
+            Me.columnqty_endorsed = MyBase.Columns("qty_endorsed")
+            Me.columnqty = MyBase.Columns("qty")
             Me.columnmodel = MyBase.Columns("model")
             Me.columnserial_no = MyBase.Columns("serial_no")
             Me.columnppo_no = MyBase.Columns("ppo_no")
@@ -496,6 +597,11 @@ Partial Public Class DSEndorsementData
             Me.columnstation = MyBase.Columns("station")
             Me.columnfailure_symptoms = MyBase.Columns("failure_symptoms")
             Me.columnendorsed_by = MyBase.Columns("endorsed_by")
+            Me.columndate_failed = MyBase.Columns("date_failed")
+            Me.columnendorsement_date = MyBase.Columns("endorsement_date")
+            Me.columnworkweek = MyBase.Columns("workweek")
+            Me.columndate = MyBase.Columns("date")
+            Me.columntime = MyBase.Columns("time")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -503,6 +609,12 @@ Partial Public Class DSEndorsementData
         Private Sub InitClass()
             Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
+            Me.columnendorsement_no = New Global.System.Data.DataColumn("endorsement_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnendorsement_no)
+            Me.columnqty_endorsed = New Global.System.Data.DataColumn("qty_endorsed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnqty_endorsed)
+            Me.columnqty = New Global.System.Data.DataColumn("qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnqty)
             Me.columnmodel = New Global.System.Data.DataColumn("model", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnmodel)
             Me.columnserial_no = New Global.System.Data.DataColumn("serial_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -521,6 +633,19 @@ Partial Public Class DSEndorsementData
             MyBase.Columns.Add(Me.columnfailure_symptoms)
             Me.columnendorsed_by = New Global.System.Data.DataColumn("endorsed_by", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnendorsed_by)
+            Me.columndate_failed = New Global.System.Data.DataColumn("date_failed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columndate_failed)
+            Me.columnendorsement_date = New Global.System.Data.DataColumn("endorsement_date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnendorsement_date)
+            Me.columnworkweek = New Global.System.Data.DataColumn("workweek", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnworkweek)
+            Me.columndate = New Global.System.Data.DataColumn("date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate.ExtendedProperties.Add("Generator_ColumnPropNameInTable", "dateColumn")
+            Me.columndate.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "columndate")
+            Me.columndate.ExtendedProperties.Add("Generator_UserColumnName", "date")
+            MyBase.Columns.Add(Me.columndate)
+            Me.columntime = New Global.System.Data.DataColumn("time", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntime)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
             Me.columnid.AllowDBNull = false
             Me.columnid.Unique = true
@@ -681,6 +806,51 @@ Partial Public Class DSEndorsementData
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property endorsement_no() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.endorsement_noColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'endorsement_no' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.endorsement_noColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property qty_endorsed() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.qty_endorsedColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'qty_endorsed' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.qty_endorsedColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property qty() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.qtyColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'qty' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.qtyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property model() As String
             Get
                 Try 
@@ -816,6 +986,117 @@ Partial Public Class DSEndorsementData
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property date_failed() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.date_failedColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'date_failed' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.date_failedColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property endorsement_date() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.endorsement_dateColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'endorsement_date' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.endorsement_dateColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property workweek() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.workweekColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'workweek' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.workweekColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property _date() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.dateColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'date' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.dateColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property time() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDTEndorsementData.timeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'time' in table 'DTEndorsementData' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDTEndorsementData.timeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isendorsement_noNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.endorsement_noColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setendorsement_noNull()
+            Me(Me.tableDTEndorsementData.endorsement_noColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isqty_endorsedNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.qty_endorsedColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setqty_endorsedNull()
+            Me(Me.tableDTEndorsementData.qty_endorsedColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsqtyNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.qtyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetqtyNull()
+            Me(Me.tableDTEndorsementData.qtyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function IsmodelNull() As Boolean
             Return Me.IsNull(Me.tableDTEndorsementData.modelColumn)
         End Function
@@ -920,6 +1201,66 @@ Partial Public Class DSEndorsementData
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setendorsed_byNull()
             Me(Me.tableDTEndorsementData.endorsed_byColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isdate_failedNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.date_failedColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setdate_failedNull()
+            Me(Me.tableDTEndorsementData.date_failedColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isendorsement_dateNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.endorsement_dateColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setendorsement_dateNull()
+            Me(Me.tableDTEndorsementData.endorsement_dateColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsworkweekNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.workweekColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetworkweekNull()
+            Me(Me.tableDTEndorsementData.workweekColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Is_dateNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.dateColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Set_dateNull()
+            Me(Me.tableDTEndorsementData.dateColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IstimeNull() As Boolean
+            Return Me.IsNull(Me.tableDTEndorsementData.timeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SettimeNull()
+            Me(Me.tableDTEndorsementData.timeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

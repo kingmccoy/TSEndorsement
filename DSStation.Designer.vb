@@ -20,12 +20,12 @@ Option Explicit On
  Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
  Global.System.ComponentModel.ToolboxItem(true),  _
  Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
- Global.System.Xml.Serialization.XmlRootAttribute("DSModel"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("DSStation"),  _
  Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
-Partial Public Class DSModel
+Partial Public Class DSStation
     Inherits Global.System.Data.DataSet
     
-    Private tableDTVariant As DTVariantDataTable
+    Private tableDTStations As DTStationsDataTable
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -56,8 +56,8 @@ Partial Public Class DSModel
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
-            If (Not (ds.Tables("DTVariant")) Is Nothing) Then
-                MyBase.Tables.Add(New DTVariantDataTable(ds.Tables("DTVariant")))
+            If (Not (ds.Tables("DTStations")) Is Nothing) Then
+                MyBase.Tables.Add(New DTStationsDataTable(ds.Tables("DTStations")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -80,9 +80,9 @@ Partial Public Class DSModel
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property DTVariant() As DTVariantDataTable
+    Public ReadOnly Property DTStations() As DTStationsDataTable
         Get
-            Return Me.tableDTVariant
+            Return Me.tableDTStations
         End Get
     End Property
     
@@ -128,7 +128,7 @@ Partial Public Class DSModel
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As DSModel = CType(MyBase.Clone,DSModel)
+        Dim cln As DSStation = CType(MyBase.Clone,DSStation)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
@@ -153,8 +153,8 @@ Partial Public Class DSModel
             Me.Reset
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
-            If (Not (ds.Tables("DTVariant")) Is Nothing) Then
-                MyBase.Tables.Add(New DTVariantDataTable(ds.Tables("DTVariant")))
+            If (Not (ds.Tables("DTStations")) Is Nothing) Then
+                MyBase.Tables.Add(New DTStationsDataTable(ds.Tables("DTStations")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -188,10 +188,10 @@ Partial Public Class DSModel
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tableDTVariant = CType(MyBase.Tables("DTVariant"),DTVariantDataTable)
+        Me.tableDTStations = CType(MyBase.Tables("DTStations"),DTStationsDataTable)
         If (initTable = true) Then
-            If (Not (Me.tableDTVariant) Is Nothing) Then
-                Me.tableDTVariant.InitVars
+            If (Not (Me.tableDTStations) Is Nothing) Then
+                Me.tableDTStations.InitVars
             End If
         End If
     End Sub
@@ -199,18 +199,18 @@ Partial Public Class DSModel
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Sub InitClass()
-        Me.DataSetName = "DSModel"
+        Me.DataSetName = "DSStation"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/DSModel.xsd"
+        Me.Namespace = "http://tempuri.org/DSStation.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-        Me.tableDTVariant = New DTVariantDataTable()
-        MyBase.Tables.Add(Me.tableDTVariant)
+        Me.tableDTStations = New DTStationsDataTable()
+        MyBase.Tables.Add(Me.tableDTStations)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Private Function ShouldSerializeDTVariant() As Boolean
+    Private Function ShouldSerializeDTStations() As Boolean
         Return false
     End Function
     
@@ -225,7 +225,7 @@ Partial Public Class DSModel
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-        Dim ds As DSModel = New DSModel()
+        Dim ds As DSStation = New DSStation()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
         Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
         Dim any As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
@@ -273,15 +273,15 @@ Partial Public Class DSModel
     End Function
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Public Delegate Sub DTVariantRowChangeEventHandler(ByVal sender As Object, ByVal e As DTVariantRowChangeEvent)
+    Public Delegate Sub DTStationsRowChangeEventHandler(ByVal sender As Object, ByVal e As DTStationsRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class DTVariantDataTable
-        Inherits Global.System.Data.TypedTableBase(Of DTVariantRow)
+    Partial Public Class DTStationsDataTable
+        Inherits Global.System.Data.TypedTableBase(Of DTStationsRow)
         
         Private columnid As Global.System.Data.DataColumn
         
@@ -291,7 +291,7 @@ Partial Public Class DSModel
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.TableName = "DTVariant"
+            Me.TableName = "DTStations"
             Me.BeginInit
             Me.InitClass
             Me.EndInit
@@ -349,50 +349,50 @@ Partial Public Class DSModel
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As DTVariantRow
+        Public Default ReadOnly Property Item(ByVal index As Integer) As DTStationsRow
             Get
-                Return CType(Me.Rows(index),DTVariantRow)
+                Return CType(Me.Rows(index),DTStationsRow)
             End Get
         End Property
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DTVariantRowChanging As DTVariantRowChangeEventHandler
+        Public Event DTStationsRowChanging As DTStationsRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DTVariantRowChanged As DTVariantRowChangeEventHandler
+        Public Event DTStationsRowChanged As DTStationsRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DTVariantRowDeleting As DTVariantRowChangeEventHandler
+        Public Event DTStationsRowDeleting As DTStationsRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DTVariantRowDeleted As DTVariantRowChangeEventHandler
+        Public Event DTStationsRowDeleted As DTStationsRowChangeEventHandler
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Sub AddDTVariantRow(ByVal row As DTVariantRow)
+        Public Overloads Sub AddDTStationsRow(ByVal row As DTStationsRow)
             Me.Rows.Add(row)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDTVariantRow(ByVal id As String, ByVal station As String) As DTVariantRow
-            Dim rowDTVariantRow As DTVariantRow = CType(Me.NewRow,DTVariantRow)
+        Public Overloads Function AddDTStationsRow(ByVal id As String, ByVal station As String) As DTStationsRow
+            Dim rowDTStationsRow As DTStationsRow = CType(Me.NewRow,DTStationsRow)
             Dim columnValuesArray() As Object = New Object() {id, station}
-            rowDTVariantRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowDTVariantRow)
-            Return rowDTVariantRow
+            rowDTStationsRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowDTStationsRow)
+            Return rowDTStationsRow
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function FindByid(ByVal id As String) As DTVariantRow
-            Return CType(Me.Rows.Find(New Object() {id}),DTVariantRow)
+        Public Function FindByid(ByVal id As String) As DTStationsRow
+            Return CType(Me.Rows.Find(New Object() {id}),DTStationsRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As DTVariantDataTable = CType(MyBase.Clone,DTVariantDataTable)
+            Dim cln As DTStationsDataTable = CType(MyBase.Clone,DTStationsDataTable)
             cln.InitVars
             Return cln
         End Function
@@ -400,7 +400,7 @@ Partial Public Class DSModel
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New DTVariantDataTable()
+            Return New DTStationsDataTable()
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -424,28 +424,28 @@ Partial Public Class DSModel
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function NewDTVariantRow() As DTVariantRow
-            Return CType(Me.NewRow,DTVariantRow)
+        Public Function NewDTStationsRow() As DTStationsRow
+            Return CType(Me.NewRow,DTStationsRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New DTVariantRow(builder)
+            Return New DTStationsRow(builder)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(DTVariantRow)
+            Return GetType(DTStationsRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
-            If (Not (Me.DTVariantRowChangedEvent) Is Nothing) Then
-                RaiseEvent DTVariantRowChanged(Me, New DTVariantRowChangeEvent(CType(e.Row,DTVariantRow), e.Action))
+            If (Not (Me.DTStationsRowChangedEvent) Is Nothing) Then
+                RaiseEvent DTStationsRowChanged(Me, New DTStationsRowChangeEvent(CType(e.Row,DTStationsRow), e.Action))
             End If
         End Sub
         
@@ -453,8 +453,8 @@ Partial Public Class DSModel
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
-            If (Not (Me.DTVariantRowChangingEvent) Is Nothing) Then
-                RaiseEvent DTVariantRowChanging(Me, New DTVariantRowChangeEvent(CType(e.Row,DTVariantRow), e.Action))
+            If (Not (Me.DTStationsRowChangingEvent) Is Nothing) Then
+                RaiseEvent DTStationsRowChanging(Me, New DTStationsRowChangeEvent(CType(e.Row,DTStationsRow), e.Action))
             End If
         End Sub
         
@@ -462,8 +462,8 @@ Partial Public Class DSModel
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
-            If (Not (Me.DTVariantRowDeletedEvent) Is Nothing) Then
-                RaiseEvent DTVariantRowDeleted(Me, New DTVariantRowChangeEvent(CType(e.Row,DTVariantRow), e.Action))
+            If (Not (Me.DTStationsRowDeletedEvent) Is Nothing) Then
+                RaiseEvent DTStationsRowDeleted(Me, New DTStationsRowChangeEvent(CType(e.Row,DTStationsRow), e.Action))
             End If
         End Sub
         
@@ -471,14 +471,14 @@ Partial Public Class DSModel
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
-            If (Not (Me.DTVariantRowDeletingEvent) Is Nothing) Then
-                RaiseEvent DTVariantRowDeleting(Me, New DTVariantRowChangeEvent(CType(e.Row,DTVariantRow), e.Action))
+            If (Not (Me.DTStationsRowDeletingEvent) Is Nothing) Then
+                RaiseEvent DTStationsRowDeleting(Me, New DTStationsRowChangeEvent(CType(e.Row,DTStationsRow), e.Action))
             End If
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub RemoveDTVariantRow(ByVal row As DTVariantRow)
+        Public Sub RemoveDTStationsRow(ByVal row As DTStationsRow)
             Me.Rows.Remove(row)
         End Sub
         
@@ -487,7 +487,7 @@ Partial Public Class DSModel
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As DSModel = New DSModel()
+            Dim ds As DSStation = New DSStation()
             Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
             any1.Namespace = "http://www.w3.org/2001/XMLSchema"
             any1.MinOccurs = New Decimal(0)
@@ -505,7 +505,7 @@ Partial Public Class DSModel
             type.Attributes.Add(attribute1)
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "DTVariantDataTable"
+            attribute2.FixedValue = "DTStationsDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -552,26 +552,26 @@ Partial Public Class DSModel
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
-    Partial Public Class DTVariantRow
+    Partial Public Class DTStationsRow
         Inherits Global.System.Data.DataRow
         
-        Private tableDTVariant As DTVariantDataTable
+        Private tableDTStations As DTStationsDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableDTVariant = CType(Me.Table,DTVariantDataTable)
+            Me.tableDTStations = CType(Me.Table,DTStationsDataTable)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property id() As String
             Get
-                Return CType(Me(Me.tableDTVariant.idColumn),String)
+                Return CType(Me(Me.tableDTStations.idColumn),String)
             End Get
             Set
-                Me(Me.tableDTVariant.idColumn) = value
+                Me(Me.tableDTStations.idColumn) = value
             End Set
         End Property
         
@@ -580,26 +580,26 @@ Partial Public Class DSModel
         Public Property station() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableDTVariant.stationColumn),String)
+                    Return CType(Me(Me.tableDTStations.stationColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'station' in table 'DTVariant' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'station' in table 'DTStations' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableDTVariant.stationColumn) = value
+                Me(Me.tableDTStations.stationColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function IsstationNull() As Boolean
-            Return Me.IsNull(Me.tableDTVariant.stationColumn)
+            Return Me.IsNull(Me.tableDTStations.stationColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub SetstationNull()
-            Me(Me.tableDTVariant.stationColumn) = Global.System.Convert.DBNull
+            Me(Me.tableDTStations.stationColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -607,16 +607,16 @@ Partial Public Class DSModel
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Public Class DTVariantRowChangeEvent
+    Public Class DTStationsRowChangeEvent
         Inherits Global.System.EventArgs
         
-        Private eventRow As DTVariantRow
+        Private eventRow As DTStationsRow
         
         Private eventAction As Global.System.Data.DataRowAction
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub New(ByVal row As DTVariantRow, ByVal action As Global.System.Data.DataRowAction)
+        Public Sub New(ByVal row As DTStationsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
@@ -624,7 +624,7 @@ Partial Public Class DSModel
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property Row() As DTVariantRow
+        Public ReadOnly Property Row() As DTStationsRow
             Get
                 Return Me.eventRow
             End Get

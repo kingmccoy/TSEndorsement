@@ -118,16 +118,29 @@
     <Compile Include="DSEndorsementData.vb">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DSJoinTable.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSJoinTable.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSJoinTable.vb">
+      <DependentUpon>DSJoinTable.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DSModel.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DSModel.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Endorsement.vb">
+    <Compile Include="DSStation.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Endorsement.Designer.vb">
-      <DependentUpon>Endorsement.vb</DependentUpon>
+    <Compile Include="FrmMain.Designer.vb">
+      <DependentUpon>FrmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -148,8 +161,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Endorsement.resx">
-      <DependentUpon>Endorsement.vb</DependentUpon>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -170,6 +183,17 @@
     <None Include="DSEndorsementData.xss">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
     </None>
+    <None Include="DSJoinTable.xsc">
+      <DependentUpon>DSJoinTable.xsd</DependentUpon>
+    </None>
+    <None Include="DSJoinTable.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSJoinTable.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSJoinTable.xss">
+      <DependentUpon>DSJoinTable.xsd</DependentUpon>
+    </None>
     <None Include="DSModel.xsc">
       <DependentUpon>DSModel.xsd</DependentUpon>
     </None>
@@ -180,6 +204,17 @@
     </None>
     <None Include="DSModel.xss">
       <DependentUpon>DSModel.xsd</DependentUpon>
+    </None>
+    <None Include="DSStation.xsc">
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </None>
+    <None Include="DSStation.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSStation.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSStation.xss">
+      <DependentUpon>DSStation.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

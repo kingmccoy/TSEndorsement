@@ -53,6 +53,17 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-PS4G375\TSENDORSEMENTSVR;Initial Catalog=sli_endorsement;User"& _ 
+            " ID=test;Encrypt=False")>  _
+        Public ReadOnly Property sli_endorsementConnectionString() As String
+            Get
+                Return CType(Me("sli_endorsementConnectionString"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
