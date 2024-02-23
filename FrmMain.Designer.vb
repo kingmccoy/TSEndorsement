@@ -23,7 +23,6 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LblQtyEndorsed = New System.Windows.Forms.Label()
         Me.TBoxQtyEndorsed = New System.Windows.Forms.TextBox()
         Me.LblModel = New System.Windows.Forms.Label()
@@ -80,6 +79,7 @@ Partial Class FrmMain
         Me.TboxEndorsementNo = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageEndorsement = New System.Windows.Forms.TabPage()
+        Me.BtnSubmit = New System.Windows.Forms.Button()
         Me.GBoxData = New System.Windows.Forms.GroupBox()
         Me.CBoxStation = New System.Windows.Forms.ComboBox()
         Me.BtnDataClear = New System.Windows.Forms.Button()
@@ -88,11 +88,6 @@ Partial Class FrmMain
         Me.CBoxModel = New System.Windows.Forms.ComboBox()
         Me.GBoxEndorsmentData = New System.Windows.Forms.GroupBox()
         Me.DGVEndorsementData = New System.Windows.Forms.DataGridView()
-        Me.TabPageReceiving = New System.Windows.Forms.TabPage()
-        Me.TabPageTS = New System.Windows.Forms.TabPage()
-        Me.TabPageInquiry = New System.Windows.Forms.TabPage()
-        Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.BtnSubmit = New System.Windows.Forms.Button()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -105,16 +100,20 @@ Partial Class FrmMain
         Me.DataGridViewTextBoxColumn20 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DTEndorsementDataBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DSEndorsementData = New Endorsement.DSEndorsementData()
+        Me.TabPageReceiving = New System.Windows.Forms.TabPage()
+        Me.TabPageTS = New System.Windows.Forms.TabPage()
+        Me.TabPageInquiry = New System.Windows.Forms.TabPage()
+        Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
         Me.GBoxInformation.SuspendLayout()
         Me.GBoxEndorsmentData.SuspendLayout()
         CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPageTS.SuspendLayout()
-        CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPageTS.SuspendLayout()
+        CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -346,6 +345,7 @@ Partial Class FrmMain
         Me.TBoxWorkweek.Location = New System.Drawing.Point(7, 433)
         Me.TBoxWorkweek.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxWorkweek.Name = "TBoxWorkweek"
+        Me.TBoxWorkweek.ReadOnly = True
         Me.TBoxWorkweek.Size = New System.Drawing.Size(143, 23)
         Me.TBoxWorkweek.TabIndex = 1
         Me.TBoxWorkweek.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -643,6 +643,7 @@ Partial Class FrmMain
         Me.TboxEndorsementNo.Location = New System.Drawing.Point(114, 6)
         Me.TboxEndorsementNo.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxEndorsementNo.Name = "TboxEndorsementNo"
+        Me.TboxEndorsementNo.ReadOnly = True
         Me.TboxEndorsementNo.Size = New System.Drawing.Size(61, 23)
         Me.TboxEndorsementNo.TabIndex = 1
         Me.TboxEndorsementNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -677,6 +678,16 @@ Partial Class FrmMain
         Me.TabPageEndorsement.Size = New System.Drawing.Size(1059, 771)
         Me.TabPageEndorsement.TabIndex = 0
         Me.TabPageEndorsement.Text = "Endorsement"
+        '
+        'BtnSubmit
+        '
+        Me.BtnSubmit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSubmit.Location = New System.Drawing.Point(6, 731)
+        Me.BtnSubmit.Name = "BtnSubmit"
+        Me.BtnSubmit.Size = New System.Drawing.Size(170, 31)
+        Me.BtnSubmit.TabIndex = 7
+        Me.BtnSubmit.Text = "Submit"
+        Me.BtnSubmit.UseVisualStyleBackColor = True
         '
         'GBoxData
         '
@@ -794,14 +805,6 @@ Partial Class FrmMain
         Me.DGVEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGVEndorsementData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19, Me.DataGridViewTextBoxColumn20})
         Me.DGVEndorsementData.DataSource = Me.DTEndorsementDataBindingSource
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGVEndorsementData.DefaultCellStyle = DataGridViewCellStyle1
         Me.DGVEndorsementData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGVEndorsementData.Location = New System.Drawing.Point(2, 18)
         Me.DGVEndorsementData.Name = "DGVEndorsementData"
@@ -809,76 +812,6 @@ Partial Class FrmMain
         Me.DGVEndorsementData.RowHeadersVisible = False
         Me.DGVEndorsementData.Size = New System.Drawing.Size(869, 737)
         Me.DGVEndorsementData.TabIndex = 2
-        '
-        'TabPageReceiving
-        '
-        Me.TabPageReceiving.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPageReceiving.Location = New System.Drawing.Point(4, 24)
-        Me.TabPageReceiving.Name = "TabPageReceiving"
-        Me.TabPageReceiving.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageReceiving.Size = New System.Drawing.Size(1059, 771)
-        Me.TabPageReceiving.TabIndex = 3
-        Me.TabPageReceiving.Text = "Receiving"
-        '
-        'TabPageTS
-        '
-        Me.TabPageTS.Controls.Add(Me.LblValidatedBy)
-        Me.TabPageTS.Controls.Add(Me.DateTimePicker1)
-        Me.TabPageTS.Controls.Add(Me.LblLoc5)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation4)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation5)
-        Me.TabPageTS.Controls.Add(Me.LblLoc4)
-        Me.TabPageTS.Controls.Add(Me.LblRepairedBy)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation3)
-        Me.TabPageTS.Controls.Add(Me.TBoxRepairedBy)
-        Me.TabPageTS.Controls.Add(Me.LblLoc3)
-        Me.TabPageTS.Controls.Add(Me.LblDateRepaired)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation2)
-        Me.TabPageTS.Controls.Add(Me.LblDefectType)
-        Me.TabPageTS.Controls.Add(Me.LblLoc2)
-        Me.TabPageTS.Controls.Add(Me.TBoxValidatedBy)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation1)
-        Me.TabPageTS.Controls.Add(Me.TBoxDefectType)
-        Me.TabPageTS.Controls.Add(Me.LblLoc1)
-        Me.TabPageTS.Controls.Add(Me.LblAnalysis)
-        Me.TabPageTS.Controls.Add(Me.TBoxRemarks)
-        Me.TabPageTS.Controls.Add(Me.LblStatus)
-        Me.TabPageTS.Controls.Add(Me.TBoxActionTaken)
-        Me.TabPageTS.Controls.Add(Me.TBoxAnalysis)
-        Me.TabPageTS.Controls.Add(Me.LblRemarks)
-        Me.TabPageTS.Controls.Add(Me.TBoxStatus)
-        Me.TabPageTS.Controls.Add(Me.LblActionTaken)
-        Me.TabPageTS.Location = New System.Drawing.Point(4, 24)
-        Me.TabPageTS.Name = "TabPageTS"
-        Me.TabPageTS.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageTS.Size = New System.Drawing.Size(1059, 771)
-        Me.TabPageTS.TabIndex = 1
-        Me.TabPageTS.Text = "TS"
-        '
-        'TabPageInquiry
-        '
-        Me.TabPageInquiry.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPageInquiry.Location = New System.Drawing.Point(4, 24)
-        Me.TabPageInquiry.Margin = New System.Windows.Forms.Padding(2)
-        Me.TabPageInquiry.Name = "TabPageInquiry"
-        Me.TabPageInquiry.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPageInquiry.Size = New System.Drawing.Size(1059, 771)
-        Me.TabPageInquiry.TabIndex = 2
-        Me.TabPageInquiry.Text = "Inquiry"
-        '
-        'ErrorProvider1
-        '
-        Me.ErrorProvider1.ContainerControl = Me
-        '
-        'BtnSubmit
-        '
-        Me.BtnSubmit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnSubmit.Location = New System.Drawing.Point(6, 731)
-        Me.BtnSubmit.Name = "BtnSubmit"
-        Me.BtnSubmit.Size = New System.Drawing.Size(170, 31)
-        Me.BtnSubmit.TabIndex = 7
-        Me.BtnSubmit.Text = "Submit"
-        Me.BtnSubmit.UseVisualStyleBackColor = True
         '
         'DataGridViewTextBoxColumn11
         '
@@ -967,6 +900,66 @@ Partial Class FrmMain
         Me.DSEndorsementData.DataSetName = "DSEndorsementData"
         Me.DSEndorsementData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
+        'TabPageReceiving
+        '
+        Me.TabPageReceiving.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPageReceiving.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageReceiving.Name = "TabPageReceiving"
+        Me.TabPageReceiving.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPageReceiving.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageReceiving.TabIndex = 3
+        Me.TabPageReceiving.Text = "Receiving"
+        '
+        'TabPageTS
+        '
+        Me.TabPageTS.Controls.Add(Me.LblValidatedBy)
+        Me.TabPageTS.Controls.Add(Me.DateTimePicker1)
+        Me.TabPageTS.Controls.Add(Me.LblLoc5)
+        Me.TabPageTS.Controls.Add(Me.TBoxLocation4)
+        Me.TabPageTS.Controls.Add(Me.TBoxLocation5)
+        Me.TabPageTS.Controls.Add(Me.LblLoc4)
+        Me.TabPageTS.Controls.Add(Me.LblRepairedBy)
+        Me.TabPageTS.Controls.Add(Me.TBoxLocation3)
+        Me.TabPageTS.Controls.Add(Me.TBoxRepairedBy)
+        Me.TabPageTS.Controls.Add(Me.LblLoc3)
+        Me.TabPageTS.Controls.Add(Me.LblDateRepaired)
+        Me.TabPageTS.Controls.Add(Me.TBoxLocation2)
+        Me.TabPageTS.Controls.Add(Me.LblDefectType)
+        Me.TabPageTS.Controls.Add(Me.LblLoc2)
+        Me.TabPageTS.Controls.Add(Me.TBoxValidatedBy)
+        Me.TabPageTS.Controls.Add(Me.TBoxLocation1)
+        Me.TabPageTS.Controls.Add(Me.TBoxDefectType)
+        Me.TabPageTS.Controls.Add(Me.LblLoc1)
+        Me.TabPageTS.Controls.Add(Me.LblAnalysis)
+        Me.TabPageTS.Controls.Add(Me.TBoxRemarks)
+        Me.TabPageTS.Controls.Add(Me.LblStatus)
+        Me.TabPageTS.Controls.Add(Me.TBoxActionTaken)
+        Me.TabPageTS.Controls.Add(Me.TBoxAnalysis)
+        Me.TabPageTS.Controls.Add(Me.LblRemarks)
+        Me.TabPageTS.Controls.Add(Me.TBoxStatus)
+        Me.TabPageTS.Controls.Add(Me.LblActionTaken)
+        Me.TabPageTS.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageTS.Name = "TabPageTS"
+        Me.TabPageTS.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPageTS.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageTS.TabIndex = 1
+        Me.TabPageTS.Text = "TS"
+        '
+        'TabPageInquiry
+        '
+        Me.TabPageInquiry.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPageInquiry.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageInquiry.Margin = New System.Windows.Forms.Padding(2)
+        Me.TabPageInquiry.Name = "TabPageInquiry"
+        Me.TabPageInquiry.Padding = New System.Windows.Forms.Padding(2)
+        Me.TabPageInquiry.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageInquiry.TabIndex = 2
+        Me.TabPageInquiry.Text = "Inquiry"
+        '
+        'ErrorProvider1
+        '
+        Me.ErrorProvider1.ContainerControl = Me
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -990,11 +983,11 @@ Partial Class FrmMain
         Me.GBoxInformation.PerformLayout()
         Me.GBoxEndorsmentData.ResumeLayout(False)
         CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPageTS.ResumeLayout(False)
         Me.TabPageTS.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

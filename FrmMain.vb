@@ -11,8 +11,8 @@ Public Class FrmMain
     Dim TimeNow = DateTime.Now.ToString("hh:mm:ss")
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        TboxEndorsementNo.ReadOnly = True
-        TBoxWorkweek.ReadOnly = True
+        'TboxEndorsementNo.ReadOnly = True
+        'TBoxWorkweek.ReadOnly = True
         Dim workweek = DatePart("ww", DTPEndorsementDate.Value)
         TBoxWorkweek.Text = Format(workweek, "00")
         Load_EndorsementNo()
@@ -195,7 +195,7 @@ Public Class FrmMain
             CBoxModel.Text = Nothing
         Catch ex As Exception
             dbConn.Close()
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Loading Model", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -376,5 +376,47 @@ Public Class FrmMain
 
     Private Sub TBoxEndorsedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxEndorsedBy.TextChanged
         TBoxEndorsedBy.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxSerialNo_TextChanged(sender As Object, e As EventArgs) Handles TBoxSerialNo.TextChanged
+        TBoxSerialNo.MaxLength = 11
+        TBoxSerialNo.CharacterCasing = CharacterCasing.Upper
+
+        Dim RegexSerialNo = Regex.Match(TBoxSerialNo.Text, "[0-9]{2}[0-9]{2}BC[2-9A-HJ-NP-Z]{5}")
+
+        If TBoxSerialNo.Text.Length > 0 Then
+            If TBoxSerialNo.Text = RegexSerialNo.Value Then
+                ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+            Else
+                ErrorProvider1.SetError(TBoxSerialNo, "Invalid serial number")
+            End If
+        Else
+            If TBoxSerialNo.TextLength = 0 Then
+                ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+            End If
+        End If
+    End Sub
+
+    Private Sub TBoxSerialNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxSerialNo.KeyPress
+        ' Allow digits (0-9), letters, and control characters (such as newline, tab, and carriage return)
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            ' If the pressed key is not a digit, letter, or control character, ignore it
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub BtnSubmit_Click(sender As Object, e As EventArgs) Handles BtnSubmit.Click
+        Try
+            Dim StoredProcedure = "InserTempToEndorsementData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As Exception
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "Error Submitting data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
