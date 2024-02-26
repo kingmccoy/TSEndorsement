@@ -4,22 +4,28 @@ Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Data.SQLite
 Imports System.Text.RegularExpressions
+Imports System.Windows.Forms.VisualStyles
 
 Public Class FrmMain
     'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
     Dim DateNow = DateTime.Now.ToString("MM-dd-yyyy")
     Dim TimeNow = DateTime.Now.ToString("hh:mm:ss")
+    Dim Invalid_ppoNumber, Invalid_lotNumber, Invalid_workOrder, Invalid_serialNumber As Boolean
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         'TboxEndorsementNo.ReadOnly = True
         'TBoxWorkweek.ReadOnly = True
         Dim workweek = DatePart("ww", DTPEndorsementDate.Value)
         TBoxWorkweek.Text = Format(workweek, "00")
-        Load_EndorsementNo()
+        Load_Latest_EndorsementNo()
         Load_Model_Variant()
+
+        GBoxData.Enabled = False
+        BtnSubmit.Enabled = False
+        BtnCancel.Enabled = False
     End Sub
 
-    Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
+    Private Sub BtnInformationClear_Click(sender As Object, e As EventArgs) Handles BtnInformationClear.Click
         TBoxQtyEndorsed.Clear()
         CBoxModel.Text = Nothing
         TBoxSerialNo.Clear()
@@ -46,98 +52,109 @@ Public Class FrmMain
         'TBoxRemarks.Clear()
     End Sub
 
-    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
-        'Try
-        '    Dim q = "INSERT INTO
-        '                endorsement (endorsement_no, qty_endorsed, qty, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek, date, time)
-        '            VALUES
-        '                ('" & TboxEndorsementNo.Text & "','" & TBoxQtyEndorsed.Text & "','" & 1 & "','" & CBoxModel.Text & "','" & TBoxSerialNo.Text & "','" & TBoxPPONo.Text & "','" & TBoxPPOQty.Text & "','" & TBoxLotNo.Text & "',
-        '                '" & TBoxWorkOrder.Text & "','" & CBoxStation.Text & "','" & TBoxFailureSymptoms.Text & "','" & TBoxEndorsedBy.Text & "','" & DTPDateFailed.Value.ToString("MM-dd-yyyy") & "','" & DTPEndorsementDate.Value.ToString("MM-dd-yyyy") & "',
-        '                '" & TBoxWorkweek.Text & "','" & DateNow & "','" & TimeNow & "')"
-        '    dbConn.Open()
-        '    Using dbCmd As New SqlCommand(q, dbConn)
-        '        dbCmd.ExecuteNonQuery()
-        '    End Using
-        '    dbConn.Close()
-        'Catch ex As Exception
-        '    dbConn.Close()
-        '    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
+    Private Sub Reset_Fillup_Form()
+        GBoxInformation.Enabled = True
+        TBoxQtyEndorsed.Clear()
+        CBoxModel.Text = Nothing
+        TBoxSerialNo.Clear()
+        TBoxPPONo.Clear()
+        TBoxPPOQty.Clear()
+        TBoxLotNo.Clear()
+        TBoxWorkOrder.Clear()
+        CBoxStation.Text = Nothing
+        TBoxFailureSymptoms.Clear()
+        TBoxEndorsedBy.Clear()
+        BtnScan.Enabled = True
 
-        ''Using DataSet
-        'Try
-        '    Dim dbTable As New DSEndorsementData.DTEndorsementDataDataTable
-        '    Dim newRow As DataRow = dbTable.NewRow
+        GBoxData.Enabled = False
+        TBoxSerialNo.Clear()
+        CBoxStation.Text = Nothing
+        TBoxFailureSymptoms.Clear()
+        BtnSubmit.Enabled = False
+        BtnCancel.Enabled = False
 
-        '    Dim maxId As Integer = 0
-        '    For Each row As DataRow In dbTable.Rows
-        '        Dim id As Integer = Convert.ToInt32(row("id"))
-        '        If id > maxId Then
-        '            maxId = id
-        '        End If
-        '    Next
-
-        '    newRow("id") = maxId + 1
-        '    newRow("endorsement_no") = TboxEndorsementNo.Text
-        '    newRow("qty_endorsed") = TBoxQtyEndorsed.Text
-        '    newRow("qty") = 1
-        '    newRow("model") = CBoxModel.Text
-        '    newRow("serial_no") = TBoxSerialNo.Text
-        '    newRow("ppo_no") = TBoxPPONo.Text
-        '    newRow("ppo_qty") = TBoxPPOQty.Text
-        '    newRow("lot_no") = TBoxLotNo.Text
-        '    newRow("work_order") = TBoxWorkOrder.Text
-        '    newRow("station") = CBoxStation.Text
-        '    newRow("failure_symptoms") = TBoxFailureSymptoms.Text
-        '    newRow("endorsed_by") = TBoxEndorsedBy.Text
-        '    newRow("date_failed") = DTPDateFailed.Value.ToString("MM-dd-yyyy")
-        '    newRow("endorsement_date") = DTPEndorsementDate.Value.ToString("MM-dd-yyyy")
-        '    newRow("workweek") = TBoxWorkweek.Text
-        '    newRow("date") = DateNow
-        '    newRow("time") = TimeNow
-
-        '    dbTable.Rows.Add(newRow)
-        '    DGVEndorsementData.DataSource = dbTable
-
-
-        'Catch ex As Exception
-        '    MessageBox.Show(ex.Message, "Error Insert Data to Database", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
-
-        Try
-            Dim StoredProcedure = "InsertTempEndorsementData"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                'dbCmd.Parameters.AddWithValue("@id",)
-                dbCmd.Parameters.AddWithValue("@endorsement_no", TboxEndorsementNo.Text)
-                dbCmd.Parameters.AddWithValue("@qty_endorsed", TBoxQtyEndorsed.Text)
-                dbCmd.Parameters.AddWithValue("@qty", 1)
-                dbCmd.Parameters.AddWithValue("@model", CBoxModel.Text)
-                dbCmd.Parameters.AddWithValue("@serial_no", TBoxSerialNo.Text)
-                dbCmd.Parameters.AddWithValue("@ppo_no", TBoxPPONo.Text)
-                dbCmd.Parameters.AddWithValue("@ppo_qty", TBoxPPOQty.Text)
-                dbCmd.Parameters.AddWithValue("@lot_no", TBoxLotNo.Text)
-                dbCmd.Parameters.AddWithValue("@work_order", TBoxWorkOrder.Text)
-                dbCmd.Parameters.AddWithValue("@station", CBoxStation.Text)
-                dbCmd.Parameters.AddWithValue("@failure_symptoms", TBoxFailureSymptoms.Text)
-                dbCmd.Parameters.AddWithValue("@endorsed_by", TBoxEndorsedBy.Text)
-                dbCmd.Parameters.AddWithValue("@date_failed", DTPDateFailed.Value.ToString("MM-dd-yyyy"))
-                dbCmd.Parameters.AddWithValue("@endorsement_date", DTPEndorsementDate.Value.ToString("HH:mm:ss"))
-                dbCmd.Parameters.AddWithValue("@workweek", TBoxWorkweek.Text)
-                dbCmd.Parameters.AddWithValue("@date", DateNow)
-                dbCmd.Parameters.AddWithValue("@time", TimeNow)
-                dbCmd.ExecuteNonQuery()
-            End Using
-            dbConn.Close()
-            Load_TempEndorsementData()
-        Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        DGVEndorsementData.DataSource = Nothing
+        LblCount.Text = 0
     End Sub
 
-    Private Sub Load_EndorsementNo()
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
+        If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+            MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If Invalid_serialNumber = True Then
+            MessageBox.Show("Please ensure all fields with an error mark are in the correct format.", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        Else
+            Try
+                Dim StoredProcedure As String = "InsertTempEndorsementData"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                    dbCmd.CommandType = CommandType.StoredProcedure
+
+                    ' Add parameters with proper data types
+                    dbCmd.Parameters.AddWithValue("@endorsement_no", TboxEndorsementNo.Text)
+                    dbCmd.Parameters.AddWithValue("@qty_endorsed", Integer.Parse(TBoxQtyEndorsed.Text))
+                    dbCmd.Parameters.AddWithValue("@qty", 1)
+                    dbCmd.Parameters.AddWithValue("@model", CBoxModel.Text)
+                    dbCmd.Parameters.AddWithValue("@serial_no", TBoxSerialNo.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_no", TBoxPPONo.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_qty", Integer.Parse(TBoxPPOQty.Text))
+                    dbCmd.Parameters.AddWithValue("@lot_no", TBoxLotNo.Text)
+                    dbCmd.Parameters.AddWithValue("@work_order", TBoxWorkOrder.Text)
+                    dbCmd.Parameters.AddWithValue("@station", CBoxStation.Text)
+                    dbCmd.Parameters.AddWithValue("@failure_symptoms", TBoxFailureSymptoms.Text)
+                    dbCmd.Parameters.AddWithValue("@endorsed_by", TBoxEndorsedBy.Text)
+                    dbCmd.Parameters.AddWithValue("@date_failed", DTPDateFailed.Value)
+                    dbCmd.Parameters.AddWithValue("@endorsement_date", DTPEndorsementDate.Value)
+                    dbCmd.Parameters.AddWithValue("@workweek", TBoxWorkweek.Text)
+                    dbCmd.Parameters.AddWithValue("@date", DateNow)
+                    dbCmd.Parameters.AddWithValue("@time", TimeNow)
+
+                    ' Execute the query
+                    dbCmd.ExecuteNonQuery()
+                End Using
+                dbConn.Close()
+
+                ' Load updated data
+                Load_TempEndorsementData()
+                Count_TempEndorsement()
+
+                ' Clear the serial number textbox
+                TBoxSerialNo.Clear()
+
+                ' Clear the DataGridview selection
+                DGVEndorsementData.ClearSelection()
+
+            Catch ex As FormatException
+                ' Handle format exceptions (e.g., parsing integers)
+                MessageBox.Show("Please enter valid numeric values for quantity fields.", "Format Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            Catch ex As SqlException
+                ' Handle database-related errors
+                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            Catch ex As Exception
+                ' Handle other types of exceptions
+                MessageBox.Show(ex.Message, "Error Endorsing Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            Finally
+                ' Close the database connection
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub BtnEndorseEnter_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxSerialNo.KeyDown, CBoxStation.KeyDown, TBoxFailureSymptoms.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnEndorse.PerformClick()
+        End If
+    End Sub
+
+    Private Sub Load_Latest_EndorsementNo()
         Try
             Dim procedure = "GetEndorsementNo"
             dbConn.Open()
@@ -232,17 +249,17 @@ Public Class FrmMain
 
         Dim Qty = Regex.Match(TBoxQtyEndorsed.Text, "[0-9]+")
 
-        If TBoxQtyEndorsed.Text.Length > 0 Then
-            If TBoxQtyEndorsed.Text = Qty.Value Then
-                ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
-            Else
-                ErrorProvider1.SetError(TBoxQtyEndorsed, "Only number are allowed")
-            End If
-        Else
-            If TBoxQtyEndorsed.Text.Length = 0 Then
-                ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
-            End If
-        End If
+        'If TBoxQtyEndorsed.Text.Length > 0 Then
+        '    If TBoxQtyEndorsed.Text = Qty.Value Then
+        '        ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
+        '    Else
+        '        ErrorProvider1.SetError(TBoxQtyEndorsed, "Only number are allowed")
+        '    End If
+        'Else
+        '    If TBoxQtyEndorsed.Text.Length = 0 Then
+        '        ErrorProvider1.SetError(TBoxQtyEndorsed, Nothing)
+        '    End If
+        'End If
     End Sub
 
     Private Sub TBoxPPONo_TextChanged(sender As Object, e As EventArgs) Handles TBoxPPONo.TextChanged
@@ -252,12 +269,15 @@ Public Class FrmMain
         If TBoxPPONo.Text.Length > 0 Then
             If Regex.IsMatch(TBoxPPONo.Text, PPONum) Then
                 ErrorProvider1.SetError(TBoxPPONo, Nothing)
+                Invalid_ppoNumber = False
             Else
                 ErrorProvider1.SetError(TBoxPPONo, "Invalid PPO number")
+                Invalid_ppoNumber = True
             End If
         Else
             If TBoxPPONo.Text.Length = 0 Then
                 ErrorProvider1.SetError(TBoxPPONo, Nothing)
+                Invalid_ppoNumber = False
             End If
         End If
     End Sub
@@ -322,12 +342,15 @@ Public Class FrmMain
         If TBoxLotNo.Text.Length > 0 Then
             If TBoxLotNo.Text = LotNum.Value Then
                 ErrorProvider1.SetError(TBoxLotNo, Nothing)
+                Invalid_lotNumber = False
             Else
                 ErrorProvider1.SetError(TBoxLotNo, "Invalid lot number")
+                Invalid_lotNumber = True
             End If
         Else
             If TBoxLotNo.Text.Length = 0 Then
                 ErrorProvider1.SetError(TBoxLotNo, Nothing)
+                Invalid_lotNumber = False
             End If
         End If
     End Sub
@@ -364,12 +387,15 @@ Public Class FrmMain
         If TBoxWorkOrder.Text.Length > 0 Then
             If TBoxWorkOrder.Text = RegexWorkOrder.Value Then
                 ErrorProvider1.SetError(TBoxWorkOrder, Nothing)
+                Invalid_workOrder = False
             Else
                 ErrorProvider1.SetError(TBoxWorkOrder, "Invalid work order")
+                Invalid_workOrder = True
             End If
         Else
             If TBoxWorkOrder.TextLength = 0 Then
                 ErrorProvider1.SetError(TBoxWorkOrder, Nothing)
+                Invalid_workOrder = False
             End If
         End If
     End Sub
@@ -387,12 +413,15 @@ Public Class FrmMain
         If TBoxSerialNo.Text.Length > 0 Then
             If TBoxSerialNo.Text = RegexSerialNo.Value Then
                 ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+                Invalid_serialNumber = False
             Else
                 ErrorProvider1.SetError(TBoxSerialNo, "Invalid serial number")
+                Invalid_serialNumber = True
             End If
         Else
             If TBoxSerialNo.TextLength = 0 Then
                 ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+                Invalid_serialNumber = False
             End If
         End If
     End Sub
@@ -418,5 +447,110 @@ Public Class FrmMain
             dbConn.Close()
             MessageBox.Show(ex.Message, "Error Submitting data", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+
+        Load_Latest_EndorsementNo()
+        Reset_Fillup_Form()
+    End Sub
+
+    Private Sub Count_TempEndorsement()
+        Try
+            Dim Query = "SELECT COUNT(id) AS id FROM TempEndorsement"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(Query, dbConn)
+                Dim count As Integer = Convert.ToInt32(dbCmd.ExecuteScalar())
+
+                LblCount.Text = count.ToString
+
+            End Using
+            dbConn.Close()
+        Catch ex As Exception
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "Error Couting Temp Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles BtnScan.Click
+        If TBoxQtyEndorsed.TextLength = 0 Or CBoxModel.Text = Nothing Or TBoxPPONo.TextLength = 0 Or TBoxPPOQty.TextLength = 0 Or TBoxLotNo.TextLength = 0 Or TBoxWorkOrder.TextLength = 0 Or TBoxEndorsedBy.TextLength = 0 Then
+            MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If Invalid_ppoNumber = True Or Invalid_lotNumber = True Or Invalid_workOrder Then
+            MessageBox.Show("Please ensure all fields with an error mark are in the correct format.", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        Else
+            GBoxData.Enabled = True
+            GBoxInformation.Enabled = False
+            BtnSubmit.Enabled = True
+            BtnCancel.Enabled = True
+
+            Try
+                Dim StoredProcedure = "CreateTempEndorsementTable"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                    dbCmd.CommandType = CommandType.StoredProcedure
+                    dbCmd.ExecuteNonQuery()
+                End Using
+                dbConn.Close()
+            Catch ex As SqlException
+                ' Handle database-related errors
+                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                ' Handle other types of exceptions
+                MessageBox.Show(ex.Message, "Error Opening Scanning Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                ' Close the database connection
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub BtnScanEnter_KeyPress(sender As Object, e As KeyEventArgs) Handles TBoxQtyEndorsed.KeyDown, CBoxModel.KeyDown, TBoxPPONo.KeyDown, TBoxPPOQty.KeyDown, TBoxLotNo.KeyDown, TBoxWorkOrder.KeyDown, TBoxEndorsedBy.KeyDown, DTPDateFailed.KeyDown, DTPEndorsementDate.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnScan.PerformClick()
+        End If
+    End Sub
+
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
+        Dim dialogResult As DialogResult = MessageBox.Show("Do you want to cancel endorsement?" & vbCrLf & vbCrLf & "Please take note that it will remove all the data you've scanned.", "Confirm Cancellation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If dialogResult = DialogResult.Yes Then
+            GBoxData.Enabled = False
+            GBoxInformation.Enabled = True
+
+            'BtnScan.Enabled = True
+            'BtnInformationClear.Enabled = True
+
+            BtnSubmit.Enabled = False
+            BtnCancel.Enabled = False
+
+            Try
+                Dim StoredProcedure = "DropTempEndorsementTable"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                    dbCmd.CommandType = CommandType.StoredProcedure
+                    dbCmd.ExecuteNonQuery()
+                End Using
+                dbConn.Close()
+            Catch ex As Exception
+                dbConn.Close()
+                MessageBox.Show(ex.Message, "Error Cancelling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            TBoxSerialNo.Clear()
+            CBoxStation.Text = Nothing
+            TBoxFailureSymptoms.Clear()
+        End If
+    End Sub
+
+    Private Sub BtnDataClear_Click(sender As Object, e As EventArgs) Handles BtnDataClear.Click
+        TBoxSerialNo.Clear()
+        CBoxStation.Text = Nothing
+        TBoxFailureSymptoms.Clear()
+    End Sub
+
+    Private Sub TBoxFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles TBoxFailureSymptoms.TextChanged
+        TBoxFailureSymptoms.CharacterCasing = CharacterCasing.Upper
     End Sub
 End Class

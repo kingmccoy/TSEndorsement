@@ -23,6 +23,7 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LblQtyEndorsed = New System.Windows.Forms.Label()
         Me.TBoxQtyEndorsed = New System.Windows.Forms.TextBox()
         Me.LblModel = New System.Windows.Forms.Label()
@@ -74,11 +75,12 @@ Partial Class FrmMain
         Me.DTPDateFailed = New System.Windows.Forms.DateTimePicker()
         Me.DTPEndorsementDate = New System.Windows.Forms.DateTimePicker()
         Me.BtnEndorse = New System.Windows.Forms.Button()
-        Me.BtnClear = New System.Windows.Forms.Button()
+        Me.BtnInformationClear = New System.Windows.Forms.Button()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TboxEndorsementNo = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageEndorsement = New System.Windows.Forms.TabPage()
+        Me.BtnCancel = New System.Windows.Forms.Button()
         Me.BtnSubmit = New System.Windows.Forms.Button()
         Me.GBoxData = New System.Windows.Forms.GroupBox()
         Me.CBoxStation = New System.Windows.Forms.ComboBox()
@@ -87,6 +89,8 @@ Partial Class FrmMain
         Me.BtnScan = New System.Windows.Forms.Button()
         Me.CBoxModel = New System.Windows.Forms.ComboBox()
         Me.GBoxEndorsmentData = New System.Windows.Forms.GroupBox()
+        Me.LblCount = New System.Windows.Forms.Label()
+        Me.LblEndorsedCount = New System.Windows.Forms.Label()
         Me.DGVEndorsementData = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -104,6 +108,8 @@ Partial Class FrmMain
         Me.TabPageTS = New System.Windows.Forms.TabPage()
         Me.TabPageInquiry = New System.Windows.Forms.TabPage()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
@@ -114,6 +120,7 @@ Partial Class FrmMain
         CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPageTS.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -145,7 +152,7 @@ Partial Class FrmMain
         Me.LblModel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblModel.Name = "LblModel"
         Me.LblModel.Size = New System.Drawing.Size(41, 15)
-        Me.LblModel.TabIndex = 0
+        Me.LblModel.TabIndex = 2
         Me.LblModel.Text = "Model"
         '
         'Label3
@@ -177,7 +184,7 @@ Partial Class FrmMain
         Me.LblPPONo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblPPONo.Name = "LblPPONo"
         Me.LblPPONo.Size = New System.Drawing.Size(77, 15)
-        Me.LblPPONo.TabIndex = 0
+        Me.LblPPONo.TabIndex = 4
         Me.LblPPONo.Text = "PPO Number"
         '
         'TBoxPPONo
@@ -187,7 +194,7 @@ Partial Class FrmMain
         Me.TBoxPPONo.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxPPONo.Name = "TBoxPPONo"
         Me.TBoxPPONo.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxPPONo.TabIndex = 1
+        Me.TBoxPPONo.TabIndex = 5
         Me.TBoxPPONo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblPPOQty
@@ -198,7 +205,7 @@ Partial Class FrmMain
         Me.LblPPOQty.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblPPOQty.Name = "LblPPOQty"
         Me.LblPPOQty.Size = New System.Drawing.Size(79, 15)
-        Me.LblPPOQty.TabIndex = 0
+        Me.LblPPOQty.TabIndex = 6
         Me.LblPPOQty.Text = "PPO Quantity"
         '
         'TBoxPPOQty
@@ -208,7 +215,7 @@ Partial Class FrmMain
         Me.TBoxPPOQty.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxPPOQty.Name = "TBoxPPOQty"
         Me.TBoxPPOQty.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxPPOQty.TabIndex = 1
+        Me.TBoxPPOQty.TabIndex = 7
         Me.TBoxPPOQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblLotNo
@@ -219,7 +226,7 @@ Partial Class FrmMain
         Me.LblLotNo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblLotNo.Name = "LblLotNo"
         Me.LblLotNo.Size = New System.Drawing.Size(71, 15)
-        Me.LblLotNo.TabIndex = 0
+        Me.LblLotNo.TabIndex = 8
         Me.LblLotNo.Text = "Lot Number"
         '
         'TBoxLotNo
@@ -229,7 +236,7 @@ Partial Class FrmMain
         Me.TBoxLotNo.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxLotNo.Name = "TBoxLotNo"
         Me.TBoxLotNo.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxLotNo.TabIndex = 1
+        Me.TBoxLotNo.TabIndex = 9
         Me.TBoxLotNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblWorkOrder
@@ -240,7 +247,7 @@ Partial Class FrmMain
         Me.LblWorkOrder.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblWorkOrder.Name = "LblWorkOrder"
         Me.LblWorkOrder.Size = New System.Drawing.Size(68, 15)
-        Me.LblWorkOrder.TabIndex = 0
+        Me.LblWorkOrder.TabIndex = 10
         Me.LblWorkOrder.Text = "Work Order"
         '
         'TBoxWorkOrder
@@ -250,7 +257,7 @@ Partial Class FrmMain
         Me.TBoxWorkOrder.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxWorkOrder.Name = "TBoxWorkOrder"
         Me.TBoxWorkOrder.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxWorkOrder.TabIndex = 1
+        Me.TBoxWorkOrder.TabIndex = 11
         Me.TBoxWorkOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label8
@@ -261,7 +268,7 @@ Partial Class FrmMain
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(44, 15)
-        Me.Label8.TabIndex = 0
+        Me.Label8.TabIndex = 2
         Me.Label8.Text = "Station"
         '
         'Label9
@@ -272,7 +279,7 @@ Partial Class FrmMain
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(102, 15)
-        Me.Label9.TabIndex = 0
+        Me.Label9.TabIndex = 4
         Me.Label9.Text = "Failure Symptoms"
         '
         'TBoxFailureSymptoms
@@ -282,7 +289,7 @@ Partial Class FrmMain
         Me.TBoxFailureSymptoms.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxFailureSymptoms.Name = "TBoxFailureSymptoms"
         Me.TBoxFailureSymptoms.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxFailureSymptoms.TabIndex = 1
+        Me.TBoxFailureSymptoms.TabIndex = 5
         Me.TBoxFailureSymptoms.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblEndorsedBy
@@ -293,7 +300,7 @@ Partial Class FrmMain
         Me.LblEndorsedBy.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblEndorsedBy.Name = "LblEndorsedBy"
         Me.LblEndorsedBy.Size = New System.Drawing.Size(75, 15)
-        Me.LblEndorsedBy.TabIndex = 0
+        Me.LblEndorsedBy.TabIndex = 12
         Me.LblEndorsedBy.Text = "Endorsed by:"
         '
         'TBoxEndorsedBy
@@ -303,7 +310,7 @@ Partial Class FrmMain
         Me.TBoxEndorsedBy.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TBoxEndorsedBy.Name = "TBoxEndorsedBy"
         Me.TBoxEndorsedBy.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxEndorsedBy.TabIndex = 1
+        Me.TBoxEndorsedBy.TabIndex = 13
         Me.TBoxEndorsedBy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblDateFailed
@@ -314,7 +321,7 @@ Partial Class FrmMain
         Me.LblDateFailed.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblDateFailed.Name = "LblDateFailed"
         Me.LblDateFailed.Size = New System.Drawing.Size(65, 15)
-        Me.LblDateFailed.TabIndex = 0
+        Me.LblDateFailed.TabIndex = 14
         Me.LblDateFailed.Text = "Date Failed"
         '
         'LblEndorsementDate
@@ -325,7 +332,7 @@ Partial Class FrmMain
         Me.LblEndorsementDate.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblEndorsementDate.Name = "LblEndorsementDate"
         Me.LblEndorsementDate.Size = New System.Drawing.Size(104, 15)
-        Me.LblEndorsementDate.TabIndex = 0
+        Me.LblEndorsementDate.TabIndex = 16
         Me.LblEndorsementDate.Text = "Endorsement Date"
         '
         'LblWorkWeek
@@ -336,7 +343,7 @@ Partial Class FrmMain
         Me.LblWorkWeek.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblWorkWeek.Name = "LblWorkWeek"
         Me.LblWorkWeek.Size = New System.Drawing.Size(62, 15)
-        Me.LblWorkWeek.TabIndex = 0
+        Me.LblWorkWeek.TabIndex = 18
         Me.LblWorkWeek.Text = "Workweek"
         '
         'TBoxWorkweek
@@ -347,7 +354,7 @@ Partial Class FrmMain
         Me.TBoxWorkweek.Name = "TBoxWorkweek"
         Me.TBoxWorkweek.ReadOnly = True
         Me.TBoxWorkweek.Size = New System.Drawing.Size(143, 23)
-        Me.TBoxWorkweek.TabIndex = 1
+        Me.TBoxWorkweek.TabIndex = 19
         Me.TBoxWorkweek.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LblValidatedBy
@@ -595,7 +602,7 @@ Partial Class FrmMain
         Me.DTPDateFailed.Location = New System.Drawing.Point(7, 345)
         Me.DTPDateFailed.Name = "DTPDateFailed"
         Me.DTPDateFailed.Size = New System.Drawing.Size(143, 23)
-        Me.DTPDateFailed.TabIndex = 2
+        Me.DTPDateFailed.TabIndex = 15
         '
         'DTPEndorsementDate
         '
@@ -606,7 +613,7 @@ Partial Class FrmMain
         Me.DTPEndorsementDate.Location = New System.Drawing.Point(7, 389)
         Me.DTPEndorsementDate.Name = "DTPEndorsementDate"
         Me.DTPEndorsementDate.Size = New System.Drawing.Size(143, 23)
-        Me.DTPEndorsementDate.TabIndex = 2
+        Me.DTPEndorsementDate.TabIndex = 17
         '
         'BtnEndorse
         '
@@ -614,19 +621,19 @@ Partial Class FrmMain
         Me.BtnEndorse.Location = New System.Drawing.Point(7, 154)
         Me.BtnEndorse.Name = "BtnEndorse"
         Me.BtnEndorse.Size = New System.Drawing.Size(69, 23)
-        Me.BtnEndorse.TabIndex = 3
+        Me.BtnEndorse.TabIndex = 6
         Me.BtnEndorse.Text = "Endorse"
         Me.BtnEndorse.UseVisualStyleBackColor = True
         '
-        'BtnClear
+        'BtnInformationClear
         '
-        Me.BtnClear.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClear.Location = New System.Drawing.Point(81, 462)
-        Me.BtnClear.Name = "BtnClear"
-        Me.BtnClear.Size = New System.Drawing.Size(69, 23)
-        Me.BtnClear.TabIndex = 3
-        Me.BtnClear.Text = "Clear"
-        Me.BtnClear.UseVisualStyleBackColor = True
+        Me.BtnInformationClear.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnInformationClear.Location = New System.Drawing.Point(81, 462)
+        Me.BtnInformationClear.Name = "BtnInformationClear"
+        Me.BtnInformationClear.Size = New System.Drawing.Size(69, 23)
+        Me.BtnInformationClear.TabIndex = 21
+        Me.BtnInformationClear.Text = "Clear"
+        Me.BtnInformationClear.UseVisualStyleBackColor = True
         '
         'Label27
         '
@@ -655,17 +662,18 @@ Partial Class FrmMain
         Me.TabControl1.Controls.Add(Me.TabPageTS)
         Me.TabControl1.Controls.Add(Me.TabPageInquiry)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 24)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1067, 799)
+        Me.TabControl1.Size = New System.Drawing.Size(1176, 833)
         Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
-        Me.TabControl1.TabIndex = 4
+        Me.TabControl1.TabIndex = 0
         '
         'TabPageEndorsement
         '
         Me.TabPageEndorsement.BackColor = System.Drawing.SystemColors.Control
         Me.TabPageEndorsement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.TabPageEndorsement.Controls.Add(Me.BtnCancel)
         Me.TabPageEndorsement.Controls.Add(Me.BtnSubmit)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxData)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxInformation)
@@ -675,9 +683,19 @@ Partial Class FrmMain
         Me.TabPageEndorsement.Location = New System.Drawing.Point(4, 24)
         Me.TabPageEndorsement.Name = "TabPageEndorsement"
         Me.TabPageEndorsement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEndorsement.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageEndorsement.Size = New System.Drawing.Size(1168, 805)
         Me.TabPageEndorsement.TabIndex = 0
         Me.TabPageEndorsement.Text = "Endorsement"
+        '
+        'BtnCancel
+        '
+        Me.BtnCancel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCancel.Location = New System.Drawing.Point(6, 768)
+        Me.BtnCancel.Name = "BtnCancel"
+        Me.BtnCancel.Size = New System.Drawing.Size(170, 31)
+        Me.BtnCancel.TabIndex = 5
+        Me.BtnCancel.Text = "Cancel"
+        Me.BtnCancel.UseVisualStyleBackColor = True
         '
         'BtnSubmit
         '
@@ -685,7 +703,7 @@ Partial Class FrmMain
         Me.BtnSubmit.Location = New System.Drawing.Point(6, 731)
         Me.BtnSubmit.Name = "BtnSubmit"
         Me.BtnSubmit.Size = New System.Drawing.Size(170, 31)
-        Me.BtnSubmit.TabIndex = 7
+        Me.BtnSubmit.TabIndex = 4
         Me.BtnSubmit.Text = "Submit"
         Me.BtnSubmit.UseVisualStyleBackColor = True
         '
@@ -703,18 +721,19 @@ Partial Class FrmMain
         Me.GBoxData.Location = New System.Drawing.Point(6, 535)
         Me.GBoxData.Name = "GBoxData"
         Me.GBoxData.Size = New System.Drawing.Size(170, 191)
-        Me.GBoxData.TabIndex = 6
+        Me.GBoxData.TabIndex = 3
         Me.GBoxData.TabStop = False
         Me.GBoxData.Text = "Data"
         '
         'CBoxStation
         '
+        Me.CBoxStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBoxStation.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBoxStation.FormattingEnabled = True
         Me.CBoxStation.Location = New System.Drawing.Point(7, 81)
         Me.CBoxStation.Name = "CBoxStation"
         Me.CBoxStation.Size = New System.Drawing.Size(143, 23)
-        Me.CBoxStation.TabIndex = 1
+        Me.CBoxStation.TabIndex = 3
         '
         'BtnDataClear
         '
@@ -722,7 +741,7 @@ Partial Class FrmMain
         Me.BtnDataClear.Location = New System.Drawing.Point(81, 154)
         Me.BtnDataClear.Name = "BtnDataClear"
         Me.BtnDataClear.Size = New System.Drawing.Size(69, 23)
-        Me.BtnDataClear.TabIndex = 4
+        Me.BtnDataClear.TabIndex = 7
         Me.BtnDataClear.Text = "Clear"
         Me.BtnDataClear.UseVisualStyleBackColor = True
         '
@@ -737,7 +756,7 @@ Partial Class FrmMain
         Me.GBoxInformation.Controls.Add(Me.LblDateFailed)
         Me.GBoxInformation.Controls.Add(Me.LblModel)
         Me.GBoxInformation.Controls.Add(Me.LblEndorsementDate)
-        Me.GBoxInformation.Controls.Add(Me.BtnClear)
+        Me.GBoxInformation.Controls.Add(Me.BtnInformationClear)
         Me.GBoxInformation.Controls.Add(Me.TBoxEndorsedBy)
         Me.GBoxInformation.Controls.Add(Me.LblEndorsedBy)
         Me.GBoxInformation.Controls.Add(Me.LblWorkWeek)
@@ -754,7 +773,7 @@ Partial Class FrmMain
         Me.GBoxInformation.Location = New System.Drawing.Point(6, 35)
         Me.GBoxInformation.Name = "GBoxInformation"
         Me.GBoxInformation.Size = New System.Drawing.Size(170, 494)
-        Me.GBoxInformation.TabIndex = 5
+        Me.GBoxInformation.TabIndex = 2
         Me.GBoxInformation.TabStop = False
         Me.GBoxInformation.Text = "Information"
         '
@@ -764,18 +783,19 @@ Partial Class FrmMain
         Me.BtnScan.Location = New System.Drawing.Point(7, 462)
         Me.BtnScan.Name = "BtnScan"
         Me.BtnScan.Size = New System.Drawing.Size(69, 23)
-        Me.BtnScan.TabIndex = 5
+        Me.BtnScan.TabIndex = 20
         Me.BtnScan.Text = "Scan"
         Me.BtnScan.UseVisualStyleBackColor = True
         '
         'CBoxModel
         '
+        Me.CBoxModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBoxModel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBoxModel.FormattingEnabled = True
         Me.CBoxModel.Location = New System.Drawing.Point(7, 81)
         Me.CBoxModel.Name = "CBoxModel"
         Me.CBoxModel.Size = New System.Drawing.Size(143, 23)
-        Me.CBoxModel.TabIndex = 1
+        Me.CBoxModel.TabIndex = 3
         '
         'GBoxEndorsmentData
         '
@@ -783,21 +803,50 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GBoxEndorsmentData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.GBoxEndorsmentData.Controls.Add(Me.LblCount)
+        Me.GBoxEndorsmentData.Controls.Add(Me.LblEndorsedCount)
         Me.GBoxEndorsmentData.Controls.Add(Me.DGVEndorsementData)
         Me.GBoxEndorsmentData.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GBoxEndorsmentData.Location = New System.Drawing.Point(181, 5)
+        Me.GBoxEndorsmentData.Location = New System.Drawing.Point(181, 6)
         Me.GBoxEndorsmentData.Margin = New System.Windows.Forms.Padding(2)
         Me.GBoxEndorsmentData.Name = "GBoxEndorsmentData"
         Me.GBoxEndorsmentData.Padding = New System.Windows.Forms.Padding(2)
-        Me.GBoxEndorsmentData.Size = New System.Drawing.Size(873, 757)
-        Me.GBoxEndorsmentData.TabIndex = 4
+        Me.GBoxEndorsmentData.Size = New System.Drawing.Size(982, 793)
+        Me.GBoxEndorsmentData.TabIndex = 6
         Me.GBoxEndorsmentData.TabStop = False
         Me.GBoxEndorsmentData.Text = "Endorsement Data"
+        '
+        'LblCount
+        '
+        Me.LblCount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblCount.AutoSize = True
+        Me.LblCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCount.Location = New System.Drawing.Point(934, 770)
+        Me.LblCount.Name = "LblCount"
+        Me.LblCount.Size = New System.Drawing.Size(13, 15)
+        Me.LblCount.TabIndex = 2
+        Me.LblCount.Text = "0"
+        '
+        'LblEndorsedCount
+        '
+        Me.LblEndorsedCount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblEndorsedCount.AutoSize = True
+        Me.LblEndorsedCount.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblEndorsedCount.Location = New System.Drawing.Point(835, 770)
+        Me.LblEndorsedCount.Name = "LblEndorsedCount"
+        Me.LblEndorsedCount.Size = New System.Drawing.Size(93, 15)
+        Me.LblEndorsedCount.TabIndex = 1
+        Me.LblEndorsedCount.Text = "Endorsed count:"
         '
         'DGVEndorsementData
         '
         Me.DGVEndorsementData.AllowUserToAddRows = False
         Me.DGVEndorsementData.AllowUserToDeleteRows = False
+        Me.DGVEndorsementData.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DGVEndorsementData.AutoGenerateColumns = False
         Me.DGVEndorsementData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DGVEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
@@ -805,13 +854,21 @@ Partial Class FrmMain
         Me.DGVEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGVEndorsementData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19, Me.DataGridViewTextBoxColumn20})
         Me.DGVEndorsementData.DataSource = Me.DTEndorsementDataBindingSource
-        Me.DGVEndorsementData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DGVEndorsementData.Location = New System.Drawing.Point(2, 18)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGVEndorsementData.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DGVEndorsementData.Location = New System.Drawing.Point(5, 18)
         Me.DGVEndorsementData.Name = "DGVEndorsementData"
         Me.DGVEndorsementData.ReadOnly = True
         Me.DGVEndorsementData.RowHeadersVisible = False
-        Me.DGVEndorsementData.Size = New System.Drawing.Size(869, 737)
-        Me.DGVEndorsementData.TabIndex = 2
+        Me.DGVEndorsementData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DGVEndorsementData.Size = New System.Drawing.Size(972, 749)
+        Me.DGVEndorsementData.TabIndex = 0
         '
         'DataGridViewTextBoxColumn11
         '
@@ -824,7 +881,7 @@ Partial Class FrmMain
         'DataGridViewTextBoxColumn12
         '
         Me.DataGridViewTextBoxColumn12.DataPropertyName = "model"
-        Me.DataGridViewTextBoxColumn12.FillWeight = 60.0!
+        Me.DataGridViewTextBoxColumn12.FillWeight = 80.0!
         Me.DataGridViewTextBoxColumn12.HeaderText = "Model"
         Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
         Me.DataGridViewTextBoxColumn12.ReadOnly = True
@@ -855,7 +912,7 @@ Partial Class FrmMain
         'DataGridViewTextBoxColumn16
         '
         Me.DataGridViewTextBoxColumn16.DataPropertyName = "lot_no"
-        Me.DataGridViewTextBoxColumn16.FillWeight = 70.0!
+        Me.DataGridViewTextBoxColumn16.FillWeight = 80.0!
         Me.DataGridViewTextBoxColumn16.HeaderText = "Lot No"
         Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
         Me.DataGridViewTextBoxColumn16.ReadOnly = True
@@ -906,7 +963,7 @@ Partial Class FrmMain
         Me.TabPageReceiving.Location = New System.Drawing.Point(4, 24)
         Me.TabPageReceiving.Name = "TabPageReceiving"
         Me.TabPageReceiving.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageReceiving.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageReceiving.Size = New System.Drawing.Size(1168, 805)
         Me.TabPageReceiving.TabIndex = 3
         Me.TabPageReceiving.Text = "Receiving"
         '
@@ -941,7 +998,7 @@ Partial Class FrmMain
         Me.TabPageTS.Location = New System.Drawing.Point(4, 24)
         Me.TabPageTS.Name = "TabPageTS"
         Me.TabPageTS.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageTS.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageTS.Size = New System.Drawing.Size(1168, 805)
         Me.TabPageTS.TabIndex = 1
         Me.TabPageTS.Text = "TS"
         '
@@ -952,13 +1009,28 @@ Partial Class FrmMain
         Me.TabPageInquiry.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPageInquiry.Name = "TabPageInquiry"
         Me.TabPageInquiry.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPageInquiry.Size = New System.Drawing.Size(1059, 771)
+        Me.TabPageInquiry.Size = New System.Drawing.Size(1168, 805)
         Me.TabPageInquiry.TabIndex = 2
         Me.TabPageInquiry.Text = "Inquiry"
         '
         'ErrorProvider1
         '
         Me.ErrorProvider1.ContainerControl = Me
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(1176, 24)
+        Me.MenuStrip1.TabIndex = 1
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Text = "&File"
         '
         'FrmMain
         '
@@ -967,10 +1039,12 @@ Partial Class FrmMain
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.BackgroundImage = Global.Endorsement.My.Resources.Resources.silicon_labs
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ClientSize = New System.Drawing.Size(1067, 799)
+        Me.ClientSize = New System.Drawing.Size(1176, 857)
         Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "FrmMain"
         Me.Text = "Endorsement"
@@ -982,13 +1056,17 @@ Partial Class FrmMain
         Me.GBoxInformation.ResumeLayout(False)
         Me.GBoxInformation.PerformLayout()
         Me.GBoxEndorsmentData.ResumeLayout(False)
+        Me.GBoxEndorsmentData.PerformLayout()
         CType(Me.DGVEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DTEndorsementDataBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPageTS.ResumeLayout(False)
         Me.TabPageTS.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -1042,7 +1120,7 @@ Partial Class FrmMain
     Friend WithEvents DTPDateFailed As DateTimePicker
     Friend WithEvents DTPEndorsementDate As DateTimePicker
     Friend WithEvents BtnEndorse As Button
-    Friend WithEvents BtnClear As Button
+    Friend WithEvents BtnInformationClear As Button
     Friend WithEvents Label27 As Label
     Friend WithEvents TboxEndorsementNo As TextBox
     Friend WithEvents TabControl1 As TabControl
@@ -1082,6 +1160,12 @@ Partial Class FrmMain
     Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
     Friend WithEvents DTEndorsementDataBindingSource As BindingSource
     Friend WithEvents DSEndorsementData As DSEndorsementData
+    Friend WithEvents BtnSubmit As Button
+    Friend WithEvents BtnCancel As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LblEndorsedCount As Label
+    Friend WithEvents LblCount As Label
     Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn13 As DataGridViewTextBoxColumn
@@ -1092,5 +1176,4 @@ Partial Class FrmMain
     Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn19 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn20 As DataGridViewTextBoxColumn
-    Friend WithEvents BtnSubmit As Button
 End Class
