@@ -3,6 +3,7 @@ Imports System.Data.Entity.Infrastructure.DependencyResolution
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Data.SQLite
+Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.VisualStyles
 
@@ -12,15 +13,25 @@ Public Class FrmMain
     Dim TimeNow = DateTime.Now.ToString("hh:mm:ss")
     Dim Invalid_ppoNumber, Invalid_lotNumber, Invalid_workOrder, Invalid_serialNumber As Boolean
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'TboxEndorsementNo.ReadOnly = True
-        'TBoxWorkweek.ReadOnly = True
+    Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim workweek = DatePart("ww", DTPEndorsementDate.Value)
         TBoxWorkweek.Text = Format(workweek, "00")
         Load_Latest_EndorsementNo()
         Load_Model_Variant()
+        DropTempEndorsementTable()
+
+        CBoxModel.Enabled = False
+        TBoxPPONo.ReadOnly = True
+        TBoxPPOQty.ReadOnly = True
+        TBoxLotNo.ReadOnly = True
+        TBoxWorkOrder.ReadOnly = True
+        TBoxQtyEndorsed.ReadOnly = True
+        DTPDateFailed.Enabled = False
+        DTPEndorsementDate.Enabled = False
+        BtnEndorseAnotherModel.Enabled = False
 
         GBoxData.Enabled = False
+        BtnEndorseAnotherModel.Enabled = False
         BtnSubmit.Enabled = False
         BtnCancel.Enabled = False
     End Sub
@@ -35,7 +46,7 @@ Public Class FrmMain
         TBoxWorkOrder.Clear()
         CBoxStation.Text = Nothing
         TBoxFailureSymptoms.Clear()
-        TBoxEndorsedBy.Clear()
+        'TBoxEndorsedBy.Clear()
         'TBoxWorkweek.Clear()
 
         'TBoxValidatedBy.Clear()
@@ -54,6 +65,7 @@ Public Class FrmMain
 
     Private Sub Reset_Fillup_Form()
         GBoxInformation.Enabled = True
+        TBoxEndorsedBy.ReadOnly = False
         TBoxQtyEndorsed.Clear()
         CBoxModel.Text = Nothing
         TBoxSerialNo.Clear()
@@ -65,6 +77,7 @@ Public Class FrmMain
         TBoxFailureSymptoms.Clear()
         TBoxEndorsedBy.Clear()
         BtnScan.Enabled = True
+        BtnReset.Enabled = True
 
         GBoxData.Enabled = False
         TBoxSerialNo.Clear()
@@ -74,10 +87,11 @@ Public Class FrmMain
         BtnCancel.Enabled = False
 
         DGVEndorsementData.DataSource = Nothing
-        LblCount.Text = 0
+        LblNewQty.Text = 0
+        LblTotalQty.Text = 0
     End Sub
 
-    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
+    Private Sub BtnEndorse_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
         If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
             MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -127,6 +141,15 @@ Public Class FrmMain
                 ' Clear the DataGridview selection
                 DGVEndorsementData.ClearSelection()
 
+                BtnReturn.Enabled = False
+
+                'BtnEndorseAnotherModel.Enabled = True
+                LblNewQty.Text += 1
+                If TBoxSerialNo.Enabled = True Then
+                    TBoxSerialNo.Focus()
+                Else
+                    LblSerialNo.Focus()
+                End If
             Catch ex As FormatException
                 ' Handle format exceptions (e.g., parsing integers)
                 MessageBox.Show("Please enter valid numeric values for quantity fields.", "Format Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -145,6 +168,27 @@ Public Class FrmMain
                     dbConn.Close()
                 End If
             End Try
+
+            If LblNewQty.Text = TBoxQtyEndorsed.Text Then
+                'GBoxData.Enabled = False
+                TBoxSerialNo.Clear()
+                CBoxStation.Text = Nothing
+                TBoxFailureSymptoms.Clear()
+
+                TBoxSerialNo.Enabled = False
+                CBoxStation.Enabled = False
+                TBoxFailureSymptoms.Enabled = False
+
+                BtnEndorse.Enabled = False
+                BtnDataClear.Enabled = False
+
+                BtnEndorseAnotherModel.Enabled = True
+                BtnSubmit.Enabled = True
+
+                LblSerialNo.Focus()
+            Else
+                BtnSubmit.Enabled = False
+            End If
         End If
     End Sub
 
@@ -177,13 +221,11 @@ Public Class FrmMain
     Private Sub Load_TempEndorsementData()
         Try
             Dim dbTable As New DSEndorsementData.DTEndorsementDataDataTable
-            Dim q = "SELECT
-                        ROW_NUMBER() OVER (ORDER BY id) AS id, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by
-                    FROM
-                        TempEndorsement
-                    WHERE endorsement_no = '" & TboxEndorsementNo.Text & "'"
+            Dim StoredProcedure = "LoadTempEndorsementData"
             dbConn.Open()
-            Using dbCmd As New SqlCommand(q, dbConn)
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                'dbCmd.Parameters.AddWithValue("@endtNo", TboxEndorsementNo.Text)
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
                     dbAdapter.Fill(dbTable)
                 End Using
@@ -294,14 +336,64 @@ Public Class FrmMain
         End If
     End Sub
 
+    Private CBoxModelPreviousValue As String
+    Private CboxModelIndex As Integer
+
     Private Sub CBoxModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBoxModel.SelectedIndexChanged
         Load_Station()
+
+        If CBoxModel.Text = Nothing Then
+            TBoxPPONo.ReadOnly = True
+            TBoxPPOQty.ReadOnly = True
+            TBoxLotNo.ReadOnly = True
+            TBoxWorkOrder.ReadOnly = True
+            TBoxQtyEndorsed.ReadOnly = True
+            DTPDateFailed.Enabled = False
+            DTPEndorsementDate.Enabled = False
+
+            CBoxStation.DataSource = Nothing
+        Else
+            TBoxPPONo.ReadOnly = False
+            TBoxPPOQty.ReadOnly = False
+            TBoxLotNo.ReadOnly = False
+            TBoxWorkOrder.ReadOnly = False
+            TBoxQtyEndorsed.ReadOnly = False
+            DTPDateFailed.Enabled = True
+            DTPEndorsementDate.Enabled = True
+        End If
+
+        ' Clears the value if selected item is not equal from the previous
+        If CBoxModel.Text <> CBoxModelPreviousValue Then
+            TBoxPPONo.Clear()
+            TBoxPPOQty.Clear()
+            TBoxLotNo.Clear()
+            TBoxWorkOrder.Clear()
+            TBoxQtyEndorsed.Clear()
+        End If
+
+        CBoxModelPreviousValue = CBoxModel.Text
     End Sub
 
     Private Sub CBoxModel_TextChanged(sender As Object, e As EventArgs) Handles CBoxModel.TextChanged
-        If CBoxModel.Text = Nothing Then
-            CBoxStation.DataSource = Nothing
-        End If
+        'If CBoxModel.Text = Nothing Then
+        '    TBoxPPONo.ReadOnly = True
+        '    TBoxPPOQty.ReadOnly = True
+        '    TBoxLotNo.ReadOnly = True
+        '    TBoxWorkOrder.ReadOnly = True
+        '    TBoxQtyEndorsed.ReadOnly = True
+        '    DTPDateFailed.Enabled = False
+        '    DTPEndorsementDate.Enabled = False
+
+        '    CBoxStation.DataSource = Nothing
+        'Else
+        '    TBoxPPONo.ReadOnly = False
+        '    TBoxPPOQty.ReadOnly = False
+        '    TBoxLotNo.ReadOnly = False
+        '    TBoxWorkOrder.ReadOnly = False
+        '    TBoxQtyEndorsed.ReadOnly = False
+        '    DTPDateFailed.Enabled = True
+        '    DTPEndorsementDate.Enabled = True
+        'End If
     End Sub
 
     Private Sub TBoxPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxPPONo.KeyPress
@@ -400,8 +492,25 @@ Public Class FrmMain
         End If
     End Sub
 
+    Private TBoxEndorsedByModified As Boolean = False
+
     Private Sub TBoxEndorsedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxEndorsedBy.TextChanged
         TBoxEndorsedBy.CharacterCasing = CharacterCasing.Upper
+        TBoxEndorsedByModified = True
+
+        If TBoxEndorsedBy.TextLength > 0 Then
+            CBoxModel.Enabled = True
+        Else
+            CBoxModel.Enabled = False
+        End If
+    End Sub
+
+    Private Sub TBoxEndorsedBy_Leave(sender As Object, e As EventArgs) Handles TBoxEndorsedBy.Leave
+        ' Check if the TextBox has been modified and if it's not already disabled
+        If TBoxEndorsedByModified AndAlso TBoxEndorsedBy.ReadOnly = False Then
+            ' Disable the TextBox
+            TBoxEndorsedBy.ReadOnly = True
+        End If
     End Sub
 
     Private Sub TBoxSerialNo_TextChanged(sender As Object, e As EventArgs) Handles TBoxSerialNo.TextChanged
@@ -459,7 +568,7 @@ Public Class FrmMain
             Using dbCmd As New SqlCommand(Query, dbConn)
                 Dim count As Integer = Convert.ToInt32(dbCmd.ExecuteScalar())
 
-                LblCount.Text = count.ToString
+                LblTotalQty.Text = count.ToString
 
             End Using
             dbConn.Close()
@@ -479,17 +588,42 @@ Public Class FrmMain
             MessageBox.Show("Please ensure all fields with an error mark are in the correct format.", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         Else
-            GBoxData.Enabled = True
             GBoxInformation.Enabled = False
+            GBoxData.Enabled = True
+            BtnEndorseAnotherModel.Enabled = False
+
+            TBoxSerialNo.Enabled = True
+            CBoxStation.Enabled = True
+            TBoxFailureSymptoms.Enabled = True
+            BtnEndorse.Enabled = True
+            BtnDataClear.Enabled = True
+            BtnReturn.Enabled = True
+
             BtnSubmit.Enabled = True
             BtnCancel.Enabled = True
 
+            TBoxSerialNo.Focus()
             Try
                 Dim StoredProcedure = "CreateTempEndorsementTable"
                 dbConn.Open()
                 Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
                     dbCmd.CommandType = CommandType.StoredProcedure
                     dbCmd.ExecuteNonQuery()
+                End Using
+                dbConn.Close()
+
+                ' Check if TempEndorsement have already data then BtnSubmit will Enable
+                dbConn.Open()
+                Dim Query = "SELECT * FROM TempEndorsement"
+                Using dbCmd As New SqlCommand(Query, dbConn)
+                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                        dbReader.Read()
+                        If dbReader.HasRows Then
+                            BtnSubmit.Enabled = True
+                        Else
+                            BtnSubmit.Enabled = False
+                        End If
+                    End Using
                 End Using
                 dbConn.Close()
             Catch ex As SqlException
@@ -513,18 +647,49 @@ Public Class FrmMain
         End If
     End Sub
 
+    Private Sub DropTempEndorsementTable()
+        Try
+            Dim StoredProcedure = "DropTempEndorsementTable"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            ' Handle database-related errors
+            MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            ' Handle other types of exceptions
+            MessageBox.Show(ex.Message, "Error Dropping Database Table", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub BtnEndorseAnotherModel_Click(sender As Object, e As EventArgs) Handles BtnEndorseAnotherModel.Click
+        GBoxInformation.Enabled = True
+        BtnReset.Enabled = False
+        GBoxData.Enabled = False
+        CBoxModel.Text = Nothing
+        TBoxSerialNo.Clear()
+        CBoxStation.Text = Nothing
+        TBoxFailureSymptoms.Clear()
+        LblNewQty.Text = 0
+    End Sub
+
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
         Dim dialogResult As DialogResult = MessageBox.Show("Do you want to cancel endorsement?" & vbCrLf & vbCrLf & "Please take note that it will remove all the data you've scanned.", "Confirm Cancellation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If dialogResult = DialogResult.Yes Then
-            GBoxData.Enabled = False
-            GBoxInformation.Enabled = True
+            'GBoxData.Enabled = False
+            'GBoxInformation.Enabled = True
+            'BtnSubmit.Enabled = False
+            'BtnCancel.Enabled = False
 
-            'BtnScan.Enabled = True
-            'BtnInformationClear.Enabled = True
-
-            BtnSubmit.Enabled = False
-            BtnCancel.Enabled = False
+            Reset_Fillup_Form()
 
             Try
                 Dim StoredProcedure = "DropTempEndorsementTable"
@@ -538,10 +703,25 @@ Public Class FrmMain
                 dbConn.Close()
                 MessageBox.Show(ex.Message, "Error Cancelling", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
+            DGVEndorsementData.DataSource = Nothing
+            LblTotalQty.Text = 0
             TBoxSerialNo.Clear()
             CBoxStation.Text = Nothing
             TBoxFailureSymptoms.Clear()
         End If
+    End Sub
+
+    Private Sub BtnReset_Click(sender As Object, e As EventArgs) Handles BtnReset.Click
+        CBoxModel.Text = Nothing
+        TBoxEndorsedBy.Clear()
+        TBoxEndorsedBy.ReadOnly = False
+    End Sub
+
+    Private Sub BtnReturn_Click(sender As Object, e As EventArgs) Handles BtnReturn.Click
+        GBoxInformation.Enabled = True
+        BtnDataClear.PerformClick()
+        GBoxData.Enabled = False
+        GBoxInformation.Focus()
     End Sub
 
     Private Sub BtnDataClear_Click(sender As Object, e As EventArgs) Handles BtnDataClear.Click
@@ -552,5 +732,81 @@ Public Class FrmMain
 
     Private Sub TBoxFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles TBoxFailureSymptoms.TextChanged
         TBoxFailureSymptoms.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxFailureSymptoms_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxFailureSymptoms.KeyPress
+        If TBoxFailureSymptoms.TextLength = 0 Then
+            If e.KeyChar = ChrW(Keys.Space) Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnRcvCheckData_Click(sender As Object, e As EventArgs) Handles BtnRcvCheckData.Click
+        Try
+            Dim dbTable As New DSEndorsementData.DTEndorsementDataDataTable
+            Dim StoredProcedure = "LoadEndorsementData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@endtNo", TBoxRcvEndtNo.Text)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+
+            Dim Query = "SELECT COUNT(id) AS id FROM Endorsement WHERE endorsement_no='" & TBoxRcvEndtNo.Text & "'"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(Query, dbConn)
+                'dbCmd.CommandType = CommandType.StoredProcedure
+                'dbCmd.Parameters.AddWithValue("@endtNo", TBoxRcvEndtNo.Text)
+                Dim Count As Integer = dbCmd.ExecuteScalar
+                LblEndtTotalQty.Text = Count
+            End Using
+            dbConn.Close()
+
+            DGVRcvEndtData.DataSource = dbTable
+            DGVRcvEndtData.ClearSelection()
+        Catch ex As SqlException
+            ' Handle database-related errors
+            MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            ' Handle other types of exceptions
+            MessageBox.Show(ex.Message, "Error Searching Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub TBoxRcvEndtNo_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvEndtNo.TextChanged
+
+    End Sub
+
+    Private Sub BtnRcvReset_Click(sender As Object, e As EventArgs) Handles BtnRcvReset.Click
+        TBoxRcvEndtNo.Clear()
+        TBoxRcvReceivedBy.Clear()
+        LblRcvStatus.Visible = False
+        LblRcvReceivedDateTitle.Visible = False
+        LblRcvReceivedDate.Visible = False
+        LblRcvRcvdDate.Visible = False
+    End Sub
+
+    Private Sub TBoxRcvEndtNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxRcvEndtNo.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TBoxRcvReceivedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvReceivedBy.TextChanged
+        TBoxRcvReceivedBy.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnRcvCheckData.PerformClick()
+        End If
     End Sub
 End Class
