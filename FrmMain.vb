@@ -18,7 +18,7 @@ Public Class FrmMain
         TBoxWorkweek.Text = Format(workweek, "00")
         Load_Latest_EndorsementNo()
         Load_Model_Variant()
-        DropTempEndorsementTable()
+        DropTempEndorsementTable() ' Drop the temporary endorsement table
 
         CBoxModel.Enabled = False
         TBoxPPONo.ReadOnly = True
@@ -102,6 +102,30 @@ Public Class FrmMain
             Return
         Else
             Try
+                Dim Query = "SELECT serial_no FROM TempEndorsement WHERE serial_no='" & TBoxSerialNo.Text & "'"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(Query, dbConn)
+                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                        dbReader.Read()
+                        If dbReader.HasRows Then
+                            MessageBox.Show(dbReader("serial_no") & vbCrLf & vbCrLf & "Serial have already scanned.", "Duplicate Serial", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            TBoxSerialNo.Clear()
+                            Return
+                        End If
+                    End Using
+                End Using
+                dbConn.Close()
+            Catch ex As SqlException
+                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Captururing Duplicate Serial.", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+
+            Try
                 Dim StoredProcedure As String = "InsertTempEndorsementData"
                 dbConn.Open()
                 Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
@@ -153,15 +177,12 @@ Public Class FrmMain
             Catch ex As FormatException
                 ' Handle format exceptions (e.g., parsing integers)
                 MessageBox.Show("Please enter valid numeric values for quantity fields.", "Format Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
             Catch ex As SqlException
                 ' Handle database-related errors
                 MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
             Catch ex As Exception
                 ' Handle other types of exceptions
                 MessageBox.Show(ex.Message, "Error Endorsing Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
             Finally
                 ' Close the database connection
                 If dbConn.State = ConnectionState.Open Then
@@ -753,8 +774,65 @@ Public Class FrmMain
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
                     dbAdapter.Fill(dbTable)
                 End Using
+
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.NextResult()
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        If Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) Then
+                            LblRcvStatus.ForeColor = Color.DarkGreen
+                            LblRcvStatus.Text = "ALREADY RECEIVED"
+                        Else
+                            LblRcvStatus.ForeColor = Color.DarkRed
+                            LblRcvStatus.Text = "NOT YET RECEIVED" ' or any other default value or message
+                        End If
+
+                        LblRcvStatus.Visible = True
+                        LblRcvReceivedDateTitle.Visible = True
+
+                        If Not dbReader.IsDBNull(dbReader.GetOrdinal("date")) Then
+                            'LblRcvRcvdDate.ForeColor = SystemColors.ControlText
+                            LblRcvRcvdDate.ForeColor = Color.DarkGreen
+                            LblRcvRcvdDate.Text = Convert.ToDateTime(dbReader("date")).ToString("MMMM dd, yyyy")
+                        Else
+                            LblRcvRcvdDate.ForeColor = Color.DarkRed
+                            LblRcvRcvdDate.Text = "N/A" ' or any other default value or message
+                        End If
+
+                        LblRcvRcvdDate.Visible = True
+                        LblRcvReceiver.Visible = True
+
+                        If Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) Then
+                            'lblRcvReceiverName.ForeColor = SystemColors.ControlText
+                            lblRcvReceiverName.ForeColor = Color.DarkGreen
+                            lblRcvReceiverName.Text = dbReader("receiver")
+                        Else
+                            lblRcvReceiverName.ForeColor = Color.DarkRed
+                            lblRcvReceiverName.Text = "N/A" ' or any other default value or message
+                        End If
+
+                        lblRcvReceiverName.Visible = True
+                    Else
+                        LblRcvStatus.Text = Nothing
+                        LblRcvStatus.Visible = False
+
+                        LblRcvReceivedDateTitle.Visible = False
+                        LblRcvRcvdDate.Text = Nothing
+                        LblRcvRcvdDate.Visible = False
+
+                        LblRcvReceiver.Visible = False
+                        lblRcvReceiverName.Text = Nothing
+                        lblRcvReceiverName.Visible = False
+                    End If
+                End Using
             End Using
             dbConn.Close()
+
+            If LblRcvStatus.Text = "ALREADY RECEIVED" Then
+                BtnRcvSubmit.Enabled = False
+            Else
+                BtnRcvSubmit.Enabled = True
+            End If
 
             Dim Query = "SELECT COUNT(id) AS id FROM Endorsement WHERE endorsement_no='" & TBoxRcvEndtNo.Text & "'"
             dbConn.Open()
@@ -790,14 +868,54 @@ Public Class FrmMain
         TBoxRcvReceivedBy.Clear()
         LblRcvStatus.Visible = False
         LblRcvReceivedDateTitle.Visible = False
-        LblRcvReceivedDate.Visible = False
         LblRcvRcvdDate.Visible = False
+        LblRcvReceiver.Visible = False
+        lblRcvReceiverName.Visible = False
+        DGVRcvEndtData.DataSource = Nothing
+        LblEndtTotalQty.Text = 0
+        BtnRcvSubmit.Enabled = True
+    End Sub
+
+    Private Sub BtnRcvSubmit_Click(sender As Object, e As EventArgs) Handles BtnRcvSubmit.Click
+        If TBoxRcvEndtNo.Text = Nothing Or TBoxRcvReceivedBy.Text = Nothing Then
+            MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Try
+            Dim StoredProcedure = "InsertReceivingData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@endtNo", TBoxRcvEndtNo.Text)
+                dbCmd.Parameters.AddWithValue("@receiver", TBoxRcvReceivedBy.Text)
+                dbCmd.Parameters.AddWithValue("@date", DateNow)
+                dbCmd.Parameters.AddWithValue("@time", TimeNow)
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+            BtnRcvReset.PerformClick()
+        Catch ex As SqlException
+            ' Handle database-related errors
+            MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            ' Handle other types of exceptions
+            MessageBox.Show(ex.Message, "Error Submitting Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
     End Sub
 
     Private Sub TBoxRcvEndtNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxRcvEndtNo.KeyPress
         If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
             e.Handled = True
         End If
+    End Sub
+
+    Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        DropTempEndorsementTable()
     End Sub
 
     Private Sub TBoxRcvReceivedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvReceivedBy.TextChanged
@@ -807,6 +925,12 @@ Public Class FrmMain
     Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnRcvCheckData.PerformClick()
+        End If
+    End Sub
+
+    Private Sub TBoxRcvReceivedBy_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvReceivedBy.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnRcvSubmit.PerformClick()
         End If
     End Sub
 End Class

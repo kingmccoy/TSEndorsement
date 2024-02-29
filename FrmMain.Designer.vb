@@ -23,12 +23,12 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LblQtyEndorsed = New System.Windows.Forms.Label()
         Me.TBoxQtyEndorsed = New System.Windows.Forms.TextBox()
         Me.LblModel = New System.Windows.Forms.Label()
@@ -73,7 +73,6 @@ Partial Class FrmMain
         Me.LblDefectType = New System.Windows.Forms.Label()
         Me.TBoxDefectType = New System.Windows.Forms.TextBox()
         Me.LblStatus = New System.Windows.Forms.Label()
-        Me.TBoxStatus = New System.Windows.Forms.TextBox()
         Me.LblRemarks = New System.Windows.Forms.Label()
         Me.TBoxRemarks = New System.Windows.Forms.TextBox()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
@@ -130,6 +129,12 @@ Partial Class FrmMain
         Me.LblEndtTotalQty = New System.Windows.Forms.Label()
         Me.LblRcvEndtTotalQty = New System.Windows.Forms.Label()
         Me.GBoxRcvSearchInfo = New System.Windows.Forms.GroupBox()
+        Me.BtnRcvReset = New System.Windows.Forms.Button()
+        Me.lblRcvReceiverName = New System.Windows.Forms.Label()
+        Me.LblRcvRcvdDate = New System.Windows.Forms.Label()
+        Me.LblRcvReceiver = New System.Windows.Forms.Label()
+        Me.LblRcvStatus = New System.Windows.Forms.Label()
+        Me.LblRcvReceivedDateTitle = New System.Windows.Forms.Label()
         Me.BtnRcvSubmit = New System.Windows.Forms.Button()
         Me.BtnRcvCheckData = New System.Windows.Forms.Button()
         Me.LblRcvEndtNo = New System.Windows.Forms.Label()
@@ -141,12 +146,12 @@ Partial Class FrmMain
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LblRcvReceivedDateTitle = New System.Windows.Forms.Label()
-        Me.LblRcvStatus = New System.Windows.Forms.Label()
-        Me.LblRcvReceivedDate = New System.Windows.Forms.Label()
-        Me.LblRcvRcvdDate = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.BtnRcvReset = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
@@ -162,6 +167,8 @@ Partial Class FrmMain
         Me.TabPageTS.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -379,23 +386,26 @@ Partial Class FrmMain
         'LblValidatedBy
         '
         Me.LblValidatedBy.AutoSize = True
-        Me.LblValidatedBy.Location = New System.Drawing.Point(6, 3)
+        Me.LblValidatedBy.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblValidatedBy.Location = New System.Drawing.Point(6, 18)
         Me.LblValidatedBy.Name = "LblValidatedBy"
-        Me.LblValidatedBy.Size = New System.Drawing.Size(73, 13)
+        Me.LblValidatedBy.Size = New System.Drawing.Size(70, 13)
         Me.LblValidatedBy.TabIndex = 0
-        Me.LblValidatedBy.Text = "Validated by:"
+        Me.LblValidatedBy.Text = "Received by:"
         '
         'TBoxValidatedBy
         '
-        Me.TBoxValidatedBy.Location = New System.Drawing.Point(6, 19)
+        Me.TBoxValidatedBy.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxValidatedBy.Location = New System.Drawing.Point(6, 34)
         Me.TBoxValidatedBy.Name = "TBoxValidatedBy"
-        Me.TBoxValidatedBy.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxValidatedBy.Size = New System.Drawing.Size(123, 22)
         Me.TBoxValidatedBy.TabIndex = 1
         '
         'LblAnalysis
         '
         Me.LblAnalysis.AutoSize = True
-        Me.LblAnalysis.Location = New System.Drawing.Point(6, 42)
+        Me.LblAnalysis.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblAnalysis.Location = New System.Drawing.Point(471, 31)
         Me.LblAnalysis.Name = "LblAnalysis"
         Me.LblAnalysis.Size = New System.Drawing.Size(48, 13)
         Me.LblAnalysis.TabIndex = 0
@@ -403,15 +413,17 @@ Partial Class FrmMain
         '
         'TBoxAnalysis
         '
-        Me.TBoxAnalysis.Location = New System.Drawing.Point(6, 59)
+        Me.TBoxAnalysis.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxAnalysis.Location = New System.Drawing.Point(471, 47)
         Me.TBoxAnalysis.Name = "TBoxAnalysis"
-        Me.TBoxAnalysis.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxAnalysis.Size = New System.Drawing.Size(123, 22)
         Me.TBoxAnalysis.TabIndex = 1
         '
         'LblActionTaken
         '
         Me.LblActionTaken.AutoSize = True
-        Me.LblActionTaken.Location = New System.Drawing.Point(6, 82)
+        Me.LblActionTaken.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblActionTaken.Location = New System.Drawing.Point(471, 113)
         Me.LblActionTaken.Name = "LblActionTaken"
         Me.LblActionTaken.Size = New System.Drawing.Size(73, 13)
         Me.LblActionTaken.TabIndex = 0
@@ -419,15 +431,17 @@ Partial Class FrmMain
         '
         'TBoxActionTaken
         '
-        Me.TBoxActionTaken.Location = New System.Drawing.Point(6, 99)
+        Me.TBoxActionTaken.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxActionTaken.Location = New System.Drawing.Point(471, 129)
         Me.TBoxActionTaken.Name = "TBoxActionTaken"
-        Me.TBoxActionTaken.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxActionTaken.Size = New System.Drawing.Size(123, 22)
         Me.TBoxActionTaken.TabIndex = 1
         '
         'LblLoc1
         '
         Me.LblLoc1.AutoSize = True
-        Me.LblLoc1.Location = New System.Drawing.Point(6, 122)
+        Me.LblLoc1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLoc1.Location = New System.Drawing.Point(471, 154)
         Me.LblLoc1.Name = "LblLoc1"
         Me.LblLoc1.Size = New System.Drawing.Size(60, 13)
         Me.LblLoc1.TabIndex = 0
@@ -435,15 +449,17 @@ Partial Class FrmMain
         '
         'TBoxLocation1
         '
-        Me.TBoxLocation1.Location = New System.Drawing.Point(6, 139)
+        Me.TBoxLocation1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxLocation1.Location = New System.Drawing.Point(471, 170)
         Me.TBoxLocation1.Name = "TBoxLocation1"
-        Me.TBoxLocation1.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxLocation1.Size = New System.Drawing.Size(123, 22)
         Me.TBoxLocation1.TabIndex = 1
         '
         'LblLoc2
         '
         Me.LblLoc2.AutoSize = True
-        Me.LblLoc2.Location = New System.Drawing.Point(6, 162)
+        Me.LblLoc2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLoc2.Location = New System.Drawing.Point(471, 195)
         Me.LblLoc2.Name = "LblLoc2"
         Me.LblLoc2.Size = New System.Drawing.Size(60, 13)
         Me.LblLoc2.TabIndex = 0
@@ -451,15 +467,17 @@ Partial Class FrmMain
         '
         'TBoxLocation2
         '
-        Me.TBoxLocation2.Location = New System.Drawing.Point(6, 179)
+        Me.TBoxLocation2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxLocation2.Location = New System.Drawing.Point(471, 211)
         Me.TBoxLocation2.Name = "TBoxLocation2"
-        Me.TBoxLocation2.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxLocation2.Size = New System.Drawing.Size(123, 22)
         Me.TBoxLocation2.TabIndex = 1
         '
         'LblLoc3
         '
         Me.LblLoc3.AutoSize = True
-        Me.LblLoc3.Location = New System.Drawing.Point(6, 202)
+        Me.LblLoc3.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLoc3.Location = New System.Drawing.Point(471, 236)
         Me.LblLoc3.Name = "LblLoc3"
         Me.LblLoc3.Size = New System.Drawing.Size(60, 13)
         Me.LblLoc3.TabIndex = 0
@@ -467,15 +485,17 @@ Partial Class FrmMain
         '
         'TBoxLocation3
         '
-        Me.TBoxLocation3.Location = New System.Drawing.Point(6, 218)
+        Me.TBoxLocation3.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxLocation3.Location = New System.Drawing.Point(471, 252)
         Me.TBoxLocation3.Name = "TBoxLocation3"
-        Me.TBoxLocation3.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxLocation3.Size = New System.Drawing.Size(123, 22)
         Me.TBoxLocation3.TabIndex = 1
         '
         'LblLoc4
         '
         Me.LblLoc4.AutoSize = True
-        Me.LblLoc4.Location = New System.Drawing.Point(6, 242)
+        Me.LblLoc4.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLoc4.Location = New System.Drawing.Point(471, 277)
         Me.LblLoc4.Name = "LblLoc4"
         Me.LblLoc4.Size = New System.Drawing.Size(60, 13)
         Me.LblLoc4.TabIndex = 0
@@ -483,15 +503,17 @@ Partial Class FrmMain
         '
         'TBoxLocation4
         '
-        Me.TBoxLocation4.Location = New System.Drawing.Point(6, 258)
+        Me.TBoxLocation4.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxLocation4.Location = New System.Drawing.Point(471, 293)
         Me.TBoxLocation4.Name = "TBoxLocation4"
-        Me.TBoxLocation4.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxLocation4.Size = New System.Drawing.Size(123, 22)
         Me.TBoxLocation4.TabIndex = 1
         '
         'LblLoc5
         '
         Me.LblLoc5.AutoSize = True
-        Me.LblLoc5.Location = New System.Drawing.Point(159, 3)
+        Me.LblLoc5.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLoc5.Location = New System.Drawing.Point(471, 318)
         Me.LblLoc5.Name = "LblLoc5"
         Me.LblLoc5.Size = New System.Drawing.Size(60, 13)
         Me.LblLoc5.TabIndex = 0
@@ -499,15 +521,17 @@ Partial Class FrmMain
         '
         'TBoxLocation5
         '
-        Me.TBoxLocation5.Location = New System.Drawing.Point(159, 19)
+        Me.TBoxLocation5.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxLocation5.Location = New System.Drawing.Point(471, 334)
         Me.TBoxLocation5.Name = "TBoxLocation5"
-        Me.TBoxLocation5.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxLocation5.Size = New System.Drawing.Size(123, 22)
         Me.TBoxLocation5.TabIndex = 1
         '
         'LblRepairedBy
         '
         Me.LblRepairedBy.AutoSize = True
-        Me.LblRepairedBy.Location = New System.Drawing.Point(159, 42)
+        Me.LblRepairedBy.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRepairedBy.Location = New System.Drawing.Point(471, 359)
         Me.LblRepairedBy.Name = "LblRepairedBy"
         Me.LblRepairedBy.Size = New System.Drawing.Size(71, 13)
         Me.LblRepairedBy.TabIndex = 0
@@ -515,15 +539,17 @@ Partial Class FrmMain
         '
         'TBoxRepairedBy
         '
-        Me.TBoxRepairedBy.Location = New System.Drawing.Point(159, 59)
+        Me.TBoxRepairedBy.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxRepairedBy.Location = New System.Drawing.Point(471, 375)
         Me.TBoxRepairedBy.Name = "TBoxRepairedBy"
-        Me.TBoxRepairedBy.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxRepairedBy.Size = New System.Drawing.Size(123, 22)
         Me.TBoxRepairedBy.TabIndex = 1
         '
         'LblDateRepaired
         '
         Me.LblDateRepaired.AutoSize = True
-        Me.LblDateRepaired.Location = New System.Drawing.Point(159, 82)
+        Me.LblDateRepaired.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDateRepaired.Location = New System.Drawing.Point(471, 400)
         Me.LblDateRepaired.Name = "LblDateRepaired"
         Me.LblDateRepaired.Size = New System.Drawing.Size(80, 13)
         Me.LblDateRepaired.TabIndex = 0
@@ -532,7 +558,8 @@ Partial Class FrmMain
         'LblDefectType
         '
         Me.LblDefectType.AutoSize = True
-        Me.LblDefectType.Location = New System.Drawing.Point(159, 122)
+        Me.LblDefectType.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDefectType.Location = New System.Drawing.Point(471, 72)
         Me.LblDefectType.Name = "LblDefectType"
         Me.LblDefectType.Size = New System.Drawing.Size(66, 13)
         Me.LblDefectType.TabIndex = 0
@@ -540,31 +567,27 @@ Partial Class FrmMain
         '
         'TBoxDefectType
         '
-        Me.TBoxDefectType.Location = New System.Drawing.Point(159, 139)
+        Me.TBoxDefectType.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxDefectType.Location = New System.Drawing.Point(471, 88)
         Me.TBoxDefectType.Name = "TBoxDefectType"
-        Me.TBoxDefectType.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxDefectType.Size = New System.Drawing.Size(123, 22)
         Me.TBoxDefectType.TabIndex = 1
         '
         'LblStatus
         '
         Me.LblStatus.AutoSize = True
-        Me.LblStatus.Location = New System.Drawing.Point(159, 162)
+        Me.LblStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStatus.Location = New System.Drawing.Point(628, 31)
         Me.LblStatus.Name = "LblStatus"
         Me.LblStatus.Size = New System.Drawing.Size(39, 13)
         Me.LblStatus.TabIndex = 0
         Me.LblStatus.Text = "Status"
         '
-        'TBoxStatus
-        '
-        Me.TBoxStatus.Location = New System.Drawing.Point(159, 179)
-        Me.TBoxStatus.Name = "TBoxStatus"
-        Me.TBoxStatus.Size = New System.Drawing.Size(100, 22)
-        Me.TBoxStatus.TabIndex = 1
-        '
         'LblRemarks
         '
         Me.LblRemarks.AutoSize = True
-        Me.LblRemarks.Location = New System.Drawing.Point(159, 202)
+        Me.LblRemarks.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRemarks.Location = New System.Drawing.Point(628, 113)
         Me.LblRemarks.Name = "LblRemarks"
         Me.LblRemarks.Size = New System.Drawing.Size(50, 13)
         Me.LblRemarks.TabIndex = 0
@@ -572,19 +595,21 @@ Partial Class FrmMain
         '
         'TBoxRemarks
         '
-        Me.TBoxRemarks.Location = New System.Drawing.Point(159, 218)
+        Me.TBoxRemarks.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBoxRemarks.Location = New System.Drawing.Point(628, 129)
         Me.TBoxRemarks.Name = "TBoxRemarks"
-        Me.TBoxRemarks.Size = New System.Drawing.Size(100, 22)
+        Me.TBoxRemarks.Size = New System.Drawing.Size(123, 22)
         Me.TBoxRemarks.TabIndex = 1
         '
         'DateTimePicker1
         '
         Me.DateTimePicker1.Checked = False
         Me.DateTimePicker1.CustomFormat = "MMM dd, yyyy"
+        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePicker1.Location = New System.Drawing.Point(159, 99)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(471, 416)
         Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(100, 22)
+        Me.DateTimePicker1.Size = New System.Drawing.Size(123, 22)
         Me.DateTimePicker1.TabIndex = 2
         '
         'DTPDateFailed
@@ -900,8 +925,8 @@ Partial Class FrmMain
         Me.DGVEndorsementData.AllowUserToAddRows = False
         Me.DGVEndorsementData.AllowUserToDeleteRows = False
         Me.DGVEndorsementData.AllowUserToResizeRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.DGVEndorsementData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.DGVEndorsementData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.DGVEndorsementData.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -909,25 +934,25 @@ Partial Class FrmMain
         Me.DGVEndorsementData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DGVEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
         Me.DGVEndorsementData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGVEndorsementData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGVEndorsementData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
         Me.DGVEndorsementData.ColumnHeadersHeight = 20
         Me.DGVEndorsementData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19, Me.DataGridViewTextBoxColumn20})
         Me.DGVEndorsementData.DataSource = Me.DTEndorsementDataBindingSource
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGVEndorsementData.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGVEndorsementData.DefaultCellStyle = DataGridViewCellStyle21
         Me.DGVEndorsementData.Location = New System.Drawing.Point(5, 20)
         Me.DGVEndorsementData.Name = "DGVEndorsementData"
         Me.DGVEndorsementData.ReadOnly = True
@@ -1053,31 +1078,31 @@ Partial Class FrmMain
         Me.DGVRcvEndtData.AllowUserToAddRows = False
         Me.DGVRcvEndtData.AllowUserToDeleteRows = False
         Me.DGVRcvEndtData.AllowUserToResizeRows = False
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.DGVRcvEndtData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.DGVRcvEndtData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.DGVRcvEndtData.AutoGenerateColumns = False
         Me.DGVRcvEndtData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DGVRcvEndtData.BackgroundColor = System.Drawing.SystemColors.Control
         Me.DGVRcvEndtData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGVRcvEndtData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGVRcvEndtData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.DGVRcvEndtData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGVRcvEndtData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn21, Me.DataGridViewTextBoxColumn22, Me.DataGridViewTextBoxColumn23, Me.DataGridViewTextBoxColumn24, Me.DataGridViewTextBoxColumn25, Me.DataGridViewTextBoxColumn26, Me.DataGridViewTextBoxColumn27, Me.DataGridViewTextBoxColumn28, Me.DataGridViewTextBoxColumn29, Me.DataGridViewTextBoxColumn30})
         Me.DGVRcvEndtData.DataSource = Me.DTEndorsementDataBindingSource
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGVRcvEndtData.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGVRcvEndtData.DefaultCellStyle = DataGridViewCellStyle24
         Me.DGVRcvEndtData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGVRcvEndtData.Location = New System.Drawing.Point(3, 18)
         Me.DGVRcvEndtData.Name = "DGVRcvEndtData"
@@ -1192,9 +1217,9 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GBoxRcvSearchInfo.Controls.Add(Me.BtnRcvReset)
-        Me.GBoxRcvSearchInfo.Controls.Add(Me.Label5)
+        Me.GBoxRcvSearchInfo.Controls.Add(Me.lblRcvReceiverName)
         Me.GBoxRcvSearchInfo.Controls.Add(Me.LblRcvRcvdDate)
-        Me.GBoxRcvSearchInfo.Controls.Add(Me.LblRcvReceivedDate)
+        Me.GBoxRcvSearchInfo.Controls.Add(Me.LblRcvReceiver)
         Me.GBoxRcvSearchInfo.Controls.Add(Me.LblRcvStatus)
         Me.GBoxRcvSearchInfo.Controls.Add(Me.LblRcvReceivedDateTitle)
         Me.GBoxRcvSearchInfo.Controls.Add(Me.BtnRcvSubmit)
@@ -1210,6 +1235,72 @@ Partial Class FrmMain
         Me.GBoxRcvSearchInfo.TabIndex = 4
         Me.GBoxRcvSearchInfo.TabStop = False
         Me.GBoxRcvSearchInfo.Text = "Search Information"
+        '
+        'BtnRcvReset
+        '
+        Me.BtnRcvReset.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRcvReset.Location = New System.Drawing.Point(416, 32)
+        Me.BtnRcvReset.Name = "BtnRcvReset"
+        Me.BtnRcvReset.Size = New System.Drawing.Size(59, 26)
+        Me.BtnRcvReset.TabIndex = 28
+        Me.BtnRcvReset.Text = "Reset"
+        Me.BtnRcvReset.UseVisualStyleBackColor = True
+        '
+        'lblRcvReceiverName
+        '
+        Me.lblRcvReceiverName.AutoSize = True
+        Me.lblRcvReceiverName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblRcvReceiverName.Location = New System.Drawing.Point(935, 39)
+        Me.lblRcvReceiverName.Name = "lblRcvReceiverName"
+        Me.lblRcvReceiverName.Size = New System.Drawing.Size(62, 21)
+        Me.lblRcvReceiverName.TabIndex = 27
+        Me.lblRcvReceiverName.Text = "MACKY"
+        Me.lblRcvReceiverName.Visible = False
+        '
+        'LblRcvRcvdDate
+        '
+        Me.LblRcvRcvdDate.AutoSize = True
+        Me.LblRcvRcvdDate.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRcvRcvdDate.Location = New System.Drawing.Point(935, 18)
+        Me.LblRcvRcvdDate.Name = "LblRcvRcvdDate"
+        Me.LblRcvRcvdDate.Size = New System.Drawing.Size(137, 21)
+        Me.LblRcvRcvdDate.TabIndex = 26
+        Me.LblRcvRcvdDate.Text = "February 28, 2024"
+        Me.LblRcvRcvdDate.Visible = False
+        '
+        'LblRcvReceiver
+        '
+        Me.LblRcvReceiver.AutoSize = True
+        Me.LblRcvReceiver.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRcvReceiver.Location = New System.Drawing.Point(857, 39)
+        Me.LblRcvReceiver.Name = "LblRcvReceiver"
+        Me.LblRcvReceiver.Size = New System.Drawing.Size(72, 21)
+        Me.LblRcvReceiver.TabIndex = 25
+        Me.LblRcvReceiver.Text = "Receiver:"
+        Me.LblRcvReceiver.Visible = False
+        '
+        'LblRcvStatus
+        '
+        Me.LblRcvStatus.AutoSize = True
+        Me.LblRcvStatus.Font = New System.Drawing.Font("Segoe UI", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRcvStatus.ForeColor = System.Drawing.Color.DarkGreen
+        Me.LblRcvStatus.Location = New System.Drawing.Point(484, 12)
+        Me.LblRcvStatus.Name = "LblRcvStatus"
+        Me.LblRcvStatus.Size = New System.Drawing.Size(328, 47)
+        Me.LblRcvStatus.TabIndex = 24
+        Me.LblRcvStatus.Text = "ALREADY RECEIVED"
+        Me.LblRcvStatus.Visible = False
+        '
+        'LblRcvReceivedDateTitle
+        '
+        Me.LblRcvReceivedDateTitle.AutoSize = True
+        Me.LblRcvReceivedDateTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblRcvReceivedDateTitle.Location = New System.Drawing.Point(818, 18)
+        Me.LblRcvReceivedDateTitle.Name = "LblRcvReceivedDateTitle"
+        Me.LblRcvReceivedDateTitle.Size = New System.Drawing.Size(111, 21)
+        Me.LblRcvReceivedDateTitle.TabIndex = 23
+        Me.LblRcvReceivedDateTitle.Text = "Received Date:"
+        Me.LblRcvReceivedDateTitle.Visible = False
         '
         'BtnRcvSubmit
         '
@@ -1271,32 +1362,8 @@ Partial Class FrmMain
         '
         'TabPageTS
         '
-        Me.TabPageTS.Controls.Add(Me.LblValidatedBy)
-        Me.TabPageTS.Controls.Add(Me.DateTimePicker1)
-        Me.TabPageTS.Controls.Add(Me.LblLoc5)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation4)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation5)
-        Me.TabPageTS.Controls.Add(Me.LblLoc4)
-        Me.TabPageTS.Controls.Add(Me.LblRepairedBy)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation3)
-        Me.TabPageTS.Controls.Add(Me.TBoxRepairedBy)
-        Me.TabPageTS.Controls.Add(Me.LblLoc3)
-        Me.TabPageTS.Controls.Add(Me.LblDateRepaired)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation2)
-        Me.TabPageTS.Controls.Add(Me.LblDefectType)
-        Me.TabPageTS.Controls.Add(Me.LblLoc2)
-        Me.TabPageTS.Controls.Add(Me.TBoxValidatedBy)
-        Me.TabPageTS.Controls.Add(Me.TBoxLocation1)
-        Me.TabPageTS.Controls.Add(Me.TBoxDefectType)
-        Me.TabPageTS.Controls.Add(Me.LblLoc1)
-        Me.TabPageTS.Controls.Add(Me.LblAnalysis)
-        Me.TabPageTS.Controls.Add(Me.TBoxRemarks)
-        Me.TabPageTS.Controls.Add(Me.LblStatus)
-        Me.TabPageTS.Controls.Add(Me.TBoxActionTaken)
-        Me.TabPageTS.Controls.Add(Me.TBoxAnalysis)
-        Me.TabPageTS.Controls.Add(Me.LblRemarks)
-        Me.TabPageTS.Controls.Add(Me.TBoxStatus)
-        Me.TabPageTS.Controls.Add(Me.LblActionTaken)
+        Me.TabPageTS.Controls.Add(Me.GroupBox2)
+        Me.TabPageTS.Controls.Add(Me.GroupBox1)
         Me.TabPageTS.Location = New System.Drawing.Point(4, 22)
         Me.TabPageTS.Name = "TabPageTS"
         Me.TabPageTS.Padding = New System.Windows.Forms.Padding(3)
@@ -1336,71 +1403,97 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
         '
-        'LblRcvReceivedDateTitle
+        'TextBox1
         '
-        Me.LblRcvReceivedDateTitle.AutoSize = True
-        Me.LblRcvReceivedDateTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblRcvReceivedDateTitle.Location = New System.Drawing.Point(818, 18)
-        Me.LblRcvReceivedDateTitle.Name = "LblRcvReceivedDateTitle"
-        Me.LblRcvReceivedDateTitle.Size = New System.Drawing.Size(111, 21)
-        Me.LblRcvReceivedDateTitle.TabIndex = 23
-        Me.LblRcvReceivedDateTitle.Text = "Received Date:"
-        Me.LblRcvReceivedDateTitle.Visible = False
+        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(6, 34)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(123, 22)
+        Me.TextBox1.TabIndex = 4
+        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'LblRcvStatus
+        'Label1
         '
-        Me.LblRcvStatus.AutoSize = True
-        Me.LblRcvStatus.Font = New System.Drawing.Font("Segoe UI", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblRcvStatus.ForeColor = System.Drawing.Color.OliveDrab
-        Me.LblRcvStatus.Location = New System.Drawing.Point(484, 12)
-        Me.LblRcvStatus.Name = "LblRcvStatus"
-        Me.LblRcvStatus.Size = New System.Drawing.Size(328, 47)
-        Me.LblRcvStatus.TabIndex = 24
-        Me.LblRcvStatus.Text = "ALREADY RECEIVED"
-        Me.LblRcvStatus.Visible = False
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(6, 18)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 13)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Serial No."
         '
-        'LblRcvReceivedDate
+        'GroupBox1
         '
-        Me.LblRcvReceivedDate.AutoSize = True
-        Me.LblRcvReceivedDate.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblRcvReceivedDate.Location = New System.Drawing.Point(818, 39)
-        Me.LblRcvReceivedDate.Name = "LblRcvReceivedDate"
-        Me.LblRcvReceivedDate.Size = New System.Drawing.Size(72, 21)
-        Me.LblRcvReceivedDate.TabIndex = 25
-        Me.LblRcvReceivedDate.Text = "Receiver:"
-        Me.LblRcvReceivedDate.Visible = False
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(1101, 70)
+        Me.GroupBox1.TabIndex = 5
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Information"
         '
-        'LblRcvRcvdDate
+        'Button1
         '
-        Me.LblRcvRcvdDate.AutoSize = True
-        Me.LblRcvRcvdDate.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblRcvRcvdDate.Location = New System.Drawing.Point(935, 18)
-        Me.LblRcvRcvdDate.Name = "LblRcvRcvdDate"
-        Me.LblRcvRcvdDate.Size = New System.Drawing.Size(137, 21)
-        Me.LblRcvRcvdDate.TabIndex = 26
-        Me.LblRcvRcvdDate.Text = "February 28, 2024"
-        Me.LblRcvRcvdDate.Visible = False
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(135, 32)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(81, 26)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "Search"
+        Me.Button1.UseVisualStyleBackColor = True
         '
-        'Label5
+        'GroupBox2
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(935, 39)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(62, 21)
-        Me.Label5.TabIndex = 27
-        Me.Label5.Text = "MACKY"
-        Me.Label5.Visible = False
+        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.TBoxValidatedBy)
+        Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Controls.Add(Me.LblActionTaken)
+        Me.GroupBox2.Controls.Add(Me.LblValidatedBy)
+        Me.GroupBox2.Controls.Add(Me.DateTimePicker1)
+        Me.GroupBox2.Controls.Add(Me.LblRemarks)
+        Me.GroupBox2.Controls.Add(Me.LblLoc5)
+        Me.GroupBox2.Controls.Add(Me.TBoxAnalysis)
+        Me.GroupBox2.Controls.Add(Me.TBoxLocation4)
+        Me.GroupBox2.Controls.Add(Me.LblStatus)
+        Me.GroupBox2.Controls.Add(Me.TBoxActionTaken)
+        Me.GroupBox2.Controls.Add(Me.TBoxLocation5)
+        Me.GroupBox2.Controls.Add(Me.LblLoc4)
+        Me.GroupBox2.Controls.Add(Me.TBoxRemarks)
+        Me.GroupBox2.Controls.Add(Me.LblRepairedBy)
+        Me.GroupBox2.Controls.Add(Me.LblAnalysis)
+        Me.GroupBox2.Controls.Add(Me.TBoxLocation3)
+        Me.GroupBox2.Controls.Add(Me.LblLoc1)
+        Me.GroupBox2.Controls.Add(Me.TBoxRepairedBy)
+        Me.GroupBox2.Controls.Add(Me.TBoxDefectType)
+        Me.GroupBox2.Controls.Add(Me.LblLoc3)
+        Me.GroupBox2.Controls.Add(Me.TBoxLocation1)
+        Me.GroupBox2.Controls.Add(Me.LblDateRepaired)
+        Me.GroupBox2.Controls.Add(Me.LblLoc2)
+        Me.GroupBox2.Controls.Add(Me.TBoxLocation2)
+        Me.GroupBox2.Controls.Add(Me.LblDefectType)
+        Me.GroupBox2.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 82)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(1101, 454)
+        Me.GroupBox2.TabIndex = 6
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Data"
         '
-        'BtnRcvReset
+        'TextBox2
         '
-        Me.BtnRcvReset.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnRcvReset.Location = New System.Drawing.Point(416, 32)
-        Me.BtnRcvReset.Name = "BtnRcvReset"
-        Me.BtnRcvReset.Size = New System.Drawing.Size(59, 26)
-        Me.BtnRcvReset.TabIndex = 28
-        Me.BtnRcvReset.Text = "Reset"
-        Me.BtnRcvReset.UseVisualStyleBackColor = True
+        Me.TextBox2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.Location = New System.Drawing.Point(628, 47)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(123, 22)
+        Me.TextBox2.TabIndex = 3
         '
         'FrmMain
         '
@@ -1414,7 +1507,7 @@ Partial Class FrmMain
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.MinimumSize = New System.Drawing.Size(1137, 594)
+        Me.MinimumSize = New System.Drawing.Size(1137, 631)
         Me.Name = "FrmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Endorsement"
@@ -1437,10 +1530,13 @@ Partial Class FrmMain
         Me.GBoxRcvSearchInfo.ResumeLayout(False)
         Me.GBoxRcvSearchInfo.PerformLayout()
         Me.TabPageTS.ResumeLayout(False)
-        Me.TabPageTS.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1489,7 +1585,6 @@ Partial Class FrmMain
     Friend WithEvents LblDefectType As Label
     Friend WithEvents TBoxDefectType As TextBox
     Friend WithEvents LblStatus As Label
-    Friend WithEvents TBoxStatus As TextBox
     Friend WithEvents LblRemarks As Label
     Friend WithEvents TBoxRemarks As TextBox
     Friend WithEvents DateTimePicker1 As DateTimePicker
@@ -1578,10 +1673,16 @@ Partial Class FrmMain
     Friend WithEvents LblRcvEndtNo As Label
     Friend WithEvents TBoxRcvEndtNo As TextBox
     Friend WithEvents GBoxRcvEndtData As GroupBox
-    Friend WithEvents LblRcvReceivedDate As Label
+    Friend WithEvents LblRcvReceiver As Label
     Friend WithEvents LblRcvStatus As Label
     Friend WithEvents LblRcvReceivedDateTitle As Label
     Friend WithEvents LblRcvRcvdDate As Label
-    Friend WithEvents Label5 As Label
+    Friend WithEvents lblRcvReceiverName As Label
     Friend WithEvents BtnRcvReset As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents TextBox2 As TextBox
 End Class
