@@ -837,8 +837,6 @@ Public Class FrmMain
             Dim Query = "SELECT COUNT(id) AS id FROM Endorsement WHERE endorsement_no='" & TBoxRcvEndtNo.Text & "'"
             dbConn.Open()
             Using dbCmd As New SqlCommand(Query, dbConn)
-                'dbCmd.CommandType = CommandType.StoredProcedure
-                'dbCmd.Parameters.AddWithValue("@endtNo", TBoxRcvEndtNo.Text)
                 Dim Count As Integer = dbCmd.ExecuteScalar
                 LblEndtTotalQty.Text = Count
             End Using
@@ -860,7 +858,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub TBoxRcvEndtNo_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvEndtNo.TextChanged
-
+        TBoxRcvEndtNo.MaxLength = 9
     End Sub
 
     Private Sub BtnRcvReset_Click(sender As Object, e As EventArgs) Handles BtnRcvReset.Click
@@ -918,7 +916,77 @@ Public Class FrmMain
         DropTempEndorsementTable()
     End Sub
 
+    Private Sub BtnTSSearch_Click(sender As Object, e As EventArgs) Handles BtnTSSearch.Click
+        Try
+            Dim StoredProcedure = "GetTSData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        lblTSReceiverName.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")), dbReader.GetString(dbReader.GetOrdinal("receiver")), "N/A")
+                        TBoxTSAnalysis.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("analysis")), dbReader.GetString(dbReader.GetOrdinal("analysis")), "")
+                        TBoxTSActionTaken.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("action_taken")), dbReader.GetString(dbReader.GetOrdinal("action_taken")), "")
+                        TBoxTSLocation1.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location1")), dbReader.GetString(dbReader.GetOrdinal("location1")), "")
+                        TBoxTSLocation2.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location2")), dbReader.GetString(dbReader.GetOrdinal("location2")), "")
+                        TBoxTSLocation3.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location3")), dbReader.GetString(dbReader.GetOrdinal("location3")), "")
+                        TBoxTSLocation4.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location4")), dbReader.GetString(dbReader.GetOrdinal("location4")), "")
+                        TBoxTSLocation5.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location5")), dbReader.GetString(dbReader.GetOrdinal("location5")), "")
+                        TBoxTSRepairedBy.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("repaired_by")), dbReader.GetString(dbReader.GetOrdinal("repaired_by")), "")
+                        DTPTSDateRepaired.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_repaired")), dbReader.GetDateTime(dbReader.GetOrdinal("date_repaired")).ToString(), "")
+                        TBoxTSDefectType.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("deffect_type")), dbReader.GetString(dbReader.GetOrdinal("deffect_type")), "")
+                        TBoxTSStatus.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("status")), dbReader.GetString(dbReader.GetOrdinal("status")), "")
+                        LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date")), dbReader.GetString(dbReader.GetOrdinal("date")), "N/A")
+                        ' = dbReader("date")
+                        ' = dbReader("time")
+                        LblTSReceiver.Visible = True
+                        lblTSReceiverName.Visible = True
+
+                        LblTSReceivedDateTitle.Visible = True
+                        LblTSRcvdDate.Visible = True
+                    End If
+                End Using
+            End Using
+            dbConn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Searching Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub TboxTSSerialNo_TextChanged(sender As Object, e As EventArgs) Handles TboxTSSerialNo.TextChanged
+        TboxTSSerialNo.MaxLength = 11
+        TboxTSSerialNo.CharacterCasing = CharacterCasing.Upper
+
+        Dim RegexSerialNo = Regex.Match(TboxTSSerialNo.Text, "[0-9]{2}[0-9]{2}BC[2-9A-HJ-NP-Z]{5}")
+
+        If TboxTSSerialNo.Text.Length > 0 Then
+            If TboxTSSerialNo.Text = RegexSerialNo.Value Then
+                ErrorProvider1.SetError(TboxTSSerialNo, Nothing)
+                'Invalid_serialNumber = False
+            Else
+                ErrorProvider1.SetError(TboxTSSerialNo, "Invalid serial number")
+                'Invalid_serialNumber = True
+            End If
+        Else
+            If TboxTSSerialNo.TextLength = 0 Then
+                ErrorProvider1.SetError(TboxTSSerialNo, Nothing)
+                'Invalid_serialNumber = False
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnTSClear_Click(sender As Object, e As EventArgs) Handles BtnTSClear.Click
+        TboxTSSerialNo.Clear()
+    End Sub
+
     Private Sub TBoxRcvReceivedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvReceivedBy.TextChanged
+        TBoxRcvReceivedBy.MaxLength = 30
         TBoxRcvReceivedBy.CharacterCasing = CharacterCasing.Upper
     End Sub
 
