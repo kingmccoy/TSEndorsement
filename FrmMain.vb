@@ -9,8 +9,7 @@ Imports System.Windows.Forms.VisualStyles
 
 Public Class FrmMain
     'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
-    Dim DateNow = DateTime.Now.ToString("MM-dd-yyyy")
-    Dim TimeNow = DateTime.Now.ToString("hh:mm:ss")
+    Dim DateNow, TimeNow As String
     Dim Invalid_ppoNumber, Invalid_lotNumber, Invalid_workOrder, Invalid_serialNumber As Boolean
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -126,6 +125,8 @@ Public Class FrmMain
             End Try
 
             Try
+                DateNow = DateTime.Now.ToString("MMMM dd, yyyy")
+                TimeNow = DateTime.Now.ToString("HH:mm:ss")
                 Dim StoredProcedure As String = "InsertTempEndorsementData"
                 dbConn.Open()
                 Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
@@ -331,15 +332,15 @@ Public Class FrmMain
         Dim PPONum = "[0-9]{10}"
         If TBoxPPONo.Text.Length > 0 Then
             If Regex.IsMatch(TBoxPPONo.Text, PPONum) Then
-                ErrorProvider1.SetError(TBoxPPONo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxPPONo, Nothing)
                 Invalid_ppoNumber = False
             Else
-                ErrorProvider1.SetError(TBoxPPONo, "Invalid PPO number")
+                ErrorProviderEndorsement.SetError(TBoxPPONo, "Invalid PPO number")
                 Invalid_ppoNumber = True
             End If
         Else
             If TBoxPPONo.Text.Length = 0 Then
-                ErrorProvider1.SetError(TBoxPPONo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxPPONo, Nothing)
                 Invalid_ppoNumber = False
             End If
         End If
@@ -421,6 +422,12 @@ Public Class FrmMain
         If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
             e.Handled = True
         End If
+
+        If TBoxPPONo.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
     End Sub
 
     Private Sub TBoxPPOQty_TextChanged(sender As Object, e As EventArgs) Handles TBoxPPOQty.TextChanged
@@ -445,24 +452,30 @@ Public Class FrmMain
         If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
             e.Handled = True
         End If
+
+        If TBoxPPOQty.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
     End Sub
 
     Private Sub TBoxLotNo_TextChanged(sender As Object, e As EventArgs) Handles TBoxLotNo.TextChanged
         TBoxLotNo.MaxLength = 10
 
-        Dim LotNum = Regex.Match(TBoxLotNo.Text, "71[0-9]{5}.[1-9][0-9]|71[0-9]{5}.[2-9]")
+        Dim LotNum = Regex.Match(TBoxLotNo.Text, "^71[0-9]{5}\.(?:[2-9]|[1-9][0-9])$")
 
         If TBoxLotNo.Text.Length > 0 Then
             If TBoxLotNo.Text = LotNum.Value Then
-                ErrorProvider1.SetError(TBoxLotNo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxLotNo, Nothing)
                 Invalid_lotNumber = False
             Else
-                ErrorProvider1.SetError(TBoxLotNo, "Invalid lot number")
+                ErrorProviderEndorsement.SetError(TBoxLotNo, "Invalid lot number")
                 Invalid_lotNumber = True
             End If
         Else
             If TBoxLotNo.Text.Length = 0 Then
-                ErrorProvider1.SetError(TBoxLotNo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxLotNo, Nothing)
                 Invalid_lotNumber = False
             End If
         End If
@@ -499,15 +512,15 @@ Public Class FrmMain
 
         If TBoxWorkOrder.Text.Length > 0 Then
             If TBoxWorkOrder.Text = RegexWorkOrder.Value Then
-                ErrorProvider1.SetError(TBoxWorkOrder, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxWorkOrder, Nothing)
                 Invalid_workOrder = False
             Else
-                ErrorProvider1.SetError(TBoxWorkOrder, "Invalid work order")
+                ErrorProviderEndorsement.SetError(TBoxWorkOrder, "Invalid work order")
                 Invalid_workOrder = True
             End If
         Else
             If TBoxWorkOrder.TextLength = 0 Then
-                ErrorProvider1.SetError(TBoxWorkOrder, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxWorkOrder, Nothing)
                 Invalid_workOrder = False
             End If
         End If
@@ -542,15 +555,15 @@ Public Class FrmMain
 
         If TBoxSerialNo.Text.Length > 0 Then
             If TBoxSerialNo.Text = RegexSerialNo.Value Then
-                ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxSerialNo, Nothing)
                 Invalid_serialNumber = False
             Else
-                ErrorProvider1.SetError(TBoxSerialNo, "Invalid serial number")
+                ErrorProviderEndorsement.SetError(TBoxSerialNo, "Invalid serial number")
                 Invalid_serialNumber = True
             End If
         Else
             If TBoxSerialNo.TextLength = 0 Then
-                ErrorProvider1.SetError(TBoxSerialNo, Nothing)
+                ErrorProviderEndorsement.SetError(TBoxSerialNo, Nothing)
                 Invalid_serialNumber = False
             End If
         End If
@@ -880,6 +893,9 @@ Public Class FrmMain
             Return
         End If
 
+        DateNow = DateTime.Now.ToString("MMMM dd, yyyy")
+        TimeNow = DateTime.Now.ToString("HH:mm:ss")
+
         Try
             Dim StoredProcedure = "InsertReceivingData"
             dbConn.Open()
@@ -917,6 +933,11 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnTSSearch_Click(sender As Object, e As EventArgs) Handles BtnTSSearch.Click
+        If ErrorProviderEndorsement.GetError(TboxTSSerialNo) = "Invalid serial number" Then
+            MessageBox.Show("The input serial number is invalid.", " Invalid Serial Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
         Try
             Dim StoredProcedure = "GetTSData"
             dbConn.Open()
@@ -926,6 +947,7 @@ Public Class FrmMain
                 Using dbReader As SqlDataReader = dbCmd.ExecuteReader
                     dbReader.Read()
                     If dbReader.HasRows Then
+                        LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_received")), dbReader.GetDateTime(dbReader.GetOrdinal("date_received")).ToString("MMMM dd, yyyy"), "N/A")
                         lblTSReceiverName.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")), dbReader.GetString(dbReader.GetOrdinal("receiver")), "N/A")
                         TBoxTSAnalysis.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("analysis")), dbReader.GetString(dbReader.GetOrdinal("analysis")), "")
                         TBoxTSActionTaken.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("action_taken")), dbReader.GetString(dbReader.GetOrdinal("action_taken")), "")
@@ -936,16 +958,60 @@ Public Class FrmMain
                         TBoxTSLocation5.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location5")), dbReader.GetString(dbReader.GetOrdinal("location5")), "")
                         TBoxTSRepairedBy.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("repaired_by")), dbReader.GetString(dbReader.GetOrdinal("repaired_by")), "")
                         DTPTSDateRepaired.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_repaired")), dbReader.GetDateTime(dbReader.GetOrdinal("date_repaired")).ToString(), "")
-                        TBoxTSDefectType.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("deffect_type")), dbReader.GetString(dbReader.GetOrdinal("deffect_type")), "")
+                        TBoxTSDefectType.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("defect_type")), dbReader.GetString(dbReader.GetOrdinal("defect_type")), "")
                         TBoxTSStatus.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("status")), dbReader.GetString(dbReader.GetOrdinal("status")), "")
-                        LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date")), dbReader.GetString(dbReader.GetOrdinal("date")), "N/A")
-                        ' = dbReader("date")
-                        ' = dbReader("time")
+                        TBoxTSRemarks.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("remarks")), dbReader.GetString(dbReader.GetOrdinal("remarks")), "")
+                        'LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_received")), dbReader.GetString(dbReader.GetOrdinal("date_received")), "N/A")
+
+                        Dim DateTS = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date")), dbReader.GetDateTime(dbReader.GetOrdinal("date")).ToString("MMMM dd, yyyy"), "")
+                        Dim TimeTS = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("time")), dbReader.GetTimeSpan(dbReader.GetOrdinal("time")).ToString("hh\:mm\:ss"), "")
+
+                        LblTSTimeStamp.Visible = True
                         LblTSReceiver.Visible = True
                         lblTSReceiverName.Visible = True
-
                         LblTSReceivedDateTitle.Visible = True
                         LblTSRcvdDate.Visible = True
+
+                        'Check if already recevied or not yet received
+                        If dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) And dbReader.IsDBNull(dbReader.GetOrdinal("date_received")) And dbReader.IsDBNull(dbReader.GetOrdinal("time_received")) Then
+                            LblTSVerification.ForeColor = Color.DarkRed
+                            LblTSVerification.Text = "NOT YET RECEIVED" ' or any other default value or message
+                            LblTSRcvdDate.ForeColor = Color.DarkRed
+                            lblTSReceiverName.ForeColor = Color.DarkRed
+                            LblTSVerification.Visible = True
+                            LblTSTimeStamp.Text = Nothing
+                        Else
+                            'Check if verified or unverified
+                            If dbReader.IsDBNull(dbReader.GetOrdinal("repaired_by")) Or dbReader.IsDBNull(dbReader.GetOrdinal("date_repaired")) Or dbReader.IsDBNull(dbReader.GetOrdinal("status")) Then
+                                LblTSVerification.Visible = True
+                                LblTSRcvdDate.ForeColor = SystemColors.ControlText
+                                lblTSReceiverName.ForeColor = SystemColors.ControlText
+                                LblTSVerification.ForeColor = Color.DarkRed
+                                LblTSVerification.Text = "UNVERIFIED" ' or any other default value or message
+                                GBoxData.Enabled = False
+                                LblTSTimeStamp.Text = Nothing
+                            Else
+                                LblTSVerification.ForeColor = Color.DarkGreen
+                                LblTSVerification.Text = Nothing ' or any other default value or message
+                                GBoxData.Enabled = True
+
+                                TBoxTSAnalysis_TextChanged(sender, e)
+                                TBoxTSDefectType_TextChanged(sender, e)
+                                TBoxTSActionTaken_TextChanged(sender, e)
+                                'TBoxTSLocation1_TextChanged(sender, e)
+                                TBoxTSRepairedBy_TextChanged(sender, e)
+                                TBoxTSStatus_TextChanged(sender, e)
+
+                                LblTSTimeStamp.Text = "Last update: " & DateTS & " " & TimeTS
+                            End If
+                        End If
+                    Else
+                        ClearFetchData()
+                        LblTSRcvdDate.ForeColor = SystemColors.ControlText
+                        lblTSReceiverName.ForeColor = SystemColors.ControlText
+                        LblTSVerification.ForeColor = Color.DarkRed
+                        LblTSVerification.Text = "NO RECORD FOUND" ' or any other default value or message
+                        LblTSVerification.Visible = True
                     End If
                 End Using
             End Using
@@ -967,22 +1033,194 @@ Public Class FrmMain
 
         If TboxTSSerialNo.Text.Length > 0 Then
             If TboxTSSerialNo.Text = RegexSerialNo.Value Then
-                ErrorProvider1.SetError(TboxTSSerialNo, Nothing)
-                'Invalid_serialNumber = False
+                ErrorProviderEndorsement.SetError(TboxTSSerialNo, Nothing)
             Else
-                ErrorProvider1.SetError(TboxTSSerialNo, "Invalid serial number")
-                'Invalid_serialNumber = True
+                ErrorProviderEndorsement.SetError(TboxTSSerialNo, "Invalid serial number")
             End If
         Else
             If TboxTSSerialNo.TextLength = 0 Then
-                ErrorProvider1.SetError(TboxTSSerialNo, Nothing)
-                'Invalid_serialNumber = False
+                ErrorProviderEndorsement.SetError(TboxTSSerialNo, Nothing)
             End If
         End If
     End Sub
 
     Private Sub BtnTSClear_Click(sender As Object, e As EventArgs) Handles BtnTSClear.Click
         TboxTSSerialNo.Clear()
+        ClearFetchData()
+    End Sub
+
+    Private Sub ClearFetchData()
+        LblTSVerification.Text = Nothing
+        LblTSRcvdDate.Text = Nothing
+        lblTSReceiverName.Text = Nothing
+        TBoxTSAnalysis.Clear()
+        ErrorProviderEndorsement.SetError(TBoxTSAnalysis, Nothing)
+        TBoxTSActionTaken.Clear()
+        ErrorProviderEndorsement.SetError(TBoxTSActionTaken, Nothing)
+        TBoxTSLocation1.Clear()
+        'ErrorProviderEndorsement.SetError(TBoxTSLocation1, Nothing)
+        TBoxTSLocation2.Clear()
+        TBoxTSLocation3.Clear()
+        TBoxTSLocation4.Clear()
+        TBoxTSLocation5.Clear()
+        TBoxTSRepairedBy.Clear()
+        ErrorProviderEndorsement.SetError(TBoxTSRepairedBy, Nothing)
+        DTPTSDateRepaired.ResetText()
+        TBoxTSDefectType.Clear()
+        ErrorProviderEndorsement.SetError(TBoxTSDefectType, Nothing)
+        TBoxTSStatus.Clear()
+        ErrorProviderEndorsement.SetError(TBoxTSStatus, Nothing)
+        TBoxTSRemarks.Clear()
+        LblTSTimeStamp.Text = Nothing
+    End Sub
+
+    Private Sub BtnTSUpdate_Click(sender As Object, e As EventArgs) Handles BtnTSUpdate.Click
+        If TBoxTSAnalysis.Text = Nothing Or TBoxTSDefectType.Text = Nothing Or TBoxTSActionTaken.Text = Nothing Or TBoxTSRepairedBy.Text = Nothing Or TBoxTSStatus.Text = Nothing Then
+            MessageBox.Show("Please ensure the required fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Try
+            DateNow = DateTime.Now.ToString("MMMM dd, yyyy")
+            TimeNow = DateTime.Now.ToString("HH:mm:ss")
+            Dim StoredProcedure = "UpdateTSData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                dbCmd.Parameters.AddWithValue("@analysis", TBoxTSAnalysis.Text)
+                dbCmd.Parameters.AddWithValue("@actionTaken", TBoxTSActionTaken.Text)
+                dbCmd.Parameters.AddWithValue("@location1", TBoxTSLocation1.Text)
+                dbCmd.Parameters.AddWithValue("@location2", TBoxTSLocation2.Text)
+                dbCmd.Parameters.AddWithValue("@location3", TBoxTSLocation3.Text)
+                dbCmd.Parameters.AddWithValue("@location4", TBoxTSLocation4.Text)
+                dbCmd.Parameters.AddWithValue("@location5", TBoxTSLocation5.Text)
+                dbCmd.Parameters.AddWithValue("@repairedBy", TBoxTSRepairedBy.Text)
+                dbCmd.Parameters.AddWithValue("@dateRepaired", DTPTSDateRepaired.Value)
+                dbCmd.Parameters.AddWithValue("@deffectType", TBoxTSDefectType.Text)
+                dbCmd.Parameters.AddWithValue("@status", TBoxTSStatus.Text)
+                dbCmd.Parameters.AddWithValue("@remarks", TBoxTSRemarks.Text)
+                dbCmd.Parameters.AddWithValue("@date", DateNow)
+                dbCmd.Parameters.AddWithValue("@time", TimeNow)
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+            LblTSTimeStamp.Visible = True
+            LblTSVerification.Text = "RECORD UPDATED"
+            LblTSVerification.ForeColor = Color.DarkGreen
+            Timer1.Interval = 250
+            Timer1.Start()
+
+            dbConn.Open()
+            Using dbCmd As New SqlCommand("GetTSData", dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        LblTSTimeStamp.Text = "Last update: " & dbReader.GetDateTime(dbReader.GetOrdinal("date")).ToString("MMMM dd, yyyy") & " " & dbReader.GetTimeSpan(dbReader.GetOrdinal("time")).ToString("hh\:mm\:ss")
+                    End If
+                End Using
+            End Using
+            dbConn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Updating TS Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub TBoxTSDefectType_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSDefectType.TextChanged
+        TBoxTSDefectType.CharacterCasing = CharacterCasing.Upper
+        If TBoxTSDefectType.TextLength = 0 Then
+            ErrorProviderEndorsement.SetError(TBoxTSDefectType, "Please fill the information")
+        Else
+            ErrorProviderEndorsement.SetError(TBoxTSDefectType, Nothing)
+        End If
+    End Sub
+
+    Private Sub TBoxTSAnalysis_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSAnalysis.TextChanged
+        TBoxTSAnalysis.CharacterCasing = CharacterCasing.Upper
+        If TBoxTSAnalysis.TextLength = 0 Then
+            ErrorProviderEndorsement.SetError(TBoxTSAnalysis, "Please fill the information")
+        Else
+            ErrorProviderEndorsement.SetError(TBoxTSAnalysis, Nothing)
+        End If
+    End Sub
+
+    Private Sub TBoxTSActionTaken_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSActionTaken.TextChanged
+        TBoxTSActionTaken.CharacterCasing = CharacterCasing.Upper
+        If TBoxTSActionTaken.TextLength = 0 Then
+            ErrorProviderEndorsement.SetError(TBoxTSActionTaken, "Please fill the information")
+        Else
+            ErrorProviderEndorsement.SetError(TBoxTSActionTaken, Nothing)
+        End If
+    End Sub
+
+    Private Sub TBoxTSLocation1_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation1.TextChanged
+        'TBoxTSLocation1.CharacterCasing = CharacterCasing.Upper
+        'If TBoxTSLocation1.TextLength = 0 Then
+        '    ErrorProviderEndorsement.SetError(TBoxTSLocation1, "Please fill the information")
+        'Else
+        '    ErrorProviderEndorsement.SetError(TBoxTSLocation1, Nothing)
+        'End If
+    End Sub
+
+    Private Sub TBoxTSLocation2_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation2.TextChanged
+        TBoxTSLocation2.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxTSLocation3_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation3.TextChanged
+        TBoxTSLocation3.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxTSLocation4_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation4.TextChanged
+        TBoxTSLocation4.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxTSLocation5_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation5.TextChanged
+        TBoxTSLocation5.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxTSRepairedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSRepairedBy.TextChanged
+        TBoxTSRepairedBy.CharacterCasing = CharacterCasing.Upper
+        If TBoxTSRepairedBy.TextLength = 0 Then
+            ErrorProviderEndorsement.SetError(TBoxTSRepairedBy, "Please fill the information")
+        Else
+            ErrorProviderEndorsement.SetError(TBoxTSRepairedBy, Nothing)
+        End If
+    End Sub
+
+    Private Sub TBoxTSStatus_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSStatus.TextChanged
+        TBoxTSStatus.CharacterCasing = CharacterCasing.Upper
+        If TBoxTSStatus.TextLength = 0 Then
+            ErrorProviderEndorsement.SetError(TBoxTSStatus, "Please fill the information")
+        Else
+            ErrorProviderEndorsement.SetError(TBoxTSStatus, Nothing)
+        End If
+    End Sub
+
+    Private Sub TBoxTSRemarks_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSRemarks.TextChanged
+        TBoxTSRemarks.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private elapsedTime As Integer
+
+    Private Sub TBoxWorkweek_TextChanged(sender As Object, e As EventArgs) Handles TBoxWorkweek.TextChanged
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        LblTSVerification.Visible = Not LblTSVerification.Visible
+
+        elapsedTime += Timer1.Interval
+
+        If elapsedTime >= 5000 Then
+            Timer1.Stop()
+            elapsedTime = 0
+        End If
     End Sub
 
     Private Sub TBoxRcvReceivedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvReceivedBy.TextChanged
@@ -999,6 +1237,18 @@ Public Class FrmMain
     Private Sub TBoxRcvReceivedBy_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvReceivedBy.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnRcvSubmit.PerformClick()
+        End If
+    End Sub
+
+    Private Sub PressEnter_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxTSAnalysis.KeyDown, TBoxTSDefectType.KeyDown, TBoxTSActionTaken.KeyDown, TBoxTSLocation1.KeyDown, TBoxTSLocation2.KeyDown, TBoxTSLocation3.KeyDown, TBoxTSLocation4.KeyDown, TBoxTSLocation5.KeyDown, TBoxTSRepairedBy.KeyDown, DTPTSDateRepaired.KeyDown, TBoxTSStatus.KeyDown, TBoxTSRemarks.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnTSUpdate.PerformClick()
+        End If
+    End Sub
+
+    Private Sub TboxTSSerialNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxTSSerialNo.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnTSSearch.PerformClick()
         End If
     End Sub
 End Class
