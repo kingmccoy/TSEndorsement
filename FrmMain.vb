@@ -91,9 +91,16 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnEndorse_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
-        If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
-            MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
+        If ChkBoxEndtSerialNo.Checked = True And TBoxSerialNo.Enabled = False Then
+            If CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 1", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+        Else
+            If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 2", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
         End If
 
         If Invalid_serialNumber = True Then
@@ -108,6 +115,20 @@ Public Class FrmMain
                         dbReader.Read()
                         If dbReader.HasRows Then
                             MessageBox.Show(dbReader("serial_no") & vbCrLf & vbCrLf & "Serial have already scanned.", "Duplicate Serial", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            TBoxSerialNo.Clear()
+                            Return
+                        End If
+                    End Using
+                End Using
+                dbConn.Close()
+
+                Dim Query1 = "SELECT serial_no FROM Endorsement WHERE serial_no='" & TBoxSerialNo.Text & "'"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(Query1, dbConn)
+                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                        dbReader.Read()
+                        If dbReader.HasRows Then
+                            MessageBox.Show(dbReader("serial_no") & vbCrLf & vbCrLf & "Serial have already endorsed.", "Duplicate Serial", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             TBoxSerialNo.Clear()
                             Return
                         End If
@@ -137,7 +158,7 @@ Public Class FrmMain
                     dbCmd.Parameters.AddWithValue("@qty_endorsed", Integer.Parse(TBoxQtyEndorsed.Text))
                     dbCmd.Parameters.AddWithValue("@qty", 1)
                     dbCmd.Parameters.AddWithValue("@model", CBoxModel.Text)
-                    dbCmd.Parameters.AddWithValue("@serial_no", TBoxSerialNo.Text)
+                    dbCmd.Parameters.AddWithValue("@serial_no", If(ChkBoxEndtSerialNo.Checked = True, "N/A", TBoxSerialNo.Text))
                     dbCmd.Parameters.AddWithValue("@ppo_no", TBoxPPONo.Text)
                     dbCmd.Parameters.AddWithValue("@ppo_qty", Integer.Parse(TBoxPPOQty.Text))
                     dbCmd.Parameters.AddWithValue("@lot_no", TBoxLotNo.Text)
@@ -207,6 +228,8 @@ Public Class FrmMain
                 BtnEndorseAnotherModel.Enabled = True
                 BtnSubmit.Enabled = True
 
+                ChkBoxEndtSerialNo.Checked = False
+                ChkBoxEndtSerialNo.Enabled = False
                 LblSerialNo.Focus()
             Else
                 BtnSubmit.Enabled = False
@@ -606,9 +629,12 @@ Public Class FrmMain
 
             End Using
             dbConn.Close()
+        Catch ex As SqlException
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Couting Temp Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Erro Exeption Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -636,6 +662,7 @@ Public Class FrmMain
             BtnSubmit.Enabled = True
             BtnCancel.Enabled = True
 
+            ChkBoxEndtSerialNo.Enabled = True
             TBoxSerialNo.Focus()
             Try
                 Dim StoredProcedure = "CreateTempEndorsementTable"
@@ -662,10 +689,12 @@ Public Class FrmMain
                 dbConn.Close()
             Catch ex As SqlException
                 ' Handle database-related errors
-                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Catch ex As Exception
                 ' Handle other types of exceptions
-                MessageBox.Show(ex.Message, "Error Opening Scanning Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show(ex.Message, "Error Opening Scanning Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
                 ' Close the database connection
                 If dbConn.State = ConnectionState.Open Then
@@ -692,10 +721,12 @@ Public Class FrmMain
             dbConn.Close()
         Catch ex As SqlException
             ' Handle database-related errors
-            MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             ' Handle other types of exceptions
-            MessageBox.Show(ex.Message, "Error Dropping Database Table", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(ex.Message, "Error Dropping Database Table", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
@@ -755,6 +786,7 @@ Public Class FrmMain
         GBoxInformation.Enabled = True
         BtnDataClear.PerformClick()
         GBoxData.Enabled = False
+        ChkBoxEndtSerialNo.Enabled = False
         GBoxInformation.Focus()
     End Sub
 
@@ -859,10 +891,11 @@ Public Class FrmMain
             DGVRcvEndtData.ClearSelection()
         Catch ex As SqlException
             ' Handle database-related errors
-            MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             ' Handle other types of exceptions
-            MessageBox.Show(ex.Message, "Error Searching Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
@@ -934,7 +967,15 @@ Public Class FrmMain
 
     Private Sub BtnTSSearch_Click(sender As Object, e As EventArgs) Handles BtnTSSearch.Click
         If ErrorProviderEndorsement.GetError(TboxTSSerialNo) = "Invalid serial number" Then
-            MessageBox.Show("The input serial number is invalid.", " Invalid Serial Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("The input serial number is invalid.", " Invalid Serial Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            LblTSVerification.Visible = True
+            LblTSVerification.Text = "INVALID SERIAL NUMBER"
+            Return
+        End If
+
+        If TboxTSSerialNo.TextLength = 0 Then
+            LblTSVerification.Visible = True
+            LblTSVerification.Text = "NO SERIAL NUMBER"
             Return
         End If
 
@@ -949,6 +990,9 @@ Public Class FrmMain
                     If dbReader.HasRows Then
                         LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_received")), dbReader.GetDateTime(dbReader.GetOrdinal("date_received")).ToString("MMMM dd, yyyy"), "N/A")
                         lblTSReceiverName.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")), dbReader.GetString(dbReader.GetOrdinal("receiver")), "N/A")
+
+                        LblTSDataQRCode.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("serial_no")), dbReader.GetString(dbReader.GetOrdinal("serial_no")), "")
+
                         TBoxTSAnalysis.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("analysis")), dbReader.GetString(dbReader.GetOrdinal("analysis")), "")
                         TBoxTSActionTaken.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("action_taken")), dbReader.GetString(dbReader.GetOrdinal("action_taken")), "")
                         TBoxTSLocation1.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("location1")), dbReader.GetString(dbReader.GetOrdinal("location1")), "")
@@ -967,19 +1011,31 @@ Public Class FrmMain
                         Dim TimeTS = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("time")), dbReader.GetTimeSpan(dbReader.GetOrdinal("time")).ToString("hh\:mm\:ss"), "")
 
                         LblTSTimeStamp.Visible = True
-                        LblTSReceiver.Visible = True
-                        lblTSReceiverName.Visible = True
-                        LblTSReceivedDateTitle.Visible = True
-                        LblTSRcvdDate.Visible = True
+                        'LblTSReceivedDateTitle.Visible = True
+                        'LblTSRcvdDate.Visible = True
+                        'LblTSReceiver.Visible = True
+                        'lblTSReceiverName.Visible = True
+                        LblTSDataQRCode.Visible = True
 
                         'Check if already recevied or not yet received
                         If dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) And dbReader.IsDBNull(dbReader.GetOrdinal("date_received")) And dbReader.IsDBNull(dbReader.GetOrdinal("time_received")) Then
+                            ClearFetchData()
                             LblTSVerification.ForeColor = Color.DarkRed
                             LblTSVerification.Text = "NOT YET RECEIVED" ' or any other default value or message
-                            LblTSRcvdDate.ForeColor = Color.DarkRed
-                            lblTSReceiverName.ForeColor = Color.DarkRed
+                            'LblTSRcvdDate.ForeColor = Color.DarkRed
+                            'lblTSReceiverName.ForeColor = Color.DarkRed
                             LblTSVerification.Visible = True
+
+                            'LblTSReceivedDateTitle.Visible = False
+                            'LblTSRcvdDate.Visible = False
+                            'LblTSRcvdDate.Text = Nothing
+                            'LblTSReceiver.Visible = False
+                            'lblTSReceiverName.Visible = False
+                            'lblTSReceiverName.Text = Nothing
+
                             LblTSTimeStamp.Text = Nothing
+                            LblTSDataQRCode.Text = Nothing
+                            LblTSDataQRCode.Visible = False
                         Else
                             'Check if verified or unverified
                             If dbReader.IsDBNull(dbReader.GetOrdinal("repaired_by")) Or dbReader.IsDBNull(dbReader.GetOrdinal("date_repaired")) Or dbReader.IsDBNull(dbReader.GetOrdinal("status")) Then
@@ -989,7 +1045,21 @@ Public Class FrmMain
                                 LblTSVerification.ForeColor = Color.DarkRed
                                 LblTSVerification.Text = "UNVERIFIED" ' or any other default value or message
                                 GBoxData.Enabled = False
+
+                                LblTSReceivedDateTitle.Visible = True
+                                LblTSRcvdDate.Visible = True
+                                LblTSReceiver.Visible = True
+                                lblTSReceiverName.Visible = True
+
+
                                 LblTSTimeStamp.Text = Nothing
+                                LblTSDataQRCode.Visible = True
+
+                                TBoxTSAnalysis_TextChanged(sender, e)
+                                TBoxTSDefectType_TextChanged(sender, e)
+                                TBoxTSActionTaken_TextChanged(sender, e)
+                                TBoxTSRepairedBy_TextChanged(sender, e)
+                                TBoxTSStatus_TextChanged(sender, e)
                             Else
                                 LblTSVerification.ForeColor = Color.DarkGreen
                                 LblTSVerification.Text = Nothing ' or any other default value or message
@@ -998,11 +1068,15 @@ Public Class FrmMain
                                 TBoxTSAnalysis_TextChanged(sender, e)
                                 TBoxTSDefectType_TextChanged(sender, e)
                                 TBoxTSActionTaken_TextChanged(sender, e)
-                                'TBoxTSLocation1_TextChanged(sender, e)
                                 TBoxTSRepairedBy_TextChanged(sender, e)
                                 TBoxTSStatus_TextChanged(sender, e)
 
+                                LblTSReceivedDateTitle.Visible = True
+                                LblTSRcvdDate.Visible = True
+                                LblTSReceiver.Visible = True
+                                lblTSReceiverName.Visible = True
                                 LblTSTimeStamp.Text = "Last update: " & DateTS & " " & TimeTS
+                                LblTSDataQRCode.Visible = True
                             End If
                         End If
                     Else
@@ -1012,6 +1086,7 @@ Public Class FrmMain
                         LblTSVerification.ForeColor = Color.DarkRed
                         LblTSVerification.Text = "NO RECORD FOUND" ' or any other default value or message
                         LblTSVerification.Visible = True
+                        LblTSDataQRCode.Visible = False
                     End If
                 End Using
             End Using
@@ -1036,6 +1111,7 @@ Public Class FrmMain
                 ErrorProviderEndorsement.SetError(TboxTSSerialNo, Nothing)
             Else
                 ErrorProviderEndorsement.SetError(TboxTSSerialNo, "Invalid serial number")
+                ClearFetchData()
             End If
         Else
             If TboxTSSerialNo.TextLength = 0 Then
@@ -1051,14 +1127,17 @@ Public Class FrmMain
 
     Private Sub ClearFetchData()
         LblTSVerification.Text = Nothing
+        LblTSReceivedDateTitle.Visible = False
+        LblTSRcvdDate.Visible = False
         LblTSRcvdDate.Text = Nothing
+        LblTSReceiver.Visible = False
+        lblTSReceiverName.Visible = False
         lblTSReceiverName.Text = Nothing
         TBoxTSAnalysis.Clear()
         ErrorProviderEndorsement.SetError(TBoxTSAnalysis, Nothing)
         TBoxTSActionTaken.Clear()
         ErrorProviderEndorsement.SetError(TBoxTSActionTaken, Nothing)
         TBoxTSLocation1.Clear()
-        'ErrorProviderEndorsement.SetError(TBoxTSLocation1, Nothing)
         TBoxTSLocation2.Clear()
         TBoxTSLocation3.Clear()
         TBoxTSLocation4.Clear()
@@ -1075,6 +1154,37 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnTSUpdate_Click(sender As Object, e As EventArgs) Handles BtnTSUpdate.Click
+        Try
+            Dim StoredProcedure = "GetTSData"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        'LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_received")), dbReader.GetDateTime(dbReader.GetOrdinal("date_received")).ToString("MMMM dd, yyyy"), "N/A")
+                        'lblTSReceiverName.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")), dbReader.GetString(dbReader.GetOrdinal("receiver")), "N/A")
+
+                        If dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) Or dbReader.IsDBNull(dbReader.GetOrdinal("date_received")) Then
+                            MessageBox.Show("Serial number: " & TboxTSSerialNo.Text & vbCrLf & vbCrLf & "This serial number has not been received yet." & vbCrLf & vbCrLf & "Unable to proceed!", "Unreceived Serial", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            dbConn.Close()
+                            Return
+                        End If
+                    End If
+                End Using
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+
         If TBoxTSAnalysis.Text = Nothing Or TBoxTSDefectType.Text = Nothing Or TBoxTSActionTaken.Text = Nothing Or TBoxTSRepairedBy.Text = Nothing Or TBoxTSStatus.Text = Nothing Then
             MessageBox.Show("Please ensure the required fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -1087,7 +1197,7 @@ Public Class FrmMain
             dbConn.Open()
             Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
                 dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                dbCmd.Parameters.AddWithValue("@serialNo", LblTSDataQRCode.Text)
                 dbCmd.Parameters.AddWithValue("@analysis", TBoxTSAnalysis.Text)
                 dbCmd.Parameters.AddWithValue("@actionTaken", TBoxTSActionTaken.Text)
                 dbCmd.Parameters.AddWithValue("@location1", TBoxTSLocation1.Text)
@@ -1097,7 +1207,7 @@ Public Class FrmMain
                 dbCmd.Parameters.AddWithValue("@location5", TBoxTSLocation5.Text)
                 dbCmd.Parameters.AddWithValue("@repairedBy", TBoxTSRepairedBy.Text)
                 dbCmd.Parameters.AddWithValue("@dateRepaired", DTPTSDateRepaired.Value)
-                dbCmd.Parameters.AddWithValue("@deffectType", TBoxTSDefectType.Text)
+                dbCmd.Parameters.AddWithValue("@defectType", TBoxTSDefectType.Text)
                 dbCmd.Parameters.AddWithValue("@status", TBoxTSStatus.Text)
                 dbCmd.Parameters.AddWithValue("@remarks", TBoxTSRemarks.Text)
                 dbCmd.Parameters.AddWithValue("@date", DateNow)
@@ -1123,6 +1233,8 @@ Public Class FrmMain
                 End Using
             End Using
             dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error Updating TS Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
@@ -1226,6 +1338,19 @@ Public Class FrmMain
     Private Sub TBoxRcvReceivedBy_TextChanged(sender As Object, e As EventArgs) Handles TBoxRcvReceivedBy.TextChanged
         TBoxRcvReceivedBy.MaxLength = 30
         TBoxRcvReceivedBy.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub ChkBoxEndtSerialNo_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxEndtSerialNo.CheckedChanged
+        If ChkBoxEndtSerialNo.Checked = True Then
+            TBoxSerialNo.Enabled = False
+            TBoxSerialNo.Clear()
+        Else
+            If ChkBoxEndtSerialNo.Checked = False Then
+                If TBoxSerialNo.Enabled = True Then
+                    TBoxSerialNo.Enabled = True
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown

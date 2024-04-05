@@ -27,6 +27,26 @@ Endorsement
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Endorsement.My.Resources.Resources.ts_logo_color">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Endorsement.My.Resources.Resources.ts_logo_color_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Endorsement.My.Resources.Resources.ts_logo_no_background">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Endorsement.My.Resources.Resources.ts_logo_no_background_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
 <member name="T:Endorsement.DSEndorsementData">
 <summary>
 Represents a strongly typed in-memory cache of data.

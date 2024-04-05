@@ -66,6 +66,10 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -171,9 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +262,51 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_no_background_GJ2_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-no-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_color_LIq_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Silicon_Labs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_color_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no _background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no _background_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts-logo-no-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no_background_JUa_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_color_smo_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no_background_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
