@@ -67,6 +67,26 @@ Represents strongly named DataRow class.
 Row event argument class
 </summary>
 </member>
+<member name="T:Endorsement.DSInquiry">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:Endorsement.DSInquiry.DTInquiryDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSInquiry.DTInquiryRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSInquiry.DTInquiryRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
 <member name="T:Endorsement.DSJoinTable">
 <summary>
 Represents a strongly typed in-memory cache of data.
@@ -77,12 +97,27 @@ Represents a strongly typed in-memory cache of data.
 Represents the strongly named DataTable class.
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTvariantDataTable">
+<member name="T:Endorsement.DSJoinTable.DTStationDataTable">
 <summary>
 Represents the strongly named DataTable class.
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTstationDataTable">
+<member name="T:Endorsement.DSJoinTable.DTVariantDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTEndorsementDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTReceivingDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTTSDataTable">
 <summary>
 Represents the strongly named DataTable class.
 </summary>
@@ -92,12 +127,27 @@ Represents the strongly named DataTable class.
 Represents strongly named DataRow class.
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTvariantRow">
+<member name="T:Endorsement.DSJoinTable.DTStationRow">
 <summary>
 Represents strongly named DataRow class.
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTstationRow">
+<member name="T:Endorsement.DSJoinTable.DTVariantRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTEndorsementRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTReceivingRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTTSRow">
 <summary>
 Represents strongly named DataRow class.
 </summary>
@@ -107,17 +157,32 @@ Represents strongly named DataRow class.
 Row event argument class
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTvariantRowChangeEvent">
+<member name="T:Endorsement.DSJoinTable.DTStationRowChangeEvent">
 <summary>
 Row event argument class
 </summary>
 </member>
-<member name="T:Endorsement.DSJoinTable.DTstationRowChangeEvent">
+<member name="T:Endorsement.DSJoinTable.DTVariantRowChangeEvent">
 <summary>
 Row event argument class
 </summary>
 </member>
-<member name="T:Endorsement.DSModelTableAdapters.QueriesTableAdapter">
+<member name="T:Endorsement.DSJoinTable.DTEndorsementRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTReceivingRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTable.DTTSRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Endorsement.DSJoinTableTableAdapters.QueriesTableAdapter">
 <summary>
 Represents the connection and commands used to retrieve and save data.
 </summary>

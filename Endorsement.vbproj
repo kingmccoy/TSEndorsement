@@ -67,8 +67,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\ts_logo_no_background_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -122,12 +121,14 @@
     <Compile Include="DSEndorsementData.vb">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DSInquiry.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DSJoinTable.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DSJoinTable.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DSJoinTable.vb">
       <DependentUpon>DSJoinTable.xsd</DependentUpon>
     </Compile>
     <Compile Include="DSModel.Designer.vb">
@@ -192,6 +193,17 @@
     <None Include="DSEndorsementData.xss">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
     </None>
+    <None Include="DSInquiry.xsc">
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </None>
+    <None Include="DSInquiry.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSInquiry.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSInquiry.xss">
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </None>
     <None Include="DSJoinTable.xsc">
       <DependentUpon>DSJoinTable.xsd</DependentUpon>
     </None>
@@ -249,9 +261,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Silicon_Labs_2015.svg.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
@@ -264,46 +273,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo_no_background_GJ2_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo-no-background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo_color_LIq_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Silicon_Labs.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ts_logo_color_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ts_logo_no _background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ts_logo_no _background_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ts-logo-no-background.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ts_logo_no_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ts_logo_no_background_JUa_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo-color.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ts_logo_color.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ts_logo_color_smo_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ts_logo_no_background_icon.ico" />

@@ -31,6 +31,10 @@ Partial Class FrmMain
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.LblQtyEndorsed = New System.Windows.Forms.Label()
         Me.TBoxQtyEndorsed = New System.Windows.Forms.TextBox()
@@ -70,6 +74,7 @@ Partial Class FrmMain
         Me.TboxEndorsementNo = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageEndorsement = New System.Windows.Forms.TabPage()
+        Me.CBoxFailureSymptoms = New System.Windows.Forms.ComboBox()
         Me.ChkBoxEndtSerialNo = New System.Windows.Forms.CheckBox()
         Me.BtnCancel = New System.Windows.Forms.Button()
         Me.GBoxData = New System.Windows.Forms.GroupBox()
@@ -161,6 +166,27 @@ Partial Class FrmMain
         Me.TBoxTSLocation5 = New System.Windows.Forms.TextBox()
         Me.TBoxTSLocation4 = New System.Windows.Forms.TextBox()
         Me.TabPageInquiry = New System.Windows.Forms.TabPage()
+        Me.GBoxInformationSummary = New System.Windows.Forms.GroupBox()
+        Me.DgvInqSummary = New System.Windows.Forms.DataGridView()
+        Me.GBoxInquiryInformation = New System.Windows.Forms.GroupBox()
+        Me.BtnInqSearch = New System.Windows.Forms.Button()
+        Me.BtnInqClear = New System.Windows.Forms.Button()
+        Me.LblInqEndtNo = New System.Windows.Forms.Label()
+        Me.TboxInqEndtNo = New System.Windows.Forms.TextBox()
+        Me.DtpInqEndtDate = New System.Windows.Forms.DateTimePicker()
+        Me.LblInqEndtDate = New System.Windows.Forms.Label()
+        Me.CboxInqModel = New System.Windows.Forms.ComboBox()
+        Me.DtpInqDateFailed = New System.Windows.Forms.DateTimePicker()
+        Me.LblInqDateFailed = New System.Windows.Forms.Label()
+        Me.LblInqModel = New System.Windows.Forms.Label()
+        Me.LblInqWorkOrder = New System.Windows.Forms.Label()
+        Me.LblInqLotNo = New System.Windows.Forms.Label()
+        Me.TboxInqWorkOrder = New System.Windows.Forms.TextBox()
+        Me.LblInqPPONo = New System.Windows.Forms.Label()
+        Me.TboxInqLotNo = New System.Windows.Forms.TextBox()
+        Me.TboxInqSerialNo = New System.Windows.Forms.TextBox()
+        Me.TboxInqPPONo = New System.Windows.Forms.TextBox()
+        Me.LblInqSerialNo = New System.Windows.Forms.Label()
         Me.DTTSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DSTS = New Endorsement.DSTS()
         Me.ErrorProviderEndorsement = New System.Windows.Forms.ErrorProvider(Me.components)
@@ -168,12 +194,43 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.DataGridViewTextBoxColumn31 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EndorsementnoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.QtyendorsedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.QtyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn32 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn33 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn34 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn38 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn39 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn40 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DatefailedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EndorsementdateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.WorkweekDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DatetransactDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TimetransactDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReceiverDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DatereceivedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TimereceivedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AnalysisDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ActiontakenDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Location1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Location2DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Location3DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Location4DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Location5DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RepairedbyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DaterepairedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DefecttypeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StatusDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RemarksDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DatetsDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TimetsDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DTInquiryBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DSInquiry = New Endorsement.DSInquiry()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
@@ -190,11 +247,15 @@ Partial Class FrmMain
         Me.GBoxTSInformation.SuspendLayout()
         Me.GBoxTSData.SuspendLayout()
         Me.TabPageInquiry.SuspendLayout()
+        Me.GBoxInformationSummary.SuspendLayout()
+        CType(Me.DgvInqSummary, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GBoxInquiryInformation.SuspendLayout()
         CType(Me.DTTSBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DSTS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProviderEndorsement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        CType(Me.DTInquiryBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DSInquiry, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -563,6 +624,7 @@ Partial Class FrmMain
         '
         Me.TabPageEndorsement.BackColor = System.Drawing.SystemColors.Control
         Me.TabPageEndorsement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.TabPageEndorsement.Controls.Add(Me.CBoxFailureSymptoms)
         Me.TabPageEndorsement.Controls.Add(Me.ChkBoxEndtSerialNo)
         Me.TabPageEndorsement.Controls.Add(Me.BtnCancel)
         Me.TabPageEndorsement.Controls.Add(Me.GBoxData)
@@ -577,6 +639,16 @@ Partial Class FrmMain
         Me.TabPageEndorsement.Size = New System.Drawing.Size(1113, 542)
         Me.TabPageEndorsement.TabIndex = 0
         Me.TabPageEndorsement.Text = "Endorsement"
+        '
+        'CBoxFailureSymptoms
+        '
+        Me.CBoxFailureSymptoms.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.CBoxFailureSymptoms.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.CBoxFailureSymptoms.FormattingEnabled = True
+        Me.CBoxFailureSymptoms.Location = New System.Drawing.Point(453, 79)
+        Me.CBoxFailureSymptoms.Name = "CBoxFailureSymptoms"
+        Me.CBoxFailureSymptoms.Size = New System.Drawing.Size(123, 21)
+        Me.CBoxFailureSymptoms.TabIndex = 5
         '
         'ChkBoxEndtSerialNo
         '
@@ -1656,8 +1728,8 @@ Partial Class FrmMain
         'TabPageInquiry
         '
         Me.TabPageInquiry.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPageInquiry.Controls.Add(Me.GroupBox2)
-        Me.TabPageInquiry.Controls.Add(Me.GroupBox1)
+        Me.TabPageInquiry.Controls.Add(Me.GBoxInformationSummary)
+        Me.TabPageInquiry.Controls.Add(Me.GBoxInquiryInformation)
         Me.TabPageInquiry.Location = New System.Drawing.Point(4, 22)
         Me.TabPageInquiry.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPageInquiry.Name = "TabPageInquiry"
@@ -1665,6 +1737,274 @@ Partial Class FrmMain
         Me.TabPageInquiry.Size = New System.Drawing.Size(1113, 542)
         Me.TabPageInquiry.TabIndex = 2
         Me.TabPageInquiry.Text = "Inquiry"
+        '
+        'GBoxInformationSummary
+        '
+        Me.GBoxInformationSummary.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GBoxInformationSummary.Controls.Add(Me.DgvInqSummary)
+        Me.GBoxInformationSummary.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GBoxInformationSummary.Location = New System.Drawing.Point(5, 80)
+        Me.GBoxInformationSummary.Name = "GBoxInformationSummary"
+        Me.GBoxInformationSummary.Size = New System.Drawing.Size(1103, 457)
+        Me.GBoxInformationSummary.TabIndex = 2
+        Me.GBoxInformationSummary.TabStop = False
+        Me.GBoxInformationSummary.Text = "Summary"
+        '
+        'DgvInqSummary
+        '
+        Me.DgvInqSummary.AllowUserToAddRows = False
+        Me.DgvInqSummary.AllowUserToDeleteRows = False
+        Me.DgvInqSummary.AllowUserToResizeRows = False
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.DgvInqSummary.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.DgvInqSummary.AutoGenerateColumns = False
+        Me.DgvInqSummary.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.DgvInqSummary.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.DgvInqSummary.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvInqSummary.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.DgvInqSummary.ColumnHeadersHeight = 20
+        Me.DgvInqSummary.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn31, Me.EndorsementnoDataGridViewTextBoxColumn, Me.QtyendorsedDataGridViewTextBoxColumn, Me.QtyDataGridViewTextBoxColumn, Me.DataGridViewTextBoxColumn32, Me.DataGridViewTextBoxColumn33, Me.DataGridViewTextBoxColumn34, Me.DataGridViewTextBoxColumn35, Me.DataGridViewTextBoxColumn36, Me.DataGridViewTextBoxColumn37, Me.DataGridViewTextBoxColumn38, Me.DataGridViewTextBoxColumn39, Me.DataGridViewTextBoxColumn40, Me.DatefailedDataGridViewTextBoxColumn, Me.EndorsementdateDataGridViewTextBoxColumn, Me.WorkweekDataGridViewTextBoxColumn, Me.DatetransactDataGridViewTextBoxColumn, Me.TimetransactDataGridViewTextBoxColumn, Me.ReceiverDataGridViewTextBoxColumn, Me.DatereceivedDataGridViewTextBoxColumn, Me.TimereceivedDataGridViewTextBoxColumn, Me.AnalysisDataGridViewTextBoxColumn, Me.ActiontakenDataGridViewTextBoxColumn, Me.Location1DataGridViewTextBoxColumn, Me.Location2DataGridViewTextBoxColumn, Me.Location3DataGridViewTextBoxColumn, Me.Location4DataGridViewTextBoxColumn, Me.Location5DataGridViewTextBoxColumn, Me.RepairedbyDataGridViewTextBoxColumn, Me.DaterepairedDataGridViewTextBoxColumn, Me.DefecttypeDataGridViewTextBoxColumn, Me.StatusDataGridViewTextBoxColumn, Me.RemarksDataGridViewTextBoxColumn, Me.DatetsDataGridViewTextBoxColumn, Me.TimetsDataGridViewTextBoxColumn})
+        Me.DgvInqSummary.DataSource = Me.DTInquiryBindingSource
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DgvInqSummary.DefaultCellStyle = DataGridViewCellStyle11
+        Me.DgvInqSummary.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DgvInqSummary.Location = New System.Drawing.Point(3, 18)
+        Me.DgvInqSummary.Name = "DgvInqSummary"
+        Me.DgvInqSummary.ReadOnly = True
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvInqSummary.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.DgvInqSummary.RowHeadersVisible = False
+        Me.DgvInqSummary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DgvInqSummary.Size = New System.Drawing.Size(1097, 436)
+        Me.DgvInqSummary.TabIndex = 1
+        '
+        'GBoxInquiryInformation
+        '
+        Me.GBoxInquiryInformation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GBoxInquiryInformation.Controls.Add(Me.BtnInqSearch)
+        Me.GBoxInquiryInformation.Controls.Add(Me.BtnInqClear)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqEndtNo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqEndtNo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.DtpInqEndtDate)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqEndtDate)
+        Me.GBoxInquiryInformation.Controls.Add(Me.CboxInqModel)
+        Me.GBoxInquiryInformation.Controls.Add(Me.DtpInqDateFailed)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqDateFailed)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqModel)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqWorkOrder)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqLotNo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqWorkOrder)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqPPONo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqLotNo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqSerialNo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqPPONo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqSerialNo)
+        Me.GBoxInquiryInformation.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GBoxInquiryInformation.Location = New System.Drawing.Point(5, 5)
+        Me.GBoxInquiryInformation.Name = "GBoxInquiryInformation"
+        Me.GBoxInquiryInformation.Size = New System.Drawing.Size(1103, 69)
+        Me.GBoxInquiryInformation.TabIndex = 1
+        Me.GBoxInquiryInformation.TabStop = False
+        Me.GBoxInquiryInformation.Text = "Information"
+        '
+        'BtnInqSearch
+        '
+        Me.BtnInqSearch.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnInqSearch.Location = New System.Drawing.Point(870, 32)
+        Me.BtnInqSearch.Name = "BtnInqSearch"
+        Me.BtnInqSearch.Size = New System.Drawing.Size(81, 26)
+        Me.BtnInqSearch.TabIndex = 2
+        Me.BtnInqSearch.Text = "Search"
+        Me.BtnInqSearch.UseVisualStyleBackColor = True
+        '
+        'BtnInqClear
+        '
+        Me.BtnInqClear.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnInqClear.Location = New System.Drawing.Point(957, 32)
+        Me.BtnInqClear.Name = "BtnInqClear"
+        Me.BtnInqClear.Size = New System.Drawing.Size(81, 26)
+        Me.BtnInqClear.TabIndex = 3
+        Me.BtnInqClear.Text = "Clear"
+        Me.BtnInqClear.UseVisualStyleBackColor = True
+        '
+        'LblInqEndtNo
+        '
+        Me.LblInqEndtNo.AutoSize = True
+        Me.LblInqEndtNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqEndtNo.Location = New System.Drawing.Point(6, 18)
+        Me.LblInqEndtNo.Name = "LblInqEndtNo"
+        Me.LblInqEndtNo.Size = New System.Drawing.Size(96, 13)
+        Me.LblInqEndtNo.TabIndex = 3
+        Me.LblInqEndtNo.Text = "Endorsement No."
+        '
+        'TboxInqEndtNo
+        '
+        Me.TboxInqEndtNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqEndtNo.Location = New System.Drawing.Point(6, 34)
+        Me.TboxInqEndtNo.Name = "TboxInqEndtNo"
+        Me.TboxInqEndtNo.Size = New System.Drawing.Size(102, 22)
+        Me.TboxInqEndtNo.TabIndex = 2
+        Me.TboxInqEndtNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'DtpInqEndtDate
+        '
+        Me.DtpInqEndtDate.Checked = False
+        Me.DtpInqEndtDate.CustomFormat = "MMM dd, yyyy"
+        Me.DtpInqEndtDate.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DtpInqEndtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpInqEndtDate.Location = New System.Drawing.Point(762, 34)
+        Me.DtpInqEndtDate.Name = "DtpInqEndtDate"
+        Me.DtpInqEndtDate.Size = New System.Drawing.Size(102, 22)
+        Me.DtpInqEndtDate.TabIndex = 27
+        '
+        'LblInqEndtDate
+        '
+        Me.LblInqEndtDate.AutoSize = True
+        Me.LblInqEndtDate.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqEndtDate.Location = New System.Drawing.Point(762, 18)
+        Me.LblInqEndtDate.Name = "LblInqEndtDate"
+        Me.LblInqEndtDate.Size = New System.Drawing.Size(102, 13)
+        Me.LblInqEndtDate.TabIndex = 26
+        Me.LblInqEndtDate.Text = "Endorsement Date"
+        '
+        'CboxInqModel
+        '
+        Me.CboxInqModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CboxInqModel.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CboxInqModel.FormattingEnabled = True
+        Me.CboxInqModel.Location = New System.Drawing.Point(222, 35)
+        Me.CboxInqModel.Name = "CboxInqModel"
+        Me.CboxInqModel.Size = New System.Drawing.Size(102, 21)
+        Me.CboxInqModel.TabIndex = 5
+        '
+        'DtpInqDateFailed
+        '
+        Me.DtpInqDateFailed.Checked = False
+        Me.DtpInqDateFailed.CustomFormat = "MMM dd, yyyy"
+        Me.DtpInqDateFailed.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DtpInqDateFailed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpInqDateFailed.Location = New System.Drawing.Point(654, 34)
+        Me.DtpInqDateFailed.Name = "DtpInqDateFailed"
+        Me.DtpInqDateFailed.Size = New System.Drawing.Size(102, 22)
+        Me.DtpInqDateFailed.TabIndex = 25
+        '
+        'LblInqDateFailed
+        '
+        Me.LblInqDateFailed.AutoSize = True
+        Me.LblInqDateFailed.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqDateFailed.Location = New System.Drawing.Point(654, 18)
+        Me.LblInqDateFailed.Name = "LblInqDateFailed"
+        Me.LblInqDateFailed.Size = New System.Drawing.Size(65, 13)
+        Me.LblInqDateFailed.TabIndex = 24
+        Me.LblInqDateFailed.Text = "Date Failed"
+        '
+        'LblInqModel
+        '
+        Me.LblInqModel.AutoSize = True
+        Me.LblInqModel.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqModel.Location = New System.Drawing.Point(222, 18)
+        Me.LblInqModel.Name = "LblInqModel"
+        Me.LblInqModel.Size = New System.Drawing.Size(40, 13)
+        Me.LblInqModel.TabIndex = 4
+        Me.LblInqModel.Text = "Model"
+        '
+        'LblInqWorkOrder
+        '
+        Me.LblInqWorkOrder.AutoSize = True
+        Me.LblInqWorkOrder.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqWorkOrder.Location = New System.Drawing.Point(546, 18)
+        Me.LblInqWorkOrder.Name = "LblInqWorkOrder"
+        Me.LblInqWorkOrder.Size = New System.Drawing.Size(68, 13)
+        Me.LblInqWorkOrder.TabIndex = 22
+        Me.LblInqWorkOrder.Text = "Work Order"
+        '
+        'LblInqLotNo
+        '
+        Me.LblInqLotNo.AutoSize = True
+        Me.LblInqLotNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqLotNo.Location = New System.Drawing.Point(438, 18)
+        Me.LblInqLotNo.Name = "LblInqLotNo"
+        Me.LblInqLotNo.Size = New System.Drawing.Size(67, 13)
+        Me.LblInqLotNo.TabIndex = 20
+        Me.LblInqLotNo.Text = "Lot Number"
+        '
+        'TboxInqWorkOrder
+        '
+        Me.TboxInqWorkOrder.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqWorkOrder.Location = New System.Drawing.Point(546, 34)
+        Me.TboxInqWorkOrder.Name = "TboxInqWorkOrder"
+        Me.TboxInqWorkOrder.Size = New System.Drawing.Size(102, 22)
+        Me.TboxInqWorkOrder.TabIndex = 23
+        Me.TboxInqWorkOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'LblInqPPONo
+        '
+        Me.LblInqPPONo.AutoSize = True
+        Me.LblInqPPONo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqPPONo.Location = New System.Drawing.Point(330, 18)
+        Me.LblInqPPONo.Name = "LblInqPPONo"
+        Me.LblInqPPONo.Size = New System.Drawing.Size(72, 13)
+        Me.LblInqPPONo.TabIndex = 18
+        Me.LblInqPPONo.Text = "PPO Number"
+        '
+        'TboxInqLotNo
+        '
+        Me.TboxInqLotNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqLotNo.Location = New System.Drawing.Point(438, 34)
+        Me.TboxInqLotNo.Name = "TboxInqLotNo"
+        Me.TboxInqLotNo.Size = New System.Drawing.Size(102, 22)
+        Me.TboxInqLotNo.TabIndex = 21
+        Me.TboxInqLotNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TboxInqSerialNo
+        '
+        Me.TboxInqSerialNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqSerialNo.Location = New System.Drawing.Point(114, 34)
+        Me.TboxInqSerialNo.Name = "TboxInqSerialNo"
+        Me.TboxInqSerialNo.Size = New System.Drawing.Size(102, 22)
+        Me.TboxInqSerialNo.TabIndex = 1
+        Me.TboxInqSerialNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TboxInqPPONo
+        '
+        Me.TboxInqPPONo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqPPONo.Location = New System.Drawing.Point(330, 34)
+        Me.TboxInqPPONo.Name = "TboxInqPPONo"
+        Me.TboxInqPPONo.Size = New System.Drawing.Size(102, 22)
+        Me.TboxInqPPONo.TabIndex = 19
+        Me.TboxInqPPONo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'LblInqSerialNo
+        '
+        Me.LblInqSerialNo.AutoSize = True
+        Me.LblInqSerialNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqSerialNo.Location = New System.Drawing.Point(114, 18)
+        Me.LblInqSerialNo.Name = "LblInqSerialNo"
+        Me.LblInqSerialNo.Size = New System.Drawing.Size(56, 13)
+        Me.LblInqSerialNo.TabIndex = 0
+        Me.LblInqSerialNo.Text = "Serial No."
         '
         'DTTSBindingSource
         '
@@ -1707,72 +2047,296 @@ Partial Class FrmMain
         'Timer1
         '
         '
-        'GroupBox1
+        'DataGridViewTextBoxColumn31
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.Button1)
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
-        Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(5, 5)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1103, 70)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Information"
+        Me.DataGridViewTextBoxColumn31.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.DataGridViewTextBoxColumn31.DataPropertyName = "id"
+        Me.DataGridViewTextBoxColumn31.Frozen = True
+        Me.DataGridViewTextBoxColumn31.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn31.Name = "DataGridViewTextBoxColumn31"
+        Me.DataGridViewTextBoxColumn31.ReadOnly = True
+        Me.DataGridViewTextBoxColumn31.Width = 43
         '
-        'Button1
+        'EndorsementnoDataGridViewTextBoxColumn
         '
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(232, 32)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(81, 26)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Clear"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.EndorsementnoDataGridViewTextBoxColumn.DataPropertyName = "endorsement_no"
+        Me.EndorsementnoDataGridViewTextBoxColumn.HeaderText = "Endorsement No"
+        Me.EndorsementnoDataGridViewTextBoxColumn.Name = "EndorsementnoDataGridViewTextBoxColumn"
+        Me.EndorsementnoDataGridViewTextBoxColumn.ReadOnly = True
+        Me.EndorsementnoDataGridViewTextBoxColumn.Width = 117
         '
-        'Button2
+        'QtyendorsedDataGridViewTextBoxColumn
         '
-        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(145, 32)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(81, 26)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "Search"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.QtyendorsedDataGridViewTextBoxColumn.DataPropertyName = "qty_endorsed"
+        Me.QtyendorsedDataGridViewTextBoxColumn.HeaderText = "Qty Endorsed"
+        Me.QtyendorsedDataGridViewTextBoxColumn.Name = "QtyendorsedDataGridViewTextBoxColumn"
+        Me.QtyendorsedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.QtyendorsedDataGridViewTextBoxColumn.Width = 101
         '
-        'TextBox1
+        'QtyDataGridViewTextBoxColumn
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(6, 34)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(123, 22)
-        Me.TextBox1.TabIndex = 1
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.QtyDataGridViewTextBoxColumn.DataPropertyName = "qty"
+        Me.QtyDataGridViewTextBoxColumn.HeaderText = "Qty"
+        Me.QtyDataGridViewTextBoxColumn.Name = "QtyDataGridViewTextBoxColumn"
+        Me.QtyDataGridViewTextBoxColumn.ReadOnly = True
+        Me.QtyDataGridViewTextBoxColumn.Width = 50
         '
-        'Label7
+        'DataGridViewTextBoxColumn32
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(6, 18)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(56, 13)
-        Me.Label7.TabIndex = 0
-        Me.Label7.Text = "Serial No."
+        Me.DataGridViewTextBoxColumn32.DataPropertyName = "model"
+        Me.DataGridViewTextBoxColumn32.HeaderText = "Model"
+        Me.DataGridViewTextBoxColumn32.Name = "DataGridViewTextBoxColumn32"
+        Me.DataGridViewTextBoxColumn32.ReadOnly = True
+        Me.DataGridViewTextBoxColumn32.Width = 65
         '
-        'GroupBox2
+        'DataGridViewTextBoxColumn33
         '
-        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(5, 81)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(1103, 456)
-        Me.GroupBox2.TabIndex = 2
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Summary"
+        Me.DataGridViewTextBoxColumn33.DataPropertyName = "serial_no"
+        Me.DataGridViewTextBoxColumn33.HeaderText = "Serial No"
+        Me.DataGridViewTextBoxColumn33.Name = "DataGridViewTextBoxColumn33"
+        Me.DataGridViewTextBoxColumn33.ReadOnly = True
+        Me.DataGridViewTextBoxColumn33.Width = 78
+        '
+        'DataGridViewTextBoxColumn34
+        '
+        Me.DataGridViewTextBoxColumn34.DataPropertyName = "ppo_no"
+        Me.DataGridViewTextBoxColumn34.HeaderText = "PPO No"
+        Me.DataGridViewTextBoxColumn34.Name = "DataGridViewTextBoxColumn34"
+        Me.DataGridViewTextBoxColumn34.ReadOnly = True
+        Me.DataGridViewTextBoxColumn34.Width = 70
+        '
+        'DataGridViewTextBoxColumn35
+        '
+        Me.DataGridViewTextBoxColumn35.DataPropertyName = "ppo_qty"
+        Me.DataGridViewTextBoxColumn35.HeaderText = "PPO Qty"
+        Me.DataGridViewTextBoxColumn35.Name = "DataGridViewTextBoxColumn35"
+        Me.DataGridViewTextBoxColumn35.ReadOnly = True
+        Me.DataGridViewTextBoxColumn35.Width = 73
+        '
+        'DataGridViewTextBoxColumn36
+        '
+        Me.DataGridViewTextBoxColumn36.DataPropertyName = "lot_no"
+        Me.DataGridViewTextBoxColumn36.HeaderText = "Lot No"
+        Me.DataGridViewTextBoxColumn36.Name = "DataGridViewTextBoxColumn36"
+        Me.DataGridViewTextBoxColumn36.ReadOnly = True
+        Me.DataGridViewTextBoxColumn36.Width = 66
+        '
+        'DataGridViewTextBoxColumn37
+        '
+        Me.DataGridViewTextBoxColumn37.DataPropertyName = "work_order"
+        Me.DataGridViewTextBoxColumn37.HeaderText = "Work Order"
+        Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
+        Me.DataGridViewTextBoxColumn37.ReadOnly = True
+        Me.DataGridViewTextBoxColumn37.Width = 92
+        '
+        'DataGridViewTextBoxColumn38
+        '
+        Me.DataGridViewTextBoxColumn38.DataPropertyName = "station"
+        Me.DataGridViewTextBoxColumn38.HeaderText = "Station"
+        Me.DataGridViewTextBoxColumn38.Name = "DataGridViewTextBoxColumn38"
+        Me.DataGridViewTextBoxColumn38.ReadOnly = True
+        Me.DataGridViewTextBoxColumn38.Width = 68
+        '
+        'DataGridViewTextBoxColumn39
+        '
+        Me.DataGridViewTextBoxColumn39.DataPropertyName = "failure_symptoms"
+        Me.DataGridViewTextBoxColumn39.HeaderText = "Failure Symptoms"
+        Me.DataGridViewTextBoxColumn39.Name = "DataGridViewTextBoxColumn39"
+        Me.DataGridViewTextBoxColumn39.ReadOnly = True
+        Me.DataGridViewTextBoxColumn39.Width = 124
+        '
+        'DataGridViewTextBoxColumn40
+        '
+        Me.DataGridViewTextBoxColumn40.DataPropertyName = "endorsed_by"
+        Me.DataGridViewTextBoxColumn40.HeaderText = "Endorsed By"
+        Me.DataGridViewTextBoxColumn40.Name = "DataGridViewTextBoxColumn40"
+        Me.DataGridViewTextBoxColumn40.ReadOnly = True
+        Me.DataGridViewTextBoxColumn40.Width = 96
+        '
+        'DatefailedDataGridViewTextBoxColumn
+        '
+        Me.DatefailedDataGridViewTextBoxColumn.DataPropertyName = "date_failed"
+        Me.DatefailedDataGridViewTextBoxColumn.HeaderText = "Date Failed"
+        Me.DatefailedDataGridViewTextBoxColumn.Name = "DatefailedDataGridViewTextBoxColumn"
+        Me.DatefailedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DatefailedDataGridViewTextBoxColumn.Width = 90
+        '
+        'EndorsementdateDataGridViewTextBoxColumn
+        '
+        Me.EndorsementdateDataGridViewTextBoxColumn.DataPropertyName = "endorsement_date"
+        Me.EndorsementdateDataGridViewTextBoxColumn.HeaderText = "Endorsement Date"
+        Me.EndorsementdateDataGridViewTextBoxColumn.Name = "EndorsementdateDataGridViewTextBoxColumn"
+        Me.EndorsementdateDataGridViewTextBoxColumn.ReadOnly = True
+        Me.EndorsementdateDataGridViewTextBoxColumn.Width = 126
+        '
+        'WorkweekDataGridViewTextBoxColumn
+        '
+        Me.WorkweekDataGridViewTextBoxColumn.DataPropertyName = "workweek"
+        Me.WorkweekDataGridViewTextBoxColumn.HeaderText = "Work Week"
+        Me.WorkweekDataGridViewTextBoxColumn.Name = "WorkweekDataGridViewTextBoxColumn"
+        Me.WorkweekDataGridViewTextBoxColumn.ReadOnly = True
+        Me.WorkweekDataGridViewTextBoxColumn.Width = 92
+        '
+        'DatetransactDataGridViewTextBoxColumn
+        '
+        Me.DatetransactDataGridViewTextBoxColumn.DataPropertyName = "date_transact"
+        Me.DatetransactDataGridViewTextBoxColumn.HeaderText = "Date Transact"
+        Me.DatetransactDataGridViewTextBoxColumn.Name = "DatetransactDataGridViewTextBoxColumn"
+        Me.DatetransactDataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'TimetransactDataGridViewTextBoxColumn
+        '
+        Me.TimetransactDataGridViewTextBoxColumn.DataPropertyName = "time_transact"
+        Me.TimetransactDataGridViewTextBoxColumn.HeaderText = "Time Transact"
+        Me.TimetransactDataGridViewTextBoxColumn.Name = "TimetransactDataGridViewTextBoxColumn"
+        Me.TimetransactDataGridViewTextBoxColumn.ReadOnly = True
+        Me.TimetransactDataGridViewTextBoxColumn.Width = 101
+        '
+        'ReceiverDataGridViewTextBoxColumn
+        '
+        Me.ReceiverDataGridViewTextBoxColumn.DataPropertyName = "receiver"
+        Me.ReceiverDataGridViewTextBoxColumn.HeaderText = "Received By"
+        Me.ReceiverDataGridViewTextBoxColumn.Name = "ReceiverDataGridViewTextBoxColumn"
+        Me.ReceiverDataGridViewTextBoxColumn.ReadOnly = True
+        Me.ReceiverDataGridViewTextBoxColumn.Width = 94
+        '
+        'DatereceivedDataGridViewTextBoxColumn
+        '
+        Me.DatereceivedDataGridViewTextBoxColumn.DataPropertyName = "date_received"
+        Me.DatereceivedDataGridViewTextBoxColumn.HeaderText = "Date Received"
+        Me.DatereceivedDataGridViewTextBoxColumn.Name = "DatereceivedDataGridViewTextBoxColumn"
+        Me.DatereceivedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DatereceivedDataGridViewTextBoxColumn.Width = 105
+        '
+        'TimereceivedDataGridViewTextBoxColumn
+        '
+        Me.TimereceivedDataGridViewTextBoxColumn.DataPropertyName = "time_received"
+        Me.TimereceivedDataGridViewTextBoxColumn.HeaderText = "Time Received"
+        Me.TimereceivedDataGridViewTextBoxColumn.Name = "TimereceivedDataGridViewTextBoxColumn"
+        Me.TimereceivedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.TimereceivedDataGridViewTextBoxColumn.Width = 106
+        '
+        'AnalysisDataGridViewTextBoxColumn
+        '
+        Me.AnalysisDataGridViewTextBoxColumn.DataPropertyName = "analysis"
+        Me.AnalysisDataGridViewTextBoxColumn.HeaderText = "Analysis"
+        Me.AnalysisDataGridViewTextBoxColumn.Name = "AnalysisDataGridViewTextBoxColumn"
+        Me.AnalysisDataGridViewTextBoxColumn.ReadOnly = True
+        Me.AnalysisDataGridViewTextBoxColumn.Width = 73
+        '
+        'ActiontakenDataGridViewTextBoxColumn
+        '
+        Me.ActiontakenDataGridViewTextBoxColumn.DataPropertyName = "action_taken"
+        Me.ActiontakenDataGridViewTextBoxColumn.HeaderText = "Action Taken"
+        Me.ActiontakenDataGridViewTextBoxColumn.Name = "ActiontakenDataGridViewTextBoxColumn"
+        Me.ActiontakenDataGridViewTextBoxColumn.ReadOnly = True
+        Me.ActiontakenDataGridViewTextBoxColumn.Width = 96
+        '
+        'Location1DataGridViewTextBoxColumn
+        '
+        Me.Location1DataGridViewTextBoxColumn.DataPropertyName = "location1"
+        Me.Location1DataGridViewTextBoxColumn.HeaderText = "Location 1"
+        Me.Location1DataGridViewTextBoxColumn.Name = "Location1DataGridViewTextBoxColumn"
+        Me.Location1DataGridViewTextBoxColumn.ReadOnly = True
+        Me.Location1DataGridViewTextBoxColumn.Width = 82
+        '
+        'Location2DataGridViewTextBoxColumn
+        '
+        Me.Location2DataGridViewTextBoxColumn.DataPropertyName = "location2"
+        Me.Location2DataGridViewTextBoxColumn.HeaderText = "Location 2"
+        Me.Location2DataGridViewTextBoxColumn.Name = "Location2DataGridViewTextBoxColumn"
+        Me.Location2DataGridViewTextBoxColumn.ReadOnly = True
+        Me.Location2DataGridViewTextBoxColumn.Width = 84
+        '
+        'Location3DataGridViewTextBoxColumn
+        '
+        Me.Location3DataGridViewTextBoxColumn.DataPropertyName = "location3"
+        Me.Location3DataGridViewTextBoxColumn.HeaderText = "Location 3"
+        Me.Location3DataGridViewTextBoxColumn.Name = "Location3DataGridViewTextBoxColumn"
+        Me.Location3DataGridViewTextBoxColumn.ReadOnly = True
+        Me.Location3DataGridViewTextBoxColumn.Width = 84
+        '
+        'Location4DataGridViewTextBoxColumn
+        '
+        Me.Location4DataGridViewTextBoxColumn.DataPropertyName = "location4"
+        Me.Location4DataGridViewTextBoxColumn.HeaderText = "Location 4"
+        Me.Location4DataGridViewTextBoxColumn.Name = "Location4DataGridViewTextBoxColumn"
+        Me.Location4DataGridViewTextBoxColumn.ReadOnly = True
+        Me.Location4DataGridViewTextBoxColumn.Width = 84
+        '
+        'Location5DataGridViewTextBoxColumn
+        '
+        Me.Location5DataGridViewTextBoxColumn.DataPropertyName = "location5"
+        Me.Location5DataGridViewTextBoxColumn.HeaderText = "Location 5"
+        Me.Location5DataGridViewTextBoxColumn.Name = "Location5DataGridViewTextBoxColumn"
+        Me.Location5DataGridViewTextBoxColumn.ReadOnly = True
+        Me.Location5DataGridViewTextBoxColumn.Width = 84
+        '
+        'RepairedbyDataGridViewTextBoxColumn
+        '
+        Me.RepairedbyDataGridViewTextBoxColumn.DataPropertyName = "repaired_by"
+        Me.RepairedbyDataGridViewTextBoxColumn.HeaderText = "Repaired By"
+        Me.RepairedbyDataGridViewTextBoxColumn.Name = "RepairedbyDataGridViewTextBoxColumn"
+        Me.RepairedbyDataGridViewTextBoxColumn.ReadOnly = True
+        Me.RepairedbyDataGridViewTextBoxColumn.Width = 94
+        '
+        'DaterepairedDataGridViewTextBoxColumn
+        '
+        Me.DaterepairedDataGridViewTextBoxColumn.DataPropertyName = "date_repaired"
+        Me.DaterepairedDataGridViewTextBoxColumn.HeaderText = "Date Repaired"
+        Me.DaterepairedDataGridViewTextBoxColumn.Name = "DaterepairedDataGridViewTextBoxColumn"
+        Me.DaterepairedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DaterepairedDataGridViewTextBoxColumn.Width = 105
+        '
+        'DefecttypeDataGridViewTextBoxColumn
+        '
+        Me.DefecttypeDataGridViewTextBoxColumn.DataPropertyName = "defect_type"
+        Me.DefecttypeDataGridViewTextBoxColumn.HeaderText = "Defect Type"
+        Me.DefecttypeDataGridViewTextBoxColumn.Name = "DefecttypeDataGridViewTextBoxColumn"
+        Me.DefecttypeDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DefecttypeDataGridViewTextBoxColumn.Width = 92
+        '
+        'StatusDataGridViewTextBoxColumn
+        '
+        Me.StatusDataGridViewTextBoxColumn.DataPropertyName = "status"
+        Me.StatusDataGridViewTextBoxColumn.HeaderText = "Status"
+        Me.StatusDataGridViewTextBoxColumn.Name = "StatusDataGridViewTextBoxColumn"
+        Me.StatusDataGridViewTextBoxColumn.ReadOnly = True
+        Me.StatusDataGridViewTextBoxColumn.Width = 63
+        '
+        'RemarksDataGridViewTextBoxColumn
+        '
+        Me.RemarksDataGridViewTextBoxColumn.DataPropertyName = "remarks"
+        Me.RemarksDataGridViewTextBoxColumn.HeaderText = "Remarks"
+        Me.RemarksDataGridViewTextBoxColumn.Name = "RemarksDataGridViewTextBoxColumn"
+        Me.RemarksDataGridViewTextBoxColumn.ReadOnly = True
+        Me.RemarksDataGridViewTextBoxColumn.Width = 76
+        '
+        'DatetsDataGridViewTextBoxColumn
+        '
+        Me.DatetsDataGridViewTextBoxColumn.DataPropertyName = "date_ts"
+        Me.DatetsDataGridViewTextBoxColumn.HeaderText = "Date Analyze"
+        Me.DatetsDataGridViewTextBoxColumn.Name = "DatetsDataGridViewTextBoxColumn"
+        Me.DatetsDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DatetsDataGridViewTextBoxColumn.Width = 98
+        '
+        'TimetsDataGridViewTextBoxColumn
+        '
+        Me.TimetsDataGridViewTextBoxColumn.DataPropertyName = "time_ts"
+        Me.TimetsDataGridViewTextBoxColumn.HeaderText = "Time Analyze"
+        Me.TimetsDataGridViewTextBoxColumn.Name = "TimetsDataGridViewTextBoxColumn"
+        Me.TimetsDataGridViewTextBoxColumn.ReadOnly = True
+        Me.TimetsDataGridViewTextBoxColumn.Width = 99
+        '
+        'DTInquiryBindingSource
+        '
+        Me.DTInquiryBindingSource.DataMember = "DTInquiry"
+        Me.DTInquiryBindingSource.DataSource = Me.DSInquiry
+        '
+        'DSInquiry
+        '
+        Me.DSInquiry.DataSetName = "DSInquiry"
+        Me.DSInquiry.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'FrmMain
         '
@@ -1816,13 +2380,17 @@ Partial Class FrmMain
         Me.GBoxTSData.ResumeLayout(False)
         Me.GBoxTSData.PerformLayout()
         Me.TabPageInquiry.ResumeLayout(False)
+        Me.GBoxInformationSummary.ResumeLayout(False)
+        CType(Me.DgvInqSummary, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GBoxInquiryInformation.ResumeLayout(False)
+        Me.GBoxInquiryInformation.PerformLayout()
         CType(Me.DTTSBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DSTS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProviderEndorsement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        CType(Me.DTInquiryBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DSInquiry, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1984,10 +2552,63 @@ Partial Class FrmMain
     Friend WithEvents LblTSDataSerialNumber As Label
     Friend WithEvents ChkBoxEndtSerialNo As CheckBox
     Friend WithEvents FileToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label7 As Label
+    Friend WithEvents GBoxInformationSummary As GroupBox
+    Friend WithEvents GBoxInquiryInformation As GroupBox
+    Friend WithEvents BtnInqClear As Button
+    Friend WithEvents BtnInqSearch As Button
+    Friend WithEvents TboxInqSerialNo As TextBox
+    Friend WithEvents LblInqSerialNo As Label
+    Friend WithEvents CBoxFailureSymptoms As ComboBox
+    Friend WithEvents CboxInqModel As ComboBox
+    Friend WithEvents LblInqModel As Label
+    Friend WithEvents DtpInqEndtDate As DateTimePicker
+    Friend WithEvents LblInqEndtDate As Label
+    Friend WithEvents DtpInqDateFailed As DateTimePicker
+    Friend WithEvents LblInqDateFailed As Label
+    Friend WithEvents LblInqWorkOrder As Label
+    Friend WithEvents LblInqLotNo As Label
+    Friend WithEvents TboxInqWorkOrder As TextBox
+    Friend WithEvents LblInqPPONo As Label
+    Friend WithEvents TboxInqLotNo As TextBox
+    Friend WithEvents TboxInqPPONo As TextBox
+    Friend WithEvents DgvInqSummary As DataGridView
+    Friend WithEvents LblInqEndtNo As Label
+    Friend WithEvents TboxInqEndtNo As TextBox
+    Friend WithEvents DTInquiryBindingSource As BindingSource
+    Friend WithEvents DSInquiry As DSInquiry
+    Friend WithEvents DataGridViewTextBoxColumn31 As DataGridViewTextBoxColumn
+    Friend WithEvents EndorsementnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents QtyendorsedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents QtyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn32 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn33 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn34 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn35 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn36 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn37 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn38 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn39 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn40 As DataGridViewTextBoxColumn
+    Friend WithEvents DatefailedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents EndorsementdateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents WorkweekDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DatetransactDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents TimetransactDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ReceiverDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DatereceivedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents TimereceivedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents AnalysisDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ActiontakenDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Location1DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Location2DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Location3DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Location4DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Location5DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents RepairedbyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DaterepairedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DefecttypeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents StatusDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents RemarksDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DatetsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents TimetsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 End Class

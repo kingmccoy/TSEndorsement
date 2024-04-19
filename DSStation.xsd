@@ -9,14 +9,14 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="DSStation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSStation" msprop:Generator_DataSetName="DSStation">
+  <xs:element name="DSStation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSStation" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSStation">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTStations" msprop:Generator_RowEvHandlerName="DTStationsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTStationsRowDeleted" msprop:Generator_RowDeletingName="DTStationsRowDeleting" msprop:Generator_RowEvArgName="DTStationsRowChangeEvent" msprop:Generator_TablePropName="DTStations" msprop:Generator_RowChangedName="DTStationsRowChanged" msprop:Generator_RowChangingName="DTStationsRowChanging" msprop:Generator_TableClassName="DTStationsDataTable" msprop:Generator_RowClassName="DTStationsRow" msprop:Generator_TableVarName="tableDTStations" msprop:Generator_UserTableName="DTStations">
+        <xs:element name="DTStations" msprop:Generator_RowClassName="DTStationsRow" msprop:Generator_RowEvHandlerName="DTStationsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTStationsRowDeleted" msprop:Generator_RowDeletingName="DTStationsRowDeleting" msprop:Generator_RowEvArgName="DTStationsRowChangeEvent" msprop:Generator_TablePropName="DTStations" msprop:Generator_RowChangedName="DTStationsRowChanged" msprop:Generator_UserTableName="DTStations" msprop:Generator_RowChangingName="DTStationsRowChanging" msprop:Generator_TableClassName="DTStationsDataTable" msprop:Generator_TableVarName="tableDTStations">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
-              <xs:element name="station" msprop:Generator_ColumnPropNameInRow="station" msprop:Generator_ColumnPropNameInTable="stationColumn" msprop:Generator_ColumnVarNameInTable="columnstation" msprop:Generator_UserColumnName="station" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:string" />
+              <xs:element name="station" msprop:Generator_UserColumnName="station" msprop:Generator_ColumnPropNameInTable="stationColumn" msprop:Generator_ColumnPropNameInRow="station" msprop:Generator_ColumnVarNameInTable="columnstation" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

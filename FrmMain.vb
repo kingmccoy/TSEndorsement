@@ -6,6 +6,7 @@ Imports System.Data.SQLite
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.VisualStyles
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Public Class FrmMain
     'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
@@ -45,6 +46,8 @@ Public Class FrmMain
         TBoxWorkOrder.Clear()
         CBoxStation.Text = Nothing
         TBoxFailureSymptoms.Clear()
+        'CBoxFailureSymptoms.Text = Nothing
+
         'TBoxEndorsedBy.Clear()
         'TBoxWorkweek.Clear()
 
@@ -73,7 +76,7 @@ Public Class FrmMain
         TBoxLotNo.Clear()
         TBoxWorkOrder.Clear()
         CBoxStation.Text = Nothing
-        TBoxFailureSymptoms.Clear()
+        'TBoxFailureSymptoms.Clear()
         TBoxEndorsedBy.Clear()
         BtnScan.Enabled = True
         BtnReset.Enabled = True
@@ -82,6 +85,7 @@ Public Class FrmMain
         TBoxSerialNo.Clear()
         CBoxStation.Text = Nothing
         TBoxFailureSymptoms.Clear()
+        CBoxFailureSymptoms.Text = Nothing
         BtnSubmit.Enabled = False
         BtnCancel.Enabled = False
 
@@ -93,11 +97,13 @@ Public Class FrmMain
     Private Sub BtnEndorse_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
         If ChkBoxEndtSerialNo.Checked = True And TBoxSerialNo.Enabled = False Then
             If CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                'If CBoxStation.Text = Nothing Or CBoxFailureSymptoms.Text.Length = 0 Then
                 MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 1", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-        Else
-            If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                    Return
+                End If
+            Else
+                If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                'If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.Text.Length = 0 Then
                 MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 2", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
@@ -165,6 +171,7 @@ Public Class FrmMain
                     dbCmd.Parameters.AddWithValue("@work_order", TBoxWorkOrder.Text)
                     dbCmd.Parameters.AddWithValue("@station", CBoxStation.Text)
                     dbCmd.Parameters.AddWithValue("@failure_symptoms", TBoxFailureSymptoms.Text)
+                    'dbCmd.Parameters.AddWithValue("@failure_symptoms", CBoxFailureSymptoms.Text)
                     dbCmd.Parameters.AddWithValue("@endorsed_by", TBoxEndorsedBy.Text)
                     dbCmd.Parameters.AddWithValue("@date_failed", DTPDateFailed.Value)
                     dbCmd.Parameters.AddWithValue("@endorsement_date", DTPEndorsementDate.Value)
@@ -217,10 +224,12 @@ Public Class FrmMain
                 TBoxSerialNo.Clear()
                 CBoxStation.Text = Nothing
                 TBoxFailureSymptoms.Clear()
+                'CBoxFailureSymptoms.Text = Nothing
 
                 TBoxSerialNo.Enabled = False
                 CBoxStation.Enabled = False
                 TBoxFailureSymptoms.Enabled = False
+                'CBoxFailureSymptoms.Enabled = False
 
                 BtnEndorse.Enabled = False
                 BtnDataClear.Enabled = False
@@ -237,7 +246,7 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub BtnEndorseEnter_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxSerialNo.KeyDown, CBoxStation.KeyDown, TBoxFailureSymptoms.KeyDown
+    Private Sub BtnEndorseEnter_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxSerialNo.KeyDown, CBoxStation.KeyDown, TBoxFailureSymptoms.KeyDown, CBoxFailureSymptoms.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnEndorse.PerformClick()
         End If
@@ -257,9 +266,14 @@ Public Class FrmMain
                 End Using
             End Using
             dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Endorsement Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
         End Try
     End Sub
 
@@ -277,15 +291,20 @@ Public Class FrmMain
             End Using
             dbConn.Close()
             DGVEndorsementData.DataSource = dbTable
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Loading Temp Endorsement Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
         End Try
     End Sub
 
     Private Sub Load_Model_Variant()
         Try
-            Dim dbTable As New DSJoinTable.DTvariantDataTable
+            Dim dbTable As New DSJoinTable.DTVariantDataTable
             Dim q = "SELECT * FROM variant"
             dbConn.Open()
             Using dbCmd As New SqlCommand(q, dbConn)
@@ -297,9 +316,17 @@ Public Class FrmMain
             CBoxModel.DataSource = dbTable
             CBoxModel.DisplayMember = "variant"
             CBoxModel.Text = Nothing
+            CboxInqModel.DataSource = dbTable
+            CboxInqModel.DisplayMember = "variant"
+            CboxInqModel.Text = Nothing
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Loading Model", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
         End Try
     End Sub
 
@@ -320,9 +347,40 @@ Public Class FrmMain
             CBoxStation.DisplayMember = "station"
             CBoxStation.Text = Nothing
             CBoxStation.DropDownHeight = 106
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             dbConn.Close()
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub Load_FailureSymptoms()
+        Try
+            Dim DbTable As New DataTable
+            Dim Query = "SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CBoxStation.Text & "'"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(Query, dbConn)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(DbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            CBoxFailureSymptoms.DataSource = DbTable
+            CBoxFailureSymptoms.DisplayMember = "failure_symptoms"
+            CBoxFailureSymptoms.Text = Nothing
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
         End Try
     End Sub
 
@@ -655,6 +713,7 @@ Public Class FrmMain
             TBoxSerialNo.Enabled = True
             CBoxStation.Enabled = True
             TBoxFailureSymptoms.Enabled = True
+            'CBoxFailureSymptoms.Enabled = True
             BtnEndorse.Enabled = True
             BtnDataClear.Enabled = True
             BtnReturn.Enabled = True
@@ -742,6 +801,7 @@ Public Class FrmMain
         TBoxSerialNo.Clear()
         CBoxStation.Text = Nothing
         TBoxFailureSymptoms.Clear()
+        'CBoxFailureSymptoms.Text = Nothing
         LblNewQty.Text = 0
     End Sub
 
@@ -773,6 +833,7 @@ Public Class FrmMain
             TBoxSerialNo.Clear()
             CBoxStation.Text = Nothing
             TBoxFailureSymptoms.Clear()
+            'CBoxFailureSymptoms.Text = Nothing
         End If
     End Sub
 
@@ -794,14 +855,30 @@ Public Class FrmMain
         TBoxSerialNo.Clear()
         CBoxStation.Text = Nothing
         TBoxFailureSymptoms.Clear()
+        'CBoxFailureSymptoms.Text = Nothing
     End Sub
 
     Private Sub TBoxFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles TBoxFailureSymptoms.TextChanged
         TBoxFailureSymptoms.CharacterCasing = CharacterCasing.Upper
     End Sub
 
+    Private Sub CBoxFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles CBoxFailureSymptoms.TextChanged
+        Dim selectionStart As Integer = CBoxFailureSymptoms.SelectionStart
+        CBoxFailureSymptoms.Text = CBoxFailureSymptoms.Text.ToUpper()
+        CBoxFailureSymptoms.SelectionStart = selectionStart
+        'CBoxFailureSymptoms.SelectionLength = 0
+    End Sub
+
     Private Sub TBoxFailureSymptoms_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxFailureSymptoms.KeyPress
         If TBoxFailureSymptoms.TextLength = 0 Then
+            If e.KeyChar = ChrW(Keys.Space) Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub CBoxFailureSymptoms_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CBoxFailureSymptoms.KeyPress
+        If CBoxFailureSymptoms.Text.Length = 0 Then
             If e.KeyChar = ChrW(Keys.Space) Then
                 e.Handled = True
             End If
@@ -1272,7 +1349,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub TBoxTSLocation1_TextChanged(sender As Object, e As EventArgs) Handles TBoxTSLocation1.TextChanged
-        'TBoxTSLocation1.CharacterCasing = CharacterCasing.Upper
+        TBoxTSLocation1.CharacterCasing = CharacterCasing.Upper
         'If TBoxTSLocation1.TextLength = 0 Then
         '    ErrorProviderEndorsement.SetError(TBoxTSLocation1, "Please fill the information")
         'Else
@@ -1351,6 +1428,54 @@ Public Class FrmMain
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub CBoxStation_TextChanged(sender As Object, e As EventArgs) Handles CBoxStation.TextChanged
+        If CBoxStation.Text.Length = 0 Then
+            CBoxFailureSymptoms.DropDownHeight = 106
+        End If
+
+        'Load_FailureSymptoms()
+    End Sub
+
+    Private Sub CBoxStation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBoxStation.SelectedIndexChanged
+        Load_FailureSymptoms()
+    End Sub
+
+    Private Sub BtnInqSearch_Click(sender As Object, e As EventArgs) Handles BtnInqSearch.Click
+        Load_Inquiry()
+    End Sub
+
+    Private Sub Load_Inquiry()
+        Try
+            Dim dbTable As New DSInquiry.DTInquiryDataTable
+            Dim StoredProcedure = "Inquiry"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@endtNo", TboxInqEndtNo.Text)
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxInqSerialNo.Text)
+                dbCmd.Parameters.AddWithValue("@model", CboxInqModel.Text)
+                dbCmd.Parameters.AddWithValue("@ppoNo", TboxInqPPONo.Text)
+                dbCmd.Parameters.AddWithValue("@lotNo", TboxInqLotNo.Text)
+                dbCmd.Parameters.AddWithValue("@workOrder", TboxInqWorkOrder.Text)
+                dbCmd.Parameters.AddWithValue("@dateFailed", DtpInqDateFailed.Value)
+                dbCmd.Parameters.AddWithValue("@endtDate", DtpInqEndtDate.Value)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            DgvInqSummary.DataSource = dbTable
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Updating TS Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
     End Sub
 
     Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown
