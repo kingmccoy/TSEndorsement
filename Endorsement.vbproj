@@ -121,6 +121,14 @@
     <Compile Include="DSEndorsementData.vb">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DSFailureSymptoms.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSFailureSymptoms.vb">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DSInquiry.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +200,17 @@
     </None>
     <None Include="DSEndorsementData.xss">
       <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSFailureSymptoms.xsc">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </None>
+    <None Include="DSFailureSymptoms.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSFailureSymptoms.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSFailureSymptoms.xss">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
     </None>
     <None Include="DSInquiry.xsc">
       <DependentUpon>DSInquiry.xsd</DependentUpon>

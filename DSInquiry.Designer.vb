@@ -750,6 +750,12 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function FindByid(ByVal id As String) As DTInquiryRow
+            Return CType(Me.Rows.Find(New Object() {id}),DTInquiryRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As DTInquiryDataTable = CType(MyBase.Clone,DTInquiryDataTable)
             cln.InitVars
@@ -875,6 +881,9 @@ Partial Public Class DSInquiry
             MyBase.Columns.Add(Me.columndate_ts)
             Me.columntime_ts = New Global.System.Data.DataColumn("time_ts", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columntime_ts)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
+            Me.columnid.AllowDBNull = false
+            Me.columnid.Unique = true
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1023,11 +1032,7 @@ Partial Public Class DSInquiry
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property id() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableDTInquiry.idColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'id' in table 'DTInquiry' is DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableDTInquiry.idColumn),String)
             End Get
             Set
                 Me(Me.tableDTInquiry.idColumn) = value
@@ -1543,18 +1548,6 @@ Partial Public Class DSInquiry
                 Me(Me.tableDTInquiry.time_tsColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function IsidNull() As Boolean
-            Return Me.IsNull(Me.tableDTInquiry.idColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub SetidNull()
-            Me(Me.tableDTInquiry.idColumn) = Global.System.Convert.DBNull
-        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _

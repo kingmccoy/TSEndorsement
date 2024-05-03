@@ -3,6 +3,7 @@ Imports System.Data.Entity.Infrastructure.DependencyResolution
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Data.SQLite
+Imports System.Diagnostics.Eventing
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.VisualStyles
@@ -12,6 +13,7 @@ Public Class FrmMain
     'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
     Dim DateNow, TimeNow As String
     Dim Invalid_ppoNumber, Invalid_lotNumber, Invalid_workOrder, Invalid_serialNumber As Boolean
+    Dim FailureSymptoms As String
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim workweek = DatePart("ww", DTPEndorsementDate.Value)
@@ -99,10 +101,10 @@ Public Class FrmMain
             If CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
                 'If CBoxStation.Text = Nothing Or CBoxFailureSymptoms.Text.Length = 0 Then
                 MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 1", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Return
-                End If
-            Else
-                If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
+                Return
+            End If
+        Else
+            If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.TextLength = 0 Then
                 'If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.Text.Length = 0 Then
                 MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 2", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
@@ -359,10 +361,40 @@ Public Class FrmMain
         End Try
     End Sub
 
+    Private Sub Load_Station_Inquiry()
+        Try
+            Dim dbTable As New DSStation.DTStationsDataTable
+            Dim StoredProcedure = "GetStation"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@variant", CboxInqModel.Text)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            CboxInqStation.DataSource = dbTable
+            CboxInqStation.DisplayMember = "station"
+            CboxInqStation.Text = Nothing
+            CboxInqStation.DropDownHeight = 106
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
     Private Sub Load_FailureSymptoms()
         Try
-            Dim DbTable As New DataTable
-            Dim Query = "SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CBoxStation.Text & "'"
+            Dim DbTable As New DSFailureSymptoms.DTFailureSymptomsDataTable
+            'Dim Query = "SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CBoxStation.Text & "'"
+            Dim Query = "SELECT ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS id, failure_symptoms FROM (SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CBoxStation.Text & "') AS distinct_symptoms;"
             dbConn.Open()
             Using dbCmd As New SqlCommand(Query, dbConn)
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
@@ -907,6 +939,7 @@ Public Class FrmMain
                         Else
                             LblRcvStatus.ForeColor = Color.DarkRed
                             LblRcvStatus.Text = "NOT YET RECEIVED" ' or any other default value or message
+                            BtnRcvSubmit.Enabled = True
                         End If
 
                         LblRcvStatus.Visible = True
@@ -945,6 +978,7 @@ Public Class FrmMain
                         LblRcvReceiver.Visible = False
                         lblRcvReceiverName.Text = Nothing
                         lblRcvReceiverName.Visible = False
+                        BtnRcvSubmit.Enabled = False
                     End If
                 End Using
             End Using
@@ -952,8 +986,8 @@ Public Class FrmMain
 
             If LblRcvStatus.Text = "ALREADY RECEIVED" Then
                 BtnRcvSubmit.Enabled = False
-            Else
-                BtnRcvSubmit.Enabled = True
+                'Else
+                '    BtnRcvSubmit.Enabled = True
             End If
 
             Dim Query = "SELECT COUNT(id) AS id FROM Endorsement WHERE endorsement_no='" & TBoxRcvEndtNo.Text & "'"
@@ -994,7 +1028,7 @@ Public Class FrmMain
         lblRcvReceiverName.Visible = False
         DGVRcvEndtData.DataSource = Nothing
         LblEndtTotalQty.Text = 0
-        BtnRcvSubmit.Enabled = True
+        BtnRcvSubmit.Enabled = False
     End Sub
 
     Private Sub BtnRcvSubmit_Click(sender As Object, e As EventArgs) Handles BtnRcvSubmit.Click
@@ -1310,10 +1344,12 @@ Public Class FrmMain
                 End Using
             End Using
             dbConn.Close()
+            TboxTSSerialNo.Focus()
+            TboxTSSerialNo.SelectAll()
         Catch ex As SqlException
             MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Updating TS Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
@@ -1440,6 +1476,7 @@ Public Class FrmMain
 
     Private Sub CBoxStation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBoxStation.SelectedIndexChanged
         Load_FailureSymptoms()
+        'FailureSymptoms = CBoxStation.Text
     End Sub
 
     Private Sub BtnInqSearch_Click(sender As Object, e As EventArgs) Handles BtnInqSearch.Click
@@ -1449,18 +1486,26 @@ Public Class FrmMain
     Private Sub Load_Inquiry()
         Try
             Dim dbTable As New DSInquiry.DTInquiryDataTable
+            'Dim dbTable As New DataTable
             Dim StoredProcedure = "Inquiry"
             dbConn.Open()
             Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
                 dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@endtNo", TboxInqEndtNo.Text)
-                dbCmd.Parameters.AddWithValue("@serialNo", TboxInqSerialNo.Text)
+                dbCmd.Parameters.AddWithValue("@endtno", TboxInqEndtNo.Text)
+                dbCmd.Parameters.AddWithValue("@serialno", TboxInqSerialNo.Text)
                 dbCmd.Parameters.AddWithValue("@model", CboxInqModel.Text)
-                dbCmd.Parameters.AddWithValue("@ppoNo", TboxInqPPONo.Text)
-                dbCmd.Parameters.AddWithValue("@lotNo", TboxInqLotNo.Text)
-                dbCmd.Parameters.AddWithValue("@workOrder", TboxInqWorkOrder.Text)
-                dbCmd.Parameters.AddWithValue("@dateFailed", DtpInqDateFailed.Value)
-                dbCmd.Parameters.AddWithValue("@endtDate", DtpInqEndtDate.Value)
+                dbCmd.Parameters.AddWithValue("@station", CboxInqStation.Text)
+                dbCmd.Parameters.AddWithValue("@ppono", TboxInqPPONo.Text)
+                dbCmd.Parameters.AddWithValue("@lotno", TboxInqLotNo.Text)
+                dbCmd.Parameters.AddWithValue("@workorder", TboxInqWorkOrder.Text)
+                dbCmd.Parameters.AddWithValue("@failuresymptoms", TboxInqFailureSymptoms.Text)
+                dbCmd.Parameters.AddWithValue("@datefailed", DtpInqDateFailed.Value.ToString("yyyy-MM-dd"))
+                dbCmd.Parameters.AddWithValue("@endtdate", DtpInqEndtDate.Value.ToString("yyyy-MM-dd"))
+                dbCmd.Parameters.AddWithValue("@actiontaken", TboxInqActionTaken.Text)
+                dbCmd.Parameters.AddWithValue("@defecttype", TboxInqDefType.Text)
+                dbCmd.Parameters.AddWithValue("@status", TboxInqStatus.Text)
+                dbCmd.Parameters.AddWithValue("@remarks", TboxInqRemarks.Text)
+
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
                     dbAdapter.Fill(dbTable)
                 End Using
@@ -1470,12 +1515,98 @@ Public Class FrmMain
         Catch ex As SqlException
             MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Updating TS Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
             End If
         End Try
+    End Sub
+
+    Private Sub BtnInqClear_Click(sender As Object, e As EventArgs) Handles BtnInqClear.Click
+        TboxInqEndtNo.Clear()
+        TboxInqSerialNo.Clear()
+        CboxInqModel.Text = Nothing
+        CboxInqStation.Text = Nothing
+        TboxInqPPONo.Clear()
+        TboxInqLotNo.Clear()
+        TboxInqWorkOrder.Clear()
+        TboxInqFailureSymptoms.Clear()
+        DtpInqDateFailed.Value = Today
+        DtpInqEndtDate.Value = Today
+        TboxInqActionTaken.Clear()
+        TboxInqDefType.Clear()
+        TboxInqStatus.Clear()
+        TboxInqRemarks.Clear()
+        DgvInqSummary.DataSource = Nothing
+    End Sub
+
+    Private Sub LblInqPPONo_Click(sender As Object, e As EventArgs) Handles LblInqPPONo.Click
+
+    End Sub
+
+    Private Sub CboxInqModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboxInqModel.SelectedIndexChanged
+        Load_Station_Inquiry()
+    End Sub
+
+    Private Sub TboxInqEndtNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxInqEndtNo.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
+
+        If TboxInqEndtNo.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub TboxInqSerialNo_TextChanged(sender As Object, e As EventArgs) Handles TboxInqSerialNo.TextChanged
+        TboxInqSerialNo.MaxLength = 11
+        TboxInqSerialNo.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxInqPPONo.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
+
+        If TboxInqPPONo.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub TboxInqWorkOrder_TextChanged(sender As Object, e As EventArgs) Handles TboxInqWorkOrder.TextChanged
+        TboxInqWorkOrder.MaxLength = 7
+        TboxInqWorkOrder.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqActionTaken_TextChanged(sender As Object, e As EventArgs) Handles TboxInqActionTaken.TextChanged
+        TboxInqActionTaken.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqDefType_TextChanged(sender As Object, e As EventArgs) Handles TboxInqDefType.TextChanged
+        TboxInqDefType.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqStatus_TextChanged(sender As Object, e As EventArgs) Handles TboxInqStatus.TextChanged
+        TboxInqStatus.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqRemarks_TextChanged(sender As Object, e As EventArgs) Handles TboxInqRemarks.TextChanged
+        TboxInqRemarks.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TboxInqFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles TboxInqFailureSymptoms.TextChanged
+        TboxInqFailureSymptoms.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub InquiryEnterKey_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxInqEndtNo.KeyDown, TboxInqSerialNo.KeyDown, CboxInqModel.KeyDown, CboxInqStation.KeyDown, TboxInqPPONo.KeyDown, TboxInqLotNo.KeyDown, TboxInqWorkOrder.KeyDown, TboxInqFailureSymptoms.KeyDown, DtpInqDateFailed.KeyDown, DtpInqEndtDate.KeyDown, TboxInqActionTaken.KeyDown, TboxInqDefType.KeyDown, TboxInqStatus.KeyDown, TboxInqRemarks.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnInqSearch.PerformClick()
+        End If
     End Sub
 
     Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown
