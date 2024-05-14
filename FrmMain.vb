@@ -1166,6 +1166,8 @@ Public Class FrmMain
                                 LblTSTimeStamp.Text = Nothing
                                 LblTSDataQRCode.Visible = True
 
+                                TBoxTSAnalysis.Focus()
+
                                 TBoxTSAnalysis_TextChanged(sender, e)
                                 TBoxTSDefectType_TextChanged(sender, e)
                                 TBoxTSActionTaken_TextChanged(sender, e)
@@ -1237,6 +1239,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub ClearFetchData()
+        LblTSDataQRCode.Text = Nothing
         LblTSVerification.Text = Nothing
         LblTSReceivedDateTitle.Visible = False
         LblTSRcvdDate.Visible = False
@@ -1485,8 +1488,8 @@ Public Class FrmMain
 
     Private Sub Load_Inquiry()
         Try
-            Dim dbTable As New DSInquiry.DTInquiryDataTable
-            'Dim dbTable As New DataTable
+            'Dim dbTable As New DSInquiry.DTInquiryDataTable
+            Dim dbTable As New DataTable
             Dim StoredProcedure = "Inquiry"
             dbConn.Open()
             Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
@@ -1501,10 +1504,13 @@ Public Class FrmMain
                 dbCmd.Parameters.AddWithValue("@failuresymptoms", TboxInqFailureSymptoms.Text)
                 dbCmd.Parameters.AddWithValue("@datefailed", DtpInqDateFailed.Value.ToString("yyyy-MM-dd"))
                 dbCmd.Parameters.AddWithValue("@endtdate", DtpInqEndtDate.Value.ToString("yyyy-MM-dd"))
+                dbCmd.Parameters.AddWithValue("@analysis", TboxInqAnalysis.Text)
                 dbCmd.Parameters.AddWithValue("@actiontaken", TboxInqActionTaken.Text)
                 dbCmd.Parameters.AddWithValue("@defecttype", TboxInqDefType.Text)
                 dbCmd.Parameters.AddWithValue("@status", TboxInqStatus.Text)
                 dbCmd.Parameters.AddWithValue("@remarks", TboxInqRemarks.Text)
+                'dbCmd.Parameters.AddWithValue("@tsDateFrom", DtpInqTSDateFrom.Value.ToString("yyyy-MM-dd"))
+                'dbCmd.Parameters.AddWithValue("@tsDateTo", DtpInqTSDateTo.Value.ToString("yyyy-MM-dd"))
 
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
                     dbAdapter.Fill(dbTable)
@@ -1534,11 +1540,15 @@ Public Class FrmMain
         TboxInqFailureSymptoms.Clear()
         DtpInqDateFailed.Value = Today
         DtpInqEndtDate.Value = Today
+        TboxInqAnalysis.Clear()
+        TboxInqActionTaken.Clear()
         TboxInqActionTaken.Clear()
         TboxInqDefType.Clear()
         TboxInqStatus.Clear()
         TboxInqRemarks.Clear()
         DgvInqSummary.DataSource = Nothing
+        DtpInqTSDateFrom.Value = Today
+        DtpInqTSDateTo.Value = Today
     End Sub
 
     Private Sub LblInqPPONo_Click(sender As Object, e As EventArgs) Handles LblInqPPONo.Click
@@ -1603,10 +1613,14 @@ Public Class FrmMain
         TboxInqFailureSymptoms.CharacterCasing = CharacterCasing.Upper
     End Sub
 
-    Private Sub InquiryEnterKey_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxInqEndtNo.KeyDown, TboxInqSerialNo.KeyDown, CboxInqModel.KeyDown, CboxInqStation.KeyDown, TboxInqPPONo.KeyDown, TboxInqLotNo.KeyDown, TboxInqWorkOrder.KeyDown, TboxInqFailureSymptoms.KeyDown, DtpInqDateFailed.KeyDown, DtpInqEndtDate.KeyDown, TboxInqActionTaken.KeyDown, TboxInqDefType.KeyDown, TboxInqStatus.KeyDown, TboxInqRemarks.KeyDown
+    Private Sub InquiryEnterKey_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxInqEndtNo.KeyDown, TboxInqSerialNo.KeyDown, CboxInqModel.KeyDown, CboxInqStation.KeyDown, TboxInqPPONo.KeyDown, TboxInqLotNo.KeyDown, TboxInqWorkOrder.KeyDown, TboxInqFailureSymptoms.KeyDown, DtpInqDateFailed.KeyDown, DtpInqEndtDate.KeyDown, TboxInqAnalysis.KeyDown, TboxInqActionTaken.KeyDown, TboxInqDefType.KeyDown, TboxInqStatus.KeyDown, TboxInqRemarks.KeyDown, DtpInqTSDateFrom.KeyDown, DtpInqTSDateTo.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnInqSearch.PerformClick()
         End If
+    End Sub
+
+    Private Sub TboxInqAnalysis_TextChanged(sender As Object, e As EventArgs) Handles TboxInqAnalysis.TextChanged
+        TboxInqAnalysis.CharacterCasing = CharacterCasing.Upper
     End Sub
 
     Private Sub TBoxRcvEndtNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TBoxRcvEndtNo.KeyDown

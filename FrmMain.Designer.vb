@@ -186,9 +186,6 @@ Partial Class FrmMain
         Me.WorkweekDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DatetransactDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TimetransactDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReceiverDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DatereceivedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TimereceivedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AnalysisDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ActiontakenDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Location1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -206,6 +203,8 @@ Partial Class FrmMain
         Me.DTInquiryBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DSInquiry = New Endorsement.DSInquiry()
         Me.GBoxInquiryInformation = New System.Windows.Forms.GroupBox()
+        Me.LblInqAnalysis = New System.Windows.Forms.Label()
+        Me.TboxInqAnalysis = New System.Windows.Forms.TextBox()
         Me.LblInqStatus = New System.Windows.Forms.Label()
         Me.LblInqFailureSymptoms = New System.Windows.Forms.Label()
         Me.LblInqRemarks = New System.Windows.Forms.Label()
@@ -243,6 +242,10 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.DtpInqTSDateFrom = New System.Windows.Forms.DateTimePicker()
+        Me.LblInqTSDateFrom = New System.Windows.Forms.Label()
+        Me.LblInqTSDateTo = New System.Windows.Forms.Label()
+        Me.DtpInqTSDateTo = New System.Windows.Forms.DateTimePicker()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
@@ -1785,7 +1788,7 @@ Partial Class FrmMain
         DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvInqSummary.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.DgvInqSummary.ColumnHeadersHeight = 20
-        Me.DgvInqSummary.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn31, Me.EndorsementnoDataGridViewTextBoxColumn, Me.QtyendorsedDataGridViewTextBoxColumn, Me.QtyDataGridViewTextBoxColumn, Me.DataGridViewTextBoxColumn32, Me.DataGridViewTextBoxColumn33, Me.DataGridViewTextBoxColumn34, Me.DataGridViewTextBoxColumn35, Me.DataGridViewTextBoxColumn36, Me.DataGridViewTextBoxColumn37, Me.DataGridViewTextBoxColumn38, Me.DataGridViewTextBoxColumn39, Me.DataGridViewTextBoxColumn40, Me.DatefailedDataGridViewTextBoxColumn, Me.EndorsementdateDataGridViewTextBoxColumn, Me.WorkweekDataGridViewTextBoxColumn, Me.DatetransactDataGridViewTextBoxColumn, Me.TimetransactDataGridViewTextBoxColumn, Me.ReceiverDataGridViewTextBoxColumn, Me.DatereceivedDataGridViewTextBoxColumn, Me.TimereceivedDataGridViewTextBoxColumn, Me.AnalysisDataGridViewTextBoxColumn, Me.ActiontakenDataGridViewTextBoxColumn, Me.Location1DataGridViewTextBoxColumn, Me.Location2DataGridViewTextBoxColumn, Me.Location3DataGridViewTextBoxColumn, Me.Location4DataGridViewTextBoxColumn, Me.Location5DataGridViewTextBoxColumn, Me.RepairedbyDataGridViewTextBoxColumn, Me.DaterepairedDataGridViewTextBoxColumn, Me.DefecttypeDataGridViewTextBoxColumn, Me.StatusDataGridViewTextBoxColumn, Me.RemarksDataGridViewTextBoxColumn, Me.DatetsDataGridViewTextBoxColumn, Me.TimetsDataGridViewTextBoxColumn})
+        Me.DgvInqSummary.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn31, Me.EndorsementnoDataGridViewTextBoxColumn, Me.QtyendorsedDataGridViewTextBoxColumn, Me.QtyDataGridViewTextBoxColumn, Me.DataGridViewTextBoxColumn32, Me.DataGridViewTextBoxColumn33, Me.DataGridViewTextBoxColumn34, Me.DataGridViewTextBoxColumn35, Me.DataGridViewTextBoxColumn36, Me.DataGridViewTextBoxColumn37, Me.DataGridViewTextBoxColumn38, Me.DataGridViewTextBoxColumn39, Me.DataGridViewTextBoxColumn40, Me.DatefailedDataGridViewTextBoxColumn, Me.EndorsementdateDataGridViewTextBoxColumn, Me.WorkweekDataGridViewTextBoxColumn, Me.DatetransactDataGridViewTextBoxColumn, Me.TimetransactDataGridViewTextBoxColumn, Me.AnalysisDataGridViewTextBoxColumn, Me.ActiontakenDataGridViewTextBoxColumn, Me.Location1DataGridViewTextBoxColumn, Me.Location2DataGridViewTextBoxColumn, Me.Location3DataGridViewTextBoxColumn, Me.Location4DataGridViewTextBoxColumn, Me.Location5DataGridViewTextBoxColumn, Me.RepairedbyDataGridViewTextBoxColumn, Me.DaterepairedDataGridViewTextBoxColumn, Me.DefecttypeDataGridViewTextBoxColumn, Me.StatusDataGridViewTextBoxColumn, Me.RemarksDataGridViewTextBoxColumn, Me.DatetsDataGridViewTextBoxColumn, Me.TimetsDataGridViewTextBoxColumn})
         Me.DgvInqSummary.DataSource = Me.DTInquiryBindingSource
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
@@ -1957,30 +1960,6 @@ Partial Class FrmMain
         Me.TimetransactDataGridViewTextBoxColumn.ReadOnly = True
         Me.TimetransactDataGridViewTextBoxColumn.Width = 101
         '
-        'ReceiverDataGridViewTextBoxColumn
-        '
-        Me.ReceiverDataGridViewTextBoxColumn.DataPropertyName = "receiver"
-        Me.ReceiverDataGridViewTextBoxColumn.HeaderText = "Received By"
-        Me.ReceiverDataGridViewTextBoxColumn.Name = "ReceiverDataGridViewTextBoxColumn"
-        Me.ReceiverDataGridViewTextBoxColumn.ReadOnly = True
-        Me.ReceiverDataGridViewTextBoxColumn.Width = 94
-        '
-        'DatereceivedDataGridViewTextBoxColumn
-        '
-        Me.DatereceivedDataGridViewTextBoxColumn.DataPropertyName = "date_received"
-        Me.DatereceivedDataGridViewTextBoxColumn.HeaderText = "Date Received"
-        Me.DatereceivedDataGridViewTextBoxColumn.Name = "DatereceivedDataGridViewTextBoxColumn"
-        Me.DatereceivedDataGridViewTextBoxColumn.ReadOnly = True
-        Me.DatereceivedDataGridViewTextBoxColumn.Width = 105
-        '
-        'TimereceivedDataGridViewTextBoxColumn
-        '
-        Me.TimereceivedDataGridViewTextBoxColumn.DataPropertyName = "time_received"
-        Me.TimereceivedDataGridViewTextBoxColumn.HeaderText = "Time Received"
-        Me.TimereceivedDataGridViewTextBoxColumn.Name = "TimereceivedDataGridViewTextBoxColumn"
-        Me.TimereceivedDataGridViewTextBoxColumn.ReadOnly = True
-        Me.TimereceivedDataGridViewTextBoxColumn.Width = 106
-        '
         'AnalysisDataGridViewTextBoxColumn
         '
         Me.AnalysisDataGridViewTextBoxColumn.DataPropertyName = "analysis"
@@ -2107,6 +2086,12 @@ Partial Class FrmMain
         '
         Me.GBoxInquiryInformation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqTSDateTo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.DtpInqTSDateTo)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqTSDateFrom)
+        Me.GBoxInquiryInformation.Controls.Add(Me.DtpInqTSDateFrom)
+        Me.GBoxInquiryInformation.Controls.Add(Me.LblInqAnalysis)
+        Me.GBoxInquiryInformation.Controls.Add(Me.TboxInqAnalysis)
         Me.GBoxInquiryInformation.Controls.Add(Me.LblInqStatus)
         Me.GBoxInquiryInformation.Controls.Add(Me.LblInqFailureSymptoms)
         Me.GBoxInquiryInformation.Controls.Add(Me.LblInqRemarks)
@@ -2145,11 +2130,30 @@ Partial Class FrmMain
         Me.GBoxInquiryInformation.TabStop = False
         Me.GBoxInquiryInformation.Text = "Information"
         '
+        'LblInqAnalysis
+        '
+        Me.LblInqAnalysis.AutoSize = True
+        Me.LblInqAnalysis.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqAnalysis.Location = New System.Drawing.Point(122, 59)
+        Me.LblInqAnalysis.Name = "LblInqAnalysis"
+        Me.LblInqAnalysis.Size = New System.Drawing.Size(48, 13)
+        Me.LblInqAnalysis.TabIndex = 32
+        Me.LblInqAnalysis.Text = "Analysis"
+        '
+        'TboxInqAnalysis
+        '
+        Me.TboxInqAnalysis.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TboxInqAnalysis.Location = New System.Drawing.Point(122, 75)
+        Me.TboxInqAnalysis.Name = "TboxInqAnalysis"
+        Me.TboxInqAnalysis.Size = New System.Drawing.Size(97, 22)
+        Me.TboxInqAnalysis.TabIndex = 31
+        Me.TboxInqAnalysis.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'LblInqStatus
         '
         Me.LblInqStatus.AutoSize = True
         Me.LblInqStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqStatus.Location = New System.Drawing.Point(696, 59)
+        Me.LblInqStatus.Location = New System.Drawing.Point(431, 59)
         Me.LblInqStatus.Name = "LblInqStatus"
         Me.LblInqStatus.Size = New System.Drawing.Size(39, 13)
         Me.LblInqStatus.TabIndex = 30
@@ -2159,7 +2163,7 @@ Partial Class FrmMain
         '
         Me.LblInqFailureSymptoms.AutoSize = True
         Me.LblInqFailureSymptoms.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqFailureSymptoms.Location = New System.Drawing.Point(6, 59)
+        Me.LblInqFailureSymptoms.Location = New System.Drawing.Point(727, 18)
         Me.LblInqFailureSymptoms.Name = "LblInqFailureSymptoms"
         Me.LblInqFailureSymptoms.Size = New System.Drawing.Size(97, 13)
         Me.LblInqFailureSymptoms.TabIndex = 30
@@ -2169,7 +2173,7 @@ Partial Class FrmMain
         '
         Me.LblInqRemarks.AutoSize = True
         Me.LblInqRemarks.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqRemarks.Location = New System.Drawing.Point(834, 59)
+        Me.LblInqRemarks.Location = New System.Drawing.Point(534, 59)
         Me.LblInqRemarks.Name = "LblInqRemarks"
         Me.LblInqRemarks.Size = New System.Drawing.Size(50, 13)
         Me.LblInqRemarks.TabIndex = 30
@@ -2179,7 +2183,7 @@ Partial Class FrmMain
         '
         Me.LblInqActionTaken.AutoSize = True
         Me.LblInqActionTaken.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqActionTaken.Location = New System.Drawing.Point(420, 59)
+        Me.LblInqActionTaken.Location = New System.Drawing.Point(225, 59)
         Me.LblInqActionTaken.Name = "LblInqActionTaken"
         Me.LblInqActionTaken.Size = New System.Drawing.Size(73, 13)
         Me.LblInqActionTaken.TabIndex = 30
@@ -2189,7 +2193,7 @@ Partial Class FrmMain
         '
         Me.LblInqDefType.AutoSize = True
         Me.LblInqDefType.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqDefType.Location = New System.Drawing.Point(558, 59)
+        Me.LblInqDefType.Location = New System.Drawing.Point(328, 59)
         Me.LblInqDefType.Name = "LblInqDefType"
         Me.LblInqDefType.Size = New System.Drawing.Size(66, 13)
         Me.LblInqDefType.TabIndex = 30
@@ -2198,45 +2202,45 @@ Partial Class FrmMain
         'TboxInqStatus
         '
         Me.TboxInqStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqStatus.Location = New System.Drawing.Point(696, 75)
+        Me.TboxInqStatus.Location = New System.Drawing.Point(431, 75)
         Me.TboxInqStatus.Name = "TboxInqStatus"
-        Me.TboxInqStatus.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqStatus.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqStatus.TabIndex = 29
         Me.TboxInqStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqFailureSymptoms
         '
         Me.TboxInqFailureSymptoms.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqFailureSymptoms.Location = New System.Drawing.Point(6, 75)
+        Me.TboxInqFailureSymptoms.Location = New System.Drawing.Point(727, 34)
         Me.TboxInqFailureSymptoms.Name = "TboxInqFailureSymptoms"
-        Me.TboxInqFailureSymptoms.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqFailureSymptoms.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqFailureSymptoms.TabIndex = 29
         Me.TboxInqFailureSymptoms.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqRemarks
         '
         Me.TboxInqRemarks.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqRemarks.Location = New System.Drawing.Point(834, 75)
+        Me.TboxInqRemarks.Location = New System.Drawing.Point(534, 75)
         Me.TboxInqRemarks.Name = "TboxInqRemarks"
-        Me.TboxInqRemarks.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqRemarks.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqRemarks.TabIndex = 29
         Me.TboxInqRemarks.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqActionTaken
         '
         Me.TboxInqActionTaken.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqActionTaken.Location = New System.Drawing.Point(420, 75)
+        Me.TboxInqActionTaken.Location = New System.Drawing.Point(225, 75)
         Me.TboxInqActionTaken.Name = "TboxInqActionTaken"
-        Me.TboxInqActionTaken.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqActionTaken.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqActionTaken.TabIndex = 29
         Me.TboxInqActionTaken.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqDefType
         '
         Me.TboxInqDefType.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqDefType.Location = New System.Drawing.Point(558, 75)
+        Me.TboxInqDefType.Location = New System.Drawing.Point(328, 75)
         Me.TboxInqDefType.Name = "TboxInqDefType"
-        Me.TboxInqDefType.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqDefType.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqDefType.TabIndex = 29
         Me.TboxInqDefType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2245,17 +2249,17 @@ Partial Class FrmMain
         Me.CboxInqStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CboxInqStation.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CboxInqStation.FormattingEnabled = True
-        Me.CboxInqStation.Location = New System.Drawing.Point(420, 35)
+        Me.CboxInqStation.Location = New System.Drawing.Point(315, 35)
         Me.CboxInqStation.Name = "CboxInqStation"
-        Me.CboxInqStation.Size = New System.Drawing.Size(132, 21)
+        Me.CboxInqStation.Size = New System.Drawing.Size(97, 21)
         Me.CboxInqStation.TabIndex = 28
         '
         'BtnInqSearch
         '
         Me.BtnInqSearch.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnInqSearch.Location = New System.Drawing.Point(972, 28)
+        Me.BtnInqSearch.Location = New System.Drawing.Point(946, 27)
         Me.BtnInqSearch.Name = "BtnInqSearch"
-        Me.BtnInqSearch.Size = New System.Drawing.Size(125, 35)
+        Me.BtnInqSearch.Size = New System.Drawing.Size(151, 35)
         Me.BtnInqSearch.TabIndex = 2
         Me.BtnInqSearch.Text = "Search"
         Me.BtnInqSearch.UseVisualStyleBackColor = True
@@ -2263,9 +2267,9 @@ Partial Class FrmMain
         'BtnInqClear
         '
         Me.BtnInqClear.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnInqClear.Location = New System.Drawing.Point(972, 69)
+        Me.BtnInqClear.Location = New System.Drawing.Point(946, 69)
         Me.BtnInqClear.Name = "BtnInqClear"
-        Me.BtnInqClear.Size = New System.Drawing.Size(125, 35)
+        Me.BtnInqClear.Size = New System.Drawing.Size(151, 35)
         Me.BtnInqClear.TabIndex = 3
         Me.BtnInqClear.Text = "Clear"
         Me.BtnInqClear.UseVisualStyleBackColor = True
@@ -2285,7 +2289,7 @@ Partial Class FrmMain
         Me.TboxInqEndtNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TboxInqEndtNo.Location = New System.Drawing.Point(6, 34)
         Me.TboxInqEndtNo.Name = "TboxInqEndtNo"
-        Me.TboxInqEndtNo.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqEndtNo.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqEndtNo.TabIndex = 2
         Me.TboxInqEndtNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2295,16 +2299,16 @@ Partial Class FrmMain
         Me.DtpInqEndtDate.CustomFormat = "MMM dd, yyyy"
         Me.DtpInqEndtDate.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DtpInqEndtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtpInqEndtDate.Location = New System.Drawing.Point(282, 75)
+        Me.DtpInqEndtDate.Location = New System.Drawing.Point(6, 75)
         Me.DtpInqEndtDate.Name = "DtpInqEndtDate"
-        Me.DtpInqEndtDate.Size = New System.Drawing.Size(132, 22)
+        Me.DtpInqEndtDate.Size = New System.Drawing.Size(110, 22)
         Me.DtpInqEndtDate.TabIndex = 27
         '
         'LblInqEndtDate
         '
         Me.LblInqEndtDate.AutoSize = True
         Me.LblInqEndtDate.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqEndtDate.Location = New System.Drawing.Point(282, 59)
+        Me.LblInqEndtDate.Location = New System.Drawing.Point(6, 59)
         Me.LblInqEndtDate.Name = "LblInqEndtDate"
         Me.LblInqEndtDate.Size = New System.Drawing.Size(102, 13)
         Me.LblInqEndtDate.TabIndex = 26
@@ -2315,9 +2319,9 @@ Partial Class FrmMain
         Me.CboxInqModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CboxInqModel.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CboxInqModel.FormattingEnabled = True
-        Me.CboxInqModel.Location = New System.Drawing.Point(282, 35)
+        Me.CboxInqModel.Location = New System.Drawing.Point(212, 35)
         Me.CboxInqModel.Name = "CboxInqModel"
-        Me.CboxInqModel.Size = New System.Drawing.Size(132, 21)
+        Me.CboxInqModel.Size = New System.Drawing.Size(97, 21)
         Me.CboxInqModel.TabIndex = 5
         '
         'DtpInqDateFailed
@@ -2326,16 +2330,16 @@ Partial Class FrmMain
         Me.DtpInqDateFailed.CustomFormat = "MMM dd, yyyy"
         Me.DtpInqDateFailed.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DtpInqDateFailed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtpInqDateFailed.Location = New System.Drawing.Point(144, 75)
+        Me.DtpInqDateFailed.Location = New System.Drawing.Point(830, 34)
         Me.DtpInqDateFailed.Name = "DtpInqDateFailed"
-        Me.DtpInqDateFailed.Size = New System.Drawing.Size(132, 22)
+        Me.DtpInqDateFailed.Size = New System.Drawing.Size(110, 22)
         Me.DtpInqDateFailed.TabIndex = 25
         '
         'LblInqDateFailed
         '
         Me.LblInqDateFailed.AutoSize = True
         Me.LblInqDateFailed.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqDateFailed.Location = New System.Drawing.Point(144, 59)
+        Me.LblInqDateFailed.Location = New System.Drawing.Point(830, 18)
         Me.LblInqDateFailed.Name = "LblInqDateFailed"
         Me.LblInqDateFailed.Size = New System.Drawing.Size(65, 13)
         Me.LblInqDateFailed.TabIndex = 24
@@ -2345,7 +2349,7 @@ Partial Class FrmMain
         '
         Me.LblInqStation.AutoSize = True
         Me.LblInqStation.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqStation.Location = New System.Drawing.Point(420, 18)
+        Me.LblInqStation.Location = New System.Drawing.Point(315, 19)
         Me.LblInqStation.Name = "LblInqStation"
         Me.LblInqStation.Size = New System.Drawing.Size(44, 13)
         Me.LblInqStation.TabIndex = 4
@@ -2355,7 +2359,7 @@ Partial Class FrmMain
         '
         Me.LblInqModel.AutoSize = True
         Me.LblInqModel.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqModel.Location = New System.Drawing.Point(282, 18)
+        Me.LblInqModel.Location = New System.Drawing.Point(212, 19)
         Me.LblInqModel.Name = "LblInqModel"
         Me.LblInqModel.Size = New System.Drawing.Size(40, 13)
         Me.LblInqModel.TabIndex = 4
@@ -2365,7 +2369,7 @@ Partial Class FrmMain
         '
         Me.LblInqWorkOrder.AutoSize = True
         Me.LblInqWorkOrder.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqWorkOrder.Location = New System.Drawing.Point(834, 18)
+        Me.LblInqWorkOrder.Location = New System.Drawing.Point(624, 18)
         Me.LblInqWorkOrder.Name = "LblInqWorkOrder"
         Me.LblInqWorkOrder.Size = New System.Drawing.Size(68, 13)
         Me.LblInqWorkOrder.TabIndex = 22
@@ -2375,7 +2379,7 @@ Partial Class FrmMain
         '
         Me.LblInqLotNo.AutoSize = True
         Me.LblInqLotNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqLotNo.Location = New System.Drawing.Point(696, 18)
+        Me.LblInqLotNo.Location = New System.Drawing.Point(521, 18)
         Me.LblInqLotNo.Name = "LblInqLotNo"
         Me.LblInqLotNo.Size = New System.Drawing.Size(67, 13)
         Me.LblInqLotNo.TabIndex = 20
@@ -2384,9 +2388,9 @@ Partial Class FrmMain
         'TboxInqWorkOrder
         '
         Me.TboxInqWorkOrder.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqWorkOrder.Location = New System.Drawing.Point(834, 34)
+        Me.TboxInqWorkOrder.Location = New System.Drawing.Point(624, 34)
         Me.TboxInqWorkOrder.Name = "TboxInqWorkOrder"
-        Me.TboxInqWorkOrder.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqWorkOrder.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqWorkOrder.TabIndex = 23
         Me.TboxInqWorkOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2394,7 +2398,7 @@ Partial Class FrmMain
         '
         Me.LblInqPPONo.AutoSize = True
         Me.LblInqPPONo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqPPONo.Location = New System.Drawing.Point(558, 18)
+        Me.LblInqPPONo.Location = New System.Drawing.Point(418, 18)
         Me.LblInqPPONo.Name = "LblInqPPONo"
         Me.LblInqPPONo.Size = New System.Drawing.Size(72, 13)
         Me.LblInqPPONo.TabIndex = 18
@@ -2403,27 +2407,27 @@ Partial Class FrmMain
         'TboxInqLotNo
         '
         Me.TboxInqLotNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqLotNo.Location = New System.Drawing.Point(696, 34)
+        Me.TboxInqLotNo.Location = New System.Drawing.Point(521, 34)
         Me.TboxInqLotNo.Name = "TboxInqLotNo"
-        Me.TboxInqLotNo.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqLotNo.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqLotNo.TabIndex = 21
         Me.TboxInqLotNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqSerialNo
         '
         Me.TboxInqSerialNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqSerialNo.Location = New System.Drawing.Point(144, 34)
+        Me.TboxInqSerialNo.Location = New System.Drawing.Point(109, 34)
         Me.TboxInqSerialNo.Name = "TboxInqSerialNo"
-        Me.TboxInqSerialNo.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqSerialNo.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqSerialNo.TabIndex = 1
         Me.TboxInqSerialNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TboxInqPPONo
         '
         Me.TboxInqPPONo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TboxInqPPONo.Location = New System.Drawing.Point(558, 34)
+        Me.TboxInqPPONo.Location = New System.Drawing.Point(418, 34)
         Me.TboxInqPPONo.Name = "TboxInqPPONo"
-        Me.TboxInqPPONo.Size = New System.Drawing.Size(132, 22)
+        Me.TboxInqPPONo.Size = New System.Drawing.Size(97, 22)
         Me.TboxInqPPONo.TabIndex = 19
         Me.TboxInqPPONo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2431,7 +2435,7 @@ Partial Class FrmMain
         '
         Me.LblInqSerialNo.AutoSize = True
         Me.LblInqSerialNo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblInqSerialNo.Location = New System.Drawing.Point(144, 18)
+        Me.LblInqSerialNo.Location = New System.Drawing.Point(109, 18)
         Me.LblInqSerialNo.Name = "LblInqSerialNo"
         Me.LblInqSerialNo.Size = New System.Drawing.Size(56, 13)
         Me.LblInqSerialNo.TabIndex = 0
@@ -2477,6 +2481,48 @@ Partial Class FrmMain
         '
         'Timer1
         '
+        '
+        'DtpInqTSDateFrom
+        '
+        Me.DtpInqTSDateFrom.Checked = False
+        Me.DtpInqTSDateFrom.CustomFormat = "MMM dd, yyyy"
+        Me.DtpInqTSDateFrom.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DtpInqTSDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpInqTSDateFrom.Location = New System.Drawing.Point(637, 75)
+        Me.DtpInqTSDateFrom.Name = "DtpInqTSDateFrom"
+        Me.DtpInqTSDateFrom.Size = New System.Drawing.Size(110, 22)
+        Me.DtpInqTSDateFrom.TabIndex = 33
+        '
+        'LblInqTSDateFrom
+        '
+        Me.LblInqTSDateFrom.AutoSize = True
+        Me.LblInqTSDateFrom.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqTSDateFrom.Location = New System.Drawing.Point(637, 59)
+        Me.LblInqTSDateFrom.Name = "LblInqTSDateFrom"
+        Me.LblInqTSDateFrom.Size = New System.Drawing.Size(75, 13)
+        Me.LblInqTSDateFrom.TabIndex = 34
+        Me.LblInqTSDateFrom.Text = "TS Date From"
+        '
+        'LblInqTSDateTo
+        '
+        Me.LblInqTSDateTo.AutoSize = True
+        Me.LblInqTSDateTo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInqTSDateTo.Location = New System.Drawing.Point(753, 59)
+        Me.LblInqTSDateTo.Name = "LblInqTSDateTo"
+        Me.LblInqTSDateTo.Size = New System.Drawing.Size(61, 13)
+        Me.LblInqTSDateTo.TabIndex = 36
+        Me.LblInqTSDateTo.Text = "TS Date To"
+        '
+        'DtpInqTSDateTo
+        '
+        Me.DtpInqTSDateTo.Checked = False
+        Me.DtpInqTSDateTo.CustomFormat = "MMM dd, yyyy"
+        Me.DtpInqTSDateTo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DtpInqTSDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpInqTSDateTo.Location = New System.Drawing.Point(753, 75)
+        Me.DtpInqTSDateTo.Name = "DtpInqTSDateTo"
+        Me.DtpInqTSDateTo.Size = New System.Drawing.Size(110, 22)
+        Me.DtpInqTSDateTo.TabIndex = 35
         '
         'FrmMain
         '
@@ -2716,6 +2762,18 @@ Partial Class FrmMain
     Friend WithEvents TboxInqEndtNo As TextBox
     Friend WithEvents DTInquiryBindingSource As BindingSource
     Friend WithEvents DSInquiry As DSInquiry
+    Friend WithEvents LblInqDefType As Label
+    Friend WithEvents TboxInqDefType As TextBox
+    Friend WithEvents CboxInqStation As ComboBox
+    Friend WithEvents LblInqStation As Label
+    Friend WithEvents LblInqStatus As Label
+    Friend WithEvents LblInqRemarks As Label
+    Friend WithEvents LblInqActionTaken As Label
+    Friend WithEvents TboxInqStatus As TextBox
+    Friend WithEvents TboxInqRemarks As TextBox
+    Friend WithEvents TboxInqActionTaken As TextBox
+    Friend WithEvents LblInqFailureSymptoms As Label
+    Friend WithEvents TboxInqFailureSymptoms As TextBox
     Friend WithEvents DataGridViewTextBoxColumn31 As DataGridViewTextBoxColumn
     Friend WithEvents EndorsementnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents QtyendorsedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
@@ -2734,9 +2792,6 @@ Partial Class FrmMain
     Friend WithEvents WorkweekDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DatetransactDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TimetransactDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents ReceiverDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents DatereceivedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents TimereceivedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents AnalysisDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ActiontakenDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents Location1DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
@@ -2751,16 +2806,10 @@ Partial Class FrmMain
     Friend WithEvents RemarksDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DatetsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TimetsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents LblInqDefType As Label
-    Friend WithEvents TboxInqDefType As TextBox
-    Friend WithEvents CboxInqStation As ComboBox
-    Friend WithEvents LblInqStation As Label
-    Friend WithEvents LblInqStatus As Label
-    Friend WithEvents LblInqRemarks As Label
-    Friend WithEvents LblInqActionTaken As Label
-    Friend WithEvents TboxInqStatus As TextBox
-    Friend WithEvents TboxInqRemarks As TextBox
-    Friend WithEvents TboxInqActionTaken As TextBox
-    Friend WithEvents LblInqFailureSymptoms As Label
-    Friend WithEvents TboxInqFailureSymptoms As TextBox
+    Friend WithEvents TboxInqAnalysis As TextBox
+    Friend WithEvents LblInqAnalysis As Label
+    Friend WithEvents LblInqTSDateFrom As Label
+    Friend WithEvents DtpInqTSDateFrom As DateTimePicker
+    Friend WithEvents LblInqTSDateTo As Label
+    Friend WithEvents DtpInqTSDateTo As DateTimePicker
 End Class

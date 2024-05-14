@@ -719,13 +719,13 @@ Partial Public Class DSInquiry
                     ByVal station As String,  _
                     ByVal failure_symptoms As String,  _
                     ByVal endorsed_by As String,  _
-                    ByVal date_failed As String,  _
-                    ByVal endorsement_date As String,  _
+                    ByVal date_failed As Date,  _
+                    ByVal endorsement_date As Date,  _
                     ByVal workweek As String,  _
-                    ByVal date_transact As String,  _
+                    ByVal date_transact As Date,  _
                     ByVal time_transact As String,  _
                     ByVal receiver As String,  _
-                    ByVal date_received As String,  _
+                    ByVal date_received As Date,  _
                     ByVal time_received As String,  _
                     ByVal analysis As String,  _
                     ByVal action_taken As String,  _
@@ -735,11 +735,11 @@ Partial Public Class DSInquiry
                     ByVal location4 As String,  _
                     ByVal location5 As String,  _
                     ByVal repaired_by As String,  _
-                    ByVal date_repaired As String,  _
+                    ByVal date_repaired As Date,  _
                     ByVal defect_type As String,  _
                     ByVal status As String,  _
                     ByVal remarks As String,  _
-                    ByVal date_ts As String,  _
+                    ByVal date_ts As Date,  _
                     ByVal time_ts As String) As DTInquiryRow
             Dim rowDTInquiryRow As DTInquiryRow = CType(Me.NewRow,DTInquiryRow)
             Dim columnValuesArray() As Object = New Object() {id, endorsement_no, qty_endorsed, qty, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek, date_transact, time_transact, receiver, date_received, time_received, analysis, action_taken, location1, location2, location3, location4, location5, repaired_by, date_repaired, defect_type, status, remarks, date_ts, time_ts}
@@ -837,19 +837,19 @@ Partial Public Class DSInquiry
             MyBase.Columns.Add(Me.columnfailure_symptoms)
             Me.columnendorsed_by = New Global.System.Data.DataColumn("endorsed_by", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnendorsed_by)
-            Me.columndate_failed = New Global.System.Data.DataColumn("date_failed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate_failed = New Global.System.Data.DataColumn("date_failed", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndate_failed)
-            Me.columnendorsement_date = New Global.System.Data.DataColumn("endorsement_date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnendorsement_date = New Global.System.Data.DataColumn("endorsement_date", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnendorsement_date)
             Me.columnworkweek = New Global.System.Data.DataColumn("workweek", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnworkweek)
-            Me.columndate_transact = New Global.System.Data.DataColumn("date_transact", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate_transact = New Global.System.Data.DataColumn("date_transact", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndate_transact)
             Me.columntime_transact = New Global.System.Data.DataColumn("time_transact", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columntime_transact)
             Me.columnreceiver = New Global.System.Data.DataColumn("receiver", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnreceiver)
-            Me.columndate_received = New Global.System.Data.DataColumn("date_received", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate_received = New Global.System.Data.DataColumn("date_received", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndate_received)
             Me.columntime_received = New Global.System.Data.DataColumn("time_received", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columntime_received)
@@ -869,7 +869,7 @@ Partial Public Class DSInquiry
             MyBase.Columns.Add(Me.columnlocation5)
             Me.columnrepaired_by = New Global.System.Data.DataColumn("repaired_by", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnrepaired_by)
-            Me.columndate_repaired = New Global.System.Data.DataColumn("date_repaired", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate_repaired = New Global.System.Data.DataColumn("date_repaired", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndate_repaired)
             Me.columndefect_type = New Global.System.Data.DataColumn("defect_type", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndefect_type)
@@ -877,7 +877,7 @@ Partial Public Class DSInquiry
             MyBase.Columns.Add(Me.columnstatus)
             Me.columnremarks = New Global.System.Data.DataColumn("remarks", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnremarks)
-            Me.columndate_ts = New Global.System.Data.DataColumn("date_ts", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate_ts = New Global.System.Data.DataColumn("date_ts", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columndate_ts)
             Me.columntime_ts = New Global.System.Data.DataColumn("time_ts", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columntime_ts)
@@ -1221,10 +1221,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property date_failed() As String
+        Public Property date_failed() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.date_failedColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.date_failedColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_failed' in table 'DTInquiry' is DBNull.", e)
                 End Try
@@ -1236,10 +1236,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property endorsement_date() As String
+        Public Property endorsement_date() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.endorsement_dateColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.endorsement_dateColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'endorsement_date' in table 'DTInquiry' is DBNull.", e)
                 End Try
@@ -1266,10 +1266,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property date_transact() As String
+        Public Property date_transact() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.date_transactColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.date_transactColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_transact' in table 'DTInquiry' is DBNull.", e)
                 End Try
@@ -1311,10 +1311,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property date_received() As String
+        Public Property date_received() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.date_receivedColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.date_receivedColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_received' in table 'DTInquiry' is DBNull.", e)
                 End Try
@@ -1461,10 +1461,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property date_repaired() As String
+        Public Property date_repaired() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.date_repairedColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.date_repairedColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_repaired' in table 'DTInquiry' is DBNull.", e)
                 End Try
@@ -1521,10 +1521,10 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property date_ts() As String
+        Public Property date_ts() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.date_tsColumn),String)
+                    Return CType(Me(Me.tableDTInquiry.date_tsColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_ts' in table 'DTInquiry' is DBNull.", e)
                 End Try
