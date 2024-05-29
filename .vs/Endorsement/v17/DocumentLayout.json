@@ -15,16 +15,24 @@
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:databaseconnection.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsinquiry.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsinquiry.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dstsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dstsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsfailuresymptoms.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsfailuresymptoms.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsts.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsts.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,23 +42,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
+              "Title": "DSTS.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSTS.xsd",
+              "RelativeDocumentMoniker": "DSTS.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSTS.xsd",
+              "RelativeToolTip": "DSTS.xsd",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
+              "WhenOpened": "2024-05-21T05:41:10.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DSTSEndorsementData.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSTSEndorsementData.xsd",
+              "RelativeDocumentMoniker": "DSTSEndorsementData.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSTSEndorsementData.xsd",
+              "RelativeToolTip": "DSTSEndorsementData.xsd",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
+              "WhenOpened": "2024-05-21T05:41:00.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "DSFailureSymptoms.xsd",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSFailureSymptoms.xsd",
               "RelativeDocumentMoniker": "DSFailureSymptoms.xsd",
               "ToolTip": "D:\\macky_program\\Endorsement\\DSFailureSymptoms.xsd",
               "RelativeToolTip": "DSFailureSymptoms.xsd",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-05-03T01:01:47.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-03T01:01:47.782Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "DSInquiry.xsd",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSInquiry.xsd",
               "RelativeDocumentMoniker": "DSInquiry.xsd",
@@ -62,7 +92,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "DSJoinTable.xsd",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSJoinTable.xsd",
               "RelativeDocumentMoniker": "DSJoinTable.xsd",
@@ -112,7 +142,7 @@
               "RelativeDocumentMoniker": "FrmMain.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\FrmMain.vb",
               "RelativeToolTip": "FrmMain.vb",
-              "ViewState": "AQIAAL0EAAAAAAAAAAAEwNkEAAAmAAAA",
+              "ViewState": "AQIAAEUFAAAAAAAAAAAvwGcFAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2024-02-21T02:13:52.194Z",
               "EditorCaption": ""
@@ -125,10 +155,9 @@
               "RelativeDocumentMoniker": "DataBaseConnection.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\DataBaseConnection.vb",
               "RelativeToolTip": "DataBaseConnection.vb",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAABEAAAA",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAmwAMBAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-02-21T02:32:15.931Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-21T02:32:15.931Z"
             }
           ]
         }

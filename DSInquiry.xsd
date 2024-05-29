@@ -15,8 +15,8 @@
         <xs:element name="DTInquiry" msprop:Generator_RowEvHandlerName="DTInquiryRowChangeEventHandler" msprop:Generator_RowDeletedName="DTInquiryRowDeleted" msprop:Generator_RowDeletingName="DTInquiryRowDeleting" msprop:Generator_RowEvArgName="DTInquiryRowChangeEvent" msprop:Generator_TablePropName="DTInquiry" msprop:Generator_RowChangedName="DTInquiryRowChanged" msprop:Generator_UserTableName="DTInquiry" msprop:Generator_RowChangingName="DTInquiryRowChanging" msprop:Generator_RowClassName="DTInquiryRow" msprop:Generator_TableClassName="DTInquiryDataTable" msprop:Generator_TableVarName="tableDTInquiry">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:string" />
-              <xs:element name="endorsement_no" msprop:Generator_ColumnPropNameInTable="endorsement_noColumn" msprop:Generator_ColumnPropNameInRow="endorsement_no" msprop:Generator_UserColumnName="endorsement_no" msprop:Generator_ColumnVarNameInTable="columnendorsement_no" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:long" minOccurs="0" />
+              <xs:element name="endorsement_no" msprop:Generator_ColumnPropNameInTable="endorsement_noColumn" msprop:Generator_ColumnPropNameInRow="endorsement_no" msprop:Generator_UserColumnName="endorsement_no" msprop:Generator_ColumnVarNameInTable="columnendorsement_no" type="xs:long" minOccurs="0" />
               <xs:element name="qty_endorsed" msprop:Generator_ColumnPropNameInTable="qty_endorsedColumn" msprop:Generator_ColumnPropNameInRow="qty_endorsed" msprop:Generator_UserColumnName="qty_endorsed" msprop:Generator_ColumnVarNameInTable="columnqty_endorsed" type="xs:string" minOccurs="0" />
               <xs:element name="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_UserColumnName="qty" msprop:Generator_ColumnVarNameInTable="columnqty" type="xs:string" minOccurs="0" />
               <xs:element name="model" msprop:Generator_ColumnPropNameInTable="modelColumn" msprop:Generator_ColumnPropNameInRow="model" msprop:Generator_UserColumnName="model" msprop:Generator_ColumnVarNameInTable="columnmodel" type="xs:string" minOccurs="0" />
@@ -55,9 +55,5 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:DTInquiry" />
-      <xs:field xpath="mstns:id" />
-    </xs:unique>
   </xs:element>
 </xs:schema>

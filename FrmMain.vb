@@ -4,6 +4,7 @@ Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Data.SQLite
 Imports System.Diagnostics.Eventing
+Imports System.Linq.Expressions
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.VisualStyles
@@ -20,7 +21,9 @@ Public Class FrmMain
         TBoxWorkweek.Text = Format(workweek, "00")
         Load_Latest_EndorsementNo()
         Load_Model_Variant()
+        Load_Station_Inquiry()
         DropTempEndorsementTable() ' Drop the temporary endorsement table
+        DropTempTSEndorsementTable() ' Drop the temporary TS endorsement table for scanning serials
 
         CBoxModel.Enabled = False
         TBoxPPONo.ReadOnly = True
@@ -252,142 +255,6 @@ Public Class FrmMain
         If e.KeyCode = Keys.Enter Then
             BtnEndorse.PerformClick()
         End If
-    End Sub
-
-    Private Sub Load_Latest_EndorsementNo()
-        Try
-            Dim procedure = "GetEndorsementNo"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(procedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
-                    dbReader.Read()
-                    If dbReader.HasRows Then
-                        TboxEndorsementNo.Text = dbReader("endorsement_no")
-                    End If
-                End Using
-            End Using
-            dbConn.Close()
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
-    End Sub
-
-    Private Sub Load_TempEndorsementData()
-        Try
-            Dim dbTable As New DSEndorsementData.DTEndorsementDataDataTable
-            Dim StoredProcedure = "LoadTempEndorsementData"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                'dbCmd.Parameters.AddWithValue("@endtNo", TboxEndorsementNo.Text)
-                Using dbAdapter As New SqlDataAdapter(dbCmd)
-                    dbAdapter.Fill(dbTable)
-                End Using
-            End Using
-            dbConn.Close()
-            DGVEndorsementData.DataSource = dbTable
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
-    End Sub
-
-    Private Sub Load_Model_Variant()
-        Try
-            Dim dbTable As New DSJoinTable.DTVariantDataTable
-            Dim q = "SELECT * FROM variant"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(q, dbConn)
-                Using dbAdapter As New SqlDataAdapter(dbCmd)
-                    dbAdapter.Fill(dbTable)
-                End Using
-            End Using
-            dbConn.Close()
-            CBoxModel.DataSource = dbTable
-            CBoxModel.DisplayMember = "variant"
-            CBoxModel.Text = Nothing
-            CboxInqModel.DataSource = dbTable
-            CboxInqModel.DisplayMember = "variant"
-            CboxInqModel.Text = Nothing
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
-    End Sub
-
-    Private Sub Load_Station()
-        Try
-            Dim dbTable As New DSStation.DTStationsDataTable
-            Dim StoredProcedure = "GetStation"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@variant", CBoxModel.Text)
-                Using dbAdapter As New SqlDataAdapter(dbCmd)
-                    dbAdapter.Fill(dbTable)
-                End Using
-            End Using
-            dbConn.Close()
-            CBoxStation.DataSource = dbTable
-            CBoxStation.DisplayMember = "station"
-            CBoxStation.Text = Nothing
-            CBoxStation.DropDownHeight = 106
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
-    End Sub
-
-    Private Sub Load_Station_Inquiry()
-        Try
-            Dim dbTable As New DSStation.DTStationsDataTable
-            Dim StoredProcedure = "GetStation"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@variant", CboxInqModel.Text)
-                Using dbAdapter As New SqlDataAdapter(dbCmd)
-                    dbAdapter.Fill(dbTable)
-                End Using
-            End Using
-            dbConn.Close()
-            CboxInqStation.DataSource = dbTable
-            CboxInqStation.DisplayMember = "station"
-            CboxInqStation.Text = Nothing
-            CboxInqStation.DropDownHeight = 106
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
     End Sub
 
     Private Sub Load_FailureSymptoms()
@@ -708,26 +575,6 @@ Public Class FrmMain
         Reset_Fillup_Form()
     End Sub
 
-    Private Sub Count_TempEndorsement()
-        Try
-            Dim Query = "SELECT COUNT(id) AS id FROM TempEndorsement"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(Query, dbConn)
-                Dim count As Integer = Convert.ToInt32(dbCmd.ExecuteScalar())
-
-                LblTotalQty.Text = count.ToString
-
-            End Using
-            dbConn.Close()
-        Catch ex As SqlException
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            dbConn.Close()
-            MessageBox.Show(ex.Message, "Erro Exeption Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles BtnScan.Click
         If TBoxQtyEndorsed.TextLength = 0 Or CBoxModel.Text = Nothing Or TBoxPPONo.TextLength = 0 Or TBoxPPOQty.TextLength = 0 Or TBoxLotNo.TextLength = 0 Or TBoxWorkOrder.TextLength = 0 Or TBoxEndorsedBy.TextLength = 0 Then
             MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -799,30 +646,6 @@ Public Class FrmMain
         If e.KeyCode = Keys.Enter Then
             BtnScan.PerformClick()
         End If
-    End Sub
-
-    Private Sub DropTempEndorsementTable()
-        Try
-            Dim StoredProcedure = "DropTempEndorsementTable"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.ExecuteNonQuery()
-            End Using
-            dbConn.Close()
-        Catch ex As SqlException
-            ' Handle database-related errors
-            'MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            ' Handle other types of exceptions
-            'MessageBox.Show(ex.Message, "Error Dropping Database Table", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
     End Sub
 
     Private Sub BtnEndorseAnotherModel_Click(sender As Object, e As EventArgs) Handles BtnEndorseAnotherModel.Click
@@ -1081,12 +904,14 @@ Public Class FrmMain
             'MessageBox.Show("The input serial number is invalid.", " Invalid Serial Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
             LblTSVerification.Visible = True
             LblTSVerification.Text = "INVALID SERIAL NUMBER"
+            LblTSVerification.ForeColor = Color.DarkRed
             Return
         End If
 
         If TboxTSSerialNo.TextLength = 0 Then
             LblTSVerification.Visible = True
             LblTSVerification.Text = "NO SERIAL NUMBER"
+            LblTSVerification.ForeColor = Color.DarkRed
             Return
         End If
 
@@ -1120,6 +945,21 @@ Public Class FrmMain
 
                         Dim DateTS = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date")), dbReader.GetDateTime(dbReader.GetOrdinal("date")).ToString("MMMM dd, yyyy"), "")
                         Dim TimeTS = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("time")), dbReader.GetTimeSpan(dbReader.GetOrdinal("time")).ToString("hh\:mm\:ss"), "")
+
+
+                        'Get value to the declared original data of the TS Search
+                        analysis = TBoxTSAnalysis.Text
+                        action_taken = TBoxTSActionTaken.Text
+                        location1 = TBoxTSLocation1.Text
+                        location2 = TBoxTSLocation2.Text
+                        location3 = TBoxTSLocation3.Text
+                        location4 = TBoxTSLocation4.Text
+                        location5 = TBoxTSLocation5.Text
+                        repaired_by = TBoxTSRepairedBy.Text
+                        date_repaired = DTPTSDateRepaired.Value.ToString("MMM dd, yyyy")
+                        defect_type = TBoxTSDefectType.Text
+                        status = TBoxTSStatus.Text
+                        remarks = TBoxTSRemarks.Text
 
                         LblTSTimeStamp.Visible = True
                         'LblTSReceivedDateTitle.Visible = True
@@ -1211,6 +1051,47 @@ Public Class FrmMain
                 dbConn.Close()
             End If
         End Try
+
+        Try
+            Dim StoredProcedure = "CreateTempTSEndorsementTable"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+
+        Try
+            Dim StoredProcedure = "InserTempToTSEndorsementData"
+            Dim dbTable As New DSTSEndorsementData.DTEndorsementDataDataTable
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@serialNo", TboxTSSerialNo.Text)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            DGVTSEndorsementData.DataSource = dbTable
+            'DGVTSEndorsementData.ClearSelection()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
     End Sub
 
     Private Sub TboxTSSerialNo_TextChanged(sender As Object, e As EventArgs) Handles TboxTSSerialNo.TextChanged
@@ -1267,7 +1148,15 @@ Public Class FrmMain
         LblTSTimeStamp.Text = Nothing
     End Sub
 
+    Dim analysis, defect_type, action_taken, location1, location2, location3, location4, location5, repaired_by, date_repaired, status, remarks As String 'Use to verify the original value of TS Data before updating
+
     Private Sub BtnTSUpdate_Click(sender As Object, e As EventArgs) Handles BtnTSUpdate.Click
+        If analysis = TBoxTSAnalysis.Text And defect_type = TBoxTSDefectType.Text And action_taken = TBoxTSActionTaken.Text And location1 = TBoxTSLocation1.Text And location2 = TBoxTSLocation2.Text And location3 = TBoxTSLocation3.Text And location4 = TBoxTSLocation4.Text And location5 = TBoxTSLocation5.Text And repaired_by = TBoxTSRepairedBy.Text And date_repaired = DTPTSDateRepaired.Value.ToString("MMM dd, yyyy") And status = TBoxTSStatus.Text And remarks = TBoxTSRemarks.Text Then
+            'If analysis = TBoxTSAnalysis.Text And defect_type = TBoxTSDefectType.Text Then
+            MessageBox.Show("No changes found on the data.", "Unable to Update", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
         Try
             Dim StoredProcedure = "GetTSData"
             dbConn.Open()
@@ -1277,9 +1166,6 @@ Public Class FrmMain
                 Using dbReader As SqlDataReader = dbCmd.ExecuteReader
                     dbReader.Read()
                     If dbReader.HasRows Then
-                        'LblTSRcvdDate.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("date_received")), dbReader.GetDateTime(dbReader.GetOrdinal("date_received")).ToString("MMMM dd, yyyy"), "N/A")
-                        'lblTSReceiverName.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("receiver")), dbReader.GetString(dbReader.GetOrdinal("receiver")), "N/A")
-
                         If dbReader.IsDBNull(dbReader.GetOrdinal("receiver")) Or dbReader.IsDBNull(dbReader.GetOrdinal("date_received")) Then
                             MessageBox.Show("Serial number: " & TboxTSSerialNo.Text & vbCrLf & vbCrLf & "This serial number has not been received yet." & vbCrLf & vbCrLf & "Unable to proceed!", "Unreceived Serial", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             dbConn.Close()
@@ -1436,10 +1322,6 @@ Public Class FrmMain
 
     Private elapsedTime As Integer
 
-    Private Sub TBoxWorkweek_TextChanged(sender As Object, e As EventArgs) Handles TBoxWorkweek.TextChanged
-
-    End Sub
-
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         LblTSVerification.Visible = Not LblTSVerification.Visible
 
@@ -1483,50 +1365,267 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnInqSearch_Click(sender As Object, e As EventArgs) Handles BtnInqSearch.Click
-        Load_Inquiry()
+        'If InquerywDate = False Then
+        '    Load_Inquiry()
+        '    Load_InquiryDataCount()
+        'ElseIf InquerywDate = True Then
+        '    Load_InquirywDate()
+        '    Load_InquiryDateFailed()
+        '    Load_InquirywDateDataCount()
+        'End If
+
+        If Inquiry = True Then 'Inquiry witout endorsement number and dates
+            Load_Inquiry()
+            Load_InquiryCount()
+            Load_InquiryUnverifiedCount()
+        End If
+
+        If InquiryEndtNo = True Then 'Inquiry with endorsement number and dates
+            Load_InquiryEndtNo()
+            Load_InquiryEndtNoCount()
+            Load_InquiryEndtNoUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquirywDateFailed = True Then 'Inquiry with date failed
+            Load_InquiryDateFailed()
+            Load_InquiryDateFailedCount()
+            Load_InquiryDateFailedUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquirywEndtDate = True Then 'Inquiry with endorsement date
+            Load_InquiryEndtDate()
+            Load_InquiryEndtDateCount()
+            Load_InquiryEndtDateUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquirywTSDate = True Then 'Inquiry with TS date
+            Load_InquiryTSDate()
+            Load_InquiryTSDateCount()
+            Load_InquiryTSDateUnverifiedCount() 'For verification if applicable
+        End If
+
+
+        '-----------------------
+        If InquiryDateFailedEndt = True Then 'Inquiry with Date Failed and Endorsement Date
+            Load_InquiryDateFailedEndt()
+            Load_InquiryDateFailedEndtCount()
+            Load_InquiryDateFailedEndtUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryDateFailedTS = True Then 'Inquiry with Date Failed and TS Date
+            Load_InquiryDateFailedTS()
+            Load_InquiryDateFailedTSCount()
+            Load_InquiryDateFailedTSUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryDateEndtTS = True Then 'Inquiry with Endorsement Date and TS Date
+            Load_InquiryEndtDateTS()
+            Load_InquiryEndtDateTSCount()
+            Load_InquiryEndtDateTSUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryFailedEndtTS = True Then 'Inquiry with Date Failed, Endorsement Date, and TS date
+            Load_InquiryFailedEndtTS()
+            Load_InquiryFailedEndtTSCount()
+            Load_InquiryFailedEndtTSUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoDateFailed = True Then
+            Load_InquiryEndtNoDateFailed()
+            Load_InquiryEndtNoDateFailedCount()
+            Load_InquiryEndtNoDateFailedUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoEndtDate = True Then
+            Load_InquiryEndtNoEndtDate()
+            Load_InquiryEndtNoEndtDateCount()
+            Load_InquiryEndtNoEndtDateUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoTS = True Then
+            Load_InquiryEndtNoTSDate()
+            Load_InquiryEndtNoTSDateCount()
+            Load_InquiryEndtNoTSDateUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoDateFailedEndtDate = True Then
+            Load_InquiryEndtNoDateFailedEndt()
+            Load_InquiryEndtNoDateFailedEndtCount()
+            Load_InquiryEndtNoDateFailedEndtUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoDateFailedTS = True Then
+            Load_InquiryEndtNoDateFailedTS()
+            Load_InquiryEndtNoDateFailedTSCount()
+            Load_InquiryEndtNoDateFailedTSUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoEndtDateTS = True Then
+            Load_InquiryEndtNoEndtDateTS()
+            Load_InquiryEndtNoEndtDateTSCount()
+            Load_InquiryEndtNoEndtDateTSUnverifiedCount()
+        End If
+
+        '-----------------------
+        If InquiryEndtNoFailedEndtDateTS = True Then
+            Load_InquiryEndtNoFailedEndtTS()
+            Load_InquiryEndtNoFailedEndtTSCount()
+            Load_InquiryEndtNoFailedEndtTSUnverifiedCount()
+        End If
+
+        'MsgBox(Inquiry, InquirywDateFailed & InquirywEndtDate & InquirywTSDate)
+        'MsgBox(InquiryDateFailedEndt & InquiryDateFailedTS & InquiryDateEndtTS & InquiryFailedEndtTS)
     End Sub
 
-    Private Sub Load_Inquiry()
-        Try
-            'Dim dbTable As New DSInquiry.DTInquiryDataTable
-            Dim dbTable As New DataTable
-            Dim StoredProcedure = "Inquiry"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@endtno", TboxInqEndtNo.Text)
-                dbCmd.Parameters.AddWithValue("@serialno", TboxInqSerialNo.Text)
-                dbCmd.Parameters.AddWithValue("@model", CboxInqModel.Text)
-                dbCmd.Parameters.AddWithValue("@station", CboxInqStation.Text)
-                dbCmd.Parameters.AddWithValue("@ppono", TboxInqPPONo.Text)
-                dbCmd.Parameters.AddWithValue("@lotno", TboxInqLotNo.Text)
-                dbCmd.Parameters.AddWithValue("@workorder", TboxInqWorkOrder.Text)
-                dbCmd.Parameters.AddWithValue("@failuresymptoms", TboxInqFailureSymptoms.Text)
-                dbCmd.Parameters.AddWithValue("@datefailed", DtpInqDateFailed.Value.ToString("yyyy-MM-dd"))
-                dbCmd.Parameters.AddWithValue("@endtdate", DtpInqEndtDate.Value.ToString("yyyy-MM-dd"))
-                dbCmd.Parameters.AddWithValue("@analysis", TboxInqAnalysis.Text)
-                dbCmd.Parameters.AddWithValue("@actiontaken", TboxInqActionTaken.Text)
-                dbCmd.Parameters.AddWithValue("@defecttype", TboxInqDefType.Text)
-                dbCmd.Parameters.AddWithValue("@status", TboxInqStatus.Text)
-                dbCmd.Parameters.AddWithValue("@remarks", TboxInqRemarks.Text)
-                'dbCmd.Parameters.AddWithValue("@tsDateFrom", DtpInqTSDateFrom.Value.ToString("yyyy-MM-dd"))
-                'dbCmd.Parameters.AddWithValue("@tsDateTo", DtpInqTSDateTo.Value.ToString("yyyy-MM-dd"))
+    Dim Inquiry As Boolean = True 'default search witout endorsement number and dates
+    Dim InquiryEndtNo As Boolean 'Search with endorsement number without dates ---new done
+    Dim InquirywDateFailed, InquirywEndtDate, InquirywTSDate As Boolean 'single combobox
+    Dim InquiryDateFailedEndt, InquiryDateFailedTS, InquiryDateEndtTS As Boolean 'dual combobox
+    Dim InquiryEndtNoDateFailed, InquiryEndtNoEndtDate, InquiryEndtNoTS As Boolean 'dual combobox with endorsement number ----new
 
-                Using dbAdapter As New SqlDataAdapter(dbCmd)
-                    dbAdapter.Fill(dbTable)
-                End Using
-            End Using
-            dbConn.Close()
-            DgvInqSummary.DataSource = dbTable
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
+    Dim InquiryFailedEndtTS As Boolean 'multiple combobox
+    Dim InquiryEndtNoDateFailedEndtDate, InquiryEndtNoDateFailedTS, InquiryEndtNoEndtDateTS As Boolean 'multiple combobox with endorsement number all posible search ---new
+
+    Dim InquiryEndtNoFailedEndtDateTS As Boolean 'multiple combobox with endorsement number ---new
+
+    Private Sub DtpInqDateFailed_Enter(sender As Object, e As EventArgs) Handles DtpInqDateFailed.Enter
+        InquirywDateFailed = True
+        Inquiry = False
+
+        If InquirywEndtDate = True Then '2 active
+            InquiryDateFailedEndt = True
+        End If
+
+        If InquirywTSDate = True Then '2 active
+            InquiryDateFailedTS = True
+        End If
+
+        If InquirywEndtDate = True And InquirywTSDate = True Then '3 active
+            InquiryFailedEndtTS = True
+        End If
+
+        If InquiryEndtNo = True Then 'Endorsement Number and Date Failed active
+            InquiryEndtNoDateFailed = True
+        End If
+
+        If InquiryEndtNo = True And InquirywEndtDate = True Then 'Endoresment Date, Date Failed, and endorsement date active
+            InquiryEndtNoDateFailedEndtDate = True
+        End If
+
+        If InquiryEndtNo = True And InquirywTSDate = True Then 'Endorsement Number, Date Failed, and TS Date active
+            InquiryEndtNoDateFailedTS = True
+        End If
+
+        If InquiryEndtNo = True And InquirywEndtDate = True And InquirywTSDate = True Then
+            InquiryEndtNoFailedEndtDateTS = True
+        End If
+    End Sub
+
+    Private Sub HandlesDtpInqEndtDate_Enter(sender As Object, e As EventArgs) Handles DtpInqEndtDate.Enter
+        InquirywEndtDate = True
+        Inquiry = False
+
+        If InquirywDateFailed = True Then '2 active
+            InquiryDateFailedEndt = True
+        End If
+
+        If InquirywTSDate = True Then '2 active
+            InquiryDateEndtTS = True
+        End If
+
+        If InquirywDateFailed = True And InquirywTSDate = True Then
+            InquiryFailedEndtTS = True
+        End If
+
+        If InquiryEndtNo = True Then 'Endorsement Number and endorsement date active
+            InquiryEndtNoEndtDate = True
+        End If
+
+        If InquiryEndtNo = True And InquirywDateFailed = True Then 'Endorsement number, Date Failed, and endorsement date active
+            InquiryEndtNoDateFailedEndtDate = True
+        End If
+
+        If InquiryEndtNo = True And InquirywTSDate = True Then 'Endorsement number, endorsement date, and ts date active
+            InquiryEndtNoEndtDateTS = True
+        End If
+    End Sub
+
+    Private Sub TboxInqEndtNo_TextChanged(sender As Object, e As EventArgs) Handles TboxInqEndtNo.TextChanged
+        InquiryEndtNo = True
+        Inquiry = False
+
+        If InquirywDateFailed = True Then 'Endorsement number and Date Failed active
+            InquiryEndtNoDateFailed = True
+        End If
+
+        If InquirywEndtDate = True Then 'Endorsement number and Endorsement Date active
+            InquiryEndtNoEndtDate = True
+        End If
+
+        If InquirywTSDate = True Then 'Endorsement number and TS Date active
+            InquiryEndtNoTS = True
+        End If
+
+        If InquirywDateFailed = True And InquirywEndtDate = True Then 'Endorsement Number, Date Failed, and Endorsement Date active
+            InquiryEndtNoDateFailedEndtDate = True
+        End If
+
+        If InquirywDateFailed = True And InquirywTSDate = True Then 'Endorsement Number, Date Failed, and TS Date active
+            InquiryEndtNoDateFailedTS = True
+        End If
+
+        If InquirywEndtDate = True And InquirywTSDate = True Then 'Endorsement Number, Endorsement Date, and TS Date active
+            InquiryEndtNoEndtDateTS = True
+        End If
+
+        If InquirywDateFailed = True And InquirywEndtDate = True And InquirywTSDate = True Then 'Endorsement Number, Date Failed, Endorsement Date, and TS Date active
+            InquiryEndtNoFailedEndtDateTS = True
+        End If
+    End Sub
+
+    Private Sub DtpInqTSDate_Enter(sender As Object, e As EventArgs) Handles DtpInqTSDateFrom.Enter, DtpInqTSDateTo.Enter
+        InquirywTSDate = True
+        Inquiry = False
+
+        If InquirywDateFailed = True Then 'TS Date and Date Failed active
+            InquiryDateFailedTS = True
+        End If
+
+        If InquirywEndtDate = True Then 'TS Date and Endorsement Date active
+            InquiryDateEndtTS = True
+        End If
+
+        If InquirywDateFailed = True And InquirywEndtDate = True Then 'TS Date, Date Failed, and Endorsement date active
+            InquiryFailedEndtTS = True
+        End If
+
+        If InquiryEndtNo = True Then 'Endorsement number and ts date active
+            InquiryEndtNoTS = True
+        End If
+
+        If InquiryEndtNo = True And InquirywDateFailed = True Then 'endorsement number, date failed, and ts date active
+            InquiryEndtNoDateFailedTS = True
+        End If
+
+        If InquiryEndtNo = True And InquirywEndtDate = True Then 'endorsement number, endorsement date, and ts date active
+            InquiryEndtNoEndtDateTS = True
+        End If
+
+        If InquiryFailedEndtTS = True And InquirywDateFailed = True And InquirywEndtDate = True Then 'endorsement number, date failed, endorsement date, and ts date active
+            InquiryEndtNoFailedEndtDateTS = True
+        End If
     End Sub
 
     Private Sub BtnInqClear_Click(sender As Object, e As EventArgs) Handles BtnInqClear.Click
@@ -1549,6 +1648,20 @@ Public Class FrmMain
         DgvInqSummary.DataSource = Nothing
         DtpInqTSDateFrom.Value = Today
         DtpInqTSDateTo.Value = Today
+        LblInqTotalUnverified.Text = 0
+        LblInqTotalSearch.Text = 0
+        InquirywDateFailed = False
+        InquirywEndtDate = False
+        InquirywTSDate = False
+        InquiryDateFailedEndt = False
+        InquiryDateFailedTS = False
+        InquiryDateEndtTS = False
+        InquiryFailedEndtTS = False
+        Inquiry = True
+        InquiryEndtNo = False
+
+        LblInqUnverified.ForeColor = SystemColors.ControlText
+        LblInqTotalUnverified.ForeColor = SystemColors.ControlText
     End Sub
 
     Private Sub LblInqPPONo_Click(sender As Object, e As EventArgs) Handles LblInqPPONo.Click
@@ -1556,7 +1669,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub CboxInqModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboxInqModel.SelectedIndexChanged
-        Load_Station_Inquiry()
+        'Load_Station_Inquiry()
     End Sub
 
     Private Sub TboxInqEndtNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxInqEndtNo.KeyPress

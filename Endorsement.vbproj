@@ -92,6 +92,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -153,6 +154,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DSTS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSTSEndorsementData.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.vb">
       <SubType>Form</SubType>
@@ -266,6 +272,17 @@
     </None>
     <None Include="DSTS.xss">
       <DependentUpon>DSTS.xsd</DependentUpon>
+    </None>
+    <None Include="DSTSEndorsementData.xsc">
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSTSEndorsementData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSTSEndorsementData.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSTSEndorsementData.xss">
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
