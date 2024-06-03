@@ -161,8 +161,6 @@ Partial Class FrmMain
         Me.WorkweekDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TimeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DTEndorsementDataBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DSTSEndorsementData = New Endorsement.DSTSEndorsementData()
         Me.LblTSDataQRCode = New System.Windows.Forms.Label()
         Me.LblTSTimeStamp = New System.Windows.Forms.Label()
         Me.LblTSDataSerialNumber = New System.Windows.Forms.Label()
@@ -278,6 +276,8 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.DSTSEndorsementData = New Endorsement.DSTSEndorsementData()
+        Me.DTEndorsementDataBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPageEndorsement.SuspendLayout()
         Me.GBoxData.SuspendLayout()
@@ -293,8 +293,6 @@ Partial Class FrmMain
         Me.TabPageTS.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DGVTSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DTEndorsementDataBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DSTSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GBoxTSInformation.SuspendLayout()
         Me.GBoxTSData.SuspendLayout()
         Me.TabPageInquiry.SuspendLayout()
@@ -306,6 +304,8 @@ Partial Class FrmMain
         CType(Me.DSTS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProviderEndorsement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.DSTSEndorsementData, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DTEndorsementDataBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LblQtyEndorsed
@@ -1405,7 +1405,6 @@ Partial Class FrmMain
         Me.DGVTSEndorsementData.AllowUserToResizeRows = False
         DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight
         Me.DGVTSEndorsementData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
-        Me.DGVTSEndorsementData.AutoGenerateColumns = False
         Me.DGVTSEndorsementData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DGVTSEndorsementData.BackgroundColor = System.Drawing.SystemColors.Control
         Me.DGVTSEndorsementData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
@@ -1420,7 +1419,6 @@ Partial Class FrmMain
         Me.DGVTSEndorsementData.ColumnHeadersHeight = 20
         Me.DGVTSEndorsementData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DGVTSEndorsementData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn41, Me.EndorsementnoDataGridViewTextBoxColumn1, Me.QtyendorsedDataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn42, Me.DataGridViewTextBoxColumn44, Me.DataGridViewTextBoxColumn45, Me.DataGridViewTextBoxColumn46, Me.DataGridViewTextBoxColumn47, Me.DataGridViewTextBoxColumn48, Me.DataGridViewTextBoxColumn49, Me.DataGridViewTextBoxColumn50, Me.DatefailedDataGridViewTextBoxColumn1, Me.EndorsementdateDataGridViewTextBoxColumn1, Me.WorkweekDataGridViewTextBoxColumn1, Me.DateDataGridViewTextBoxColumn, Me.TimeDataGridViewTextBoxColumn})
-        Me.DGVTSEndorsementData.DataSource = Me.DTEndorsementDataBindingSource1
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1572,16 +1570,6 @@ Partial Class FrmMain
         Me.TimeDataGridViewTextBoxColumn.Name = "TimeDataGridViewTextBoxColumn"
         Me.TimeDataGridViewTextBoxColumn.ReadOnly = True
         Me.TimeDataGridViewTextBoxColumn.Width = 57
-        '
-        'DTEndorsementDataBindingSource1
-        '
-        Me.DTEndorsementDataBindingSource1.DataMember = "DTEndorsementData"
-        Me.DTEndorsementDataBindingSource1.DataSource = Me.DSTSEndorsementData
-        '
-        'DSTSEndorsementData
-        '
-        Me.DSTSEndorsementData.DataSetName = "DSTSEndorsementData"
-        Me.DSTSEndorsementData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'LblTSDataQRCode
         '
@@ -2799,6 +2787,16 @@ Partial Class FrmMain
         'Timer1
         '
         '
+        'DSTSEndorsementData
+        '
+        Me.DSTSEndorsementData.DataSetName = "DSTSEndorsementData"
+        Me.DSTSEndorsementData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'DTEndorsementDataBindingSource1
+        '
+        Me.DTEndorsementDataBindingSource1.DataMember = "DTEndorsementData"
+        Me.DTEndorsementDataBindingSource1.DataSource = Me.DSTSEndorsementData
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2838,8 +2836,6 @@ Partial Class FrmMain
         Me.TabPageTS.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.DGVTSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DTEndorsementDataBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DSTSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GBoxTSInformation.ResumeLayout(False)
         Me.GBoxTSInformation.PerformLayout()
         Me.GBoxTSData.ResumeLayout(False)
@@ -2856,6 +2852,8 @@ Partial Class FrmMain
         CType(Me.ErrorProviderEndorsement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.DSTSEndorsementData, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DTEndorsementDataBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3096,7 +3094,6 @@ Partial Class FrmMain
     Friend WithEvents TimetsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents DGVTSEndorsementData As DataGridView
-    Friend WithEvents DTEndorsementDataBindingSource1 As BindingSource
     Friend WithEvents DSTSEndorsementData As DSTSEndorsementData
     Friend WithEvents DataGridViewTextBoxColumn41 As DataGridViewTextBoxColumn
     Friend WithEvents EndorsementnoDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
@@ -3114,4 +3111,5 @@ Partial Class FrmMain
     Friend WithEvents WorkweekDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TimeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DTEndorsementDataBindingSource1 As BindingSource
 End Class
