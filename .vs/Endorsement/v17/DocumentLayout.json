@@ -7,32 +7,44 @@
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\databaseconnection.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|d:\\macky_program\\endorsement\\frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\databaseconnection.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:databaseconnection.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsts.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsts.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmflashscreen.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmflashscreen.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsjointable.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsuid.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsuid.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsfailuresymptoms.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsfailuresymptoms.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dspporeg.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dspporeg.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dstsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dstsendorsementdata.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmadminpass.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmadminpass.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\dsinquiry.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:dsinquiry.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmuserreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmuserreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmadminpass.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmadminpass.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmdbreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmdbreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|D:\\macky_program\\Endorsement\\frmdbreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4987615D-B832-4749-98EF-FC11D172C8D7}|Endorsement.vbproj|solutionrelative:frmdbreference.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,59 +70,82 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DSTS.xsd",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSTS.xsd",
-              "RelativeDocumentMoniker": "DSTS.xsd",
-              "ToolTip": "D:\\macky_program\\Endorsement\\DSTS.xsd",
-              "RelativeToolTip": "DSTS.xsd",
+              "DocumentIndex": 4,
+              "Title": "DSUID.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSUID.xsd",
+              "RelativeDocumentMoniker": "DSUID.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSUID.xsd",
+              "RelativeToolTip": "DSUID.xsd",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-05-21T05:41:10.798Z"
+              "WhenOpened": "2024-08-04T08:37:56.913Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "DSTSEndorsementData.xsd",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSTSEndorsementData.xsd",
-              "RelativeDocumentMoniker": "DSTSEndorsementData.xsd",
-              "ToolTip": "D:\\macky_program\\Endorsement\\DSTSEndorsementData.xsd",
-              "RelativeToolTip": "DSTSEndorsementData.xsd",
+              "Title": "DSPPOReg.xsd",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSPPOReg.xsd",
+              "RelativeDocumentMoniker": "DSPPOReg.xsd",
+              "ToolTip": "D:\\macky_program\\Endorsement\\DSPPOReg.xsd",
+              "RelativeToolTip": "DSPPOReg.xsd",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-05-21T05:41:00.622Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DSFailureSymptoms.xsd",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSFailureSymptoms.xsd",
-              "RelativeDocumentMoniker": "DSFailureSymptoms.xsd",
-              "ToolTip": "D:\\macky_program\\Endorsement\\DSFailureSymptoms.xsd",
-              "RelativeToolTip": "DSFailureSymptoms.xsd",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-05-03T01:01:47.782Z"
+              "WhenOpened": "2024-07-25T02:12:48.835Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "DSInquiry.xsd",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSInquiry.xsd",
-              "RelativeDocumentMoniker": "DSInquiry.xsd",
-              "ToolTip": "D:\\macky_program\\Endorsement\\DSInquiry.xsd",
-              "RelativeToolTip": "DSInquiry.xsd",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-04-18T09:44:02.509Z",
-              "EditorCaption": ""
+              "Title": "FrmAdminPass.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmAdminPass.vb",
+              "RelativeDocumentMoniker": "FrmAdminPass.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmAdminPass.vb [Design]",
+              "RelativeToolTip": "FrmAdminPass.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-07-23T00:52:22.162Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DSJoinTable.xsd",
-              "DocumentMoniker": "D:\\macky_program\\Endorsement\\DSJoinTable.xsd",
-              "RelativeDocumentMoniker": "DSJoinTable.xsd",
-              "ToolTip": "D:\\macky_program\\Endorsement\\DSJoinTable.xsd",
-              "RelativeToolTip": "DSJoinTable.xsd",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003579|",
-              "WhenOpened": "2024-04-18T08:47:41.083Z"
+              "DocumentIndex": 9,
+              "Title": "FrmDBReference.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmDBReference.vb",
+              "RelativeDocumentMoniker": "FrmDBReference.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmDBReference.vb [Design]",
+              "RelativeToolTip": "FrmDBReference.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-06-21T06:20:22.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FrmAdminPass.vb",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmAdminPass.vb",
+              "RelativeDocumentMoniker": "FrmAdminPass.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmAdminPass.vb",
+              "RelativeToolTip": "FrmAdminPass.vb",
+              "ViewState": "AQIAABQAAAAAAAAAAAAWwCYAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-07-22T05:52:49.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FrmUserReference.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmUserReference.vb",
+              "RelativeDocumentMoniker": "FrmUserReference.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmUserReference.vb [Design]",
+              "RelativeToolTip": "FrmUserReference.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-07-22T06:13:45.423Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FrmDBReference.vb",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmDBReference.vb",
+              "RelativeDocumentMoniker": "FrmDBReference.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmDBReference.vb",
+              "RelativeToolTip": "FrmDBReference.vb",
+              "ViewState": "AQIAADAAAAAAAAAAAAD4vzoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-06-21T08:56:21.677Z"
             }
           ]
         }
@@ -120,43 +155,57 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "8a712cb9-0604-4944-a171-e8b0c64d0c78",
+        "Id": "e6f3cfed-9491-4581-806a-ecf69eaa8ed9",
         "Display": 1,
-        "X": -8,
-        "Y": 255,
-        "Width": 1553,
-        "Height": 912,
+        "X": -220,
+        "Y": 178,
+        "Width": 1594,
+        "Height": 886,
         "WindowState": 2
       },
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "FrmFlashScreen.vb",
+              "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmFlashScreen.vb",
+              "RelativeDocumentMoniker": "FrmFlashScreen.vb",
+              "ToolTip": "D:\\macky_program\\Endorsement\\FrmFlashScreen.vb",
+              "RelativeToolTip": "FrmFlashScreen.vb",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-07-25T01:42:57.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "DataBaseConnection.vb",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\DataBaseConnection.vb",
               "RelativeDocumentMoniker": "DataBaseConnection.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\DataBaseConnection.vb",
               "RelativeToolTip": "DataBaseConnection.vb",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAABSAAAA",
+              "ViewState": "AQIAAJAAAAAAAAAAAIA4wLYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-06-01T08:26:25.124Z",
+              "WhenOpened": "2024-06-21T08:56:46.435Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "FrmMain.vb",
               "DocumentMoniker": "D:\\macky_program\\Endorsement\\FrmMain.vb",
               "RelativeDocumentMoniker": "FrmMain.vb",
               "ToolTip": "D:\\macky_program\\Endorsement\\FrmMain.vb",
               "RelativeToolTip": "FrmMain.vb",
-              "ViewState": "AQIAAEAFAAAAAAAAAAAAAFcFAAAIAAAA",
+              "ViewState": "AQIAAEgDAAAAAAAAAAAowGcDAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2024-06-01T08:26:42.835Z"
+              "WhenOpened": "2024-06-19T03:20:12.728Z",
+              "EditorCaption": ""
             }
           ]
         }

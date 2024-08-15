@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSUID" targetNamespace="http://tempuri.org/DSUID.xsd" xmlns:mstns="http://tempuri.org/DSUID.xsd" xmlns="http://tempuri.org/DSUID.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSUID" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSUID" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSUID">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTUID" msprop:Generator_RowEvHandlerName="DTUIDRowChangeEventHandler" msprop:Generator_RowDeletedName="DTUIDRowDeleted" msprop:Generator_RowDeletingName="DTUIDRowDeleting" msprop:Generator_RowEvArgName="DTUIDRowChangeEvent" msprop:Generator_TablePropName="DTUID" msprop:Generator_RowChangedName="DTUIDRowChanged" msprop:Generator_UserTableName="DTUID" msprop:Generator_RowChangingName="DTUIDRowChanging" msprop:Generator_RowClassName="DTUIDRow" msprop:Generator_TableClassName="DTUIDDataTable" msprop:Generator_TableVarName="tableDTUID">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:long" minOccurs="0" />
+              <xs:element name="uid" msprop:Generator_ColumnPropNameInTable="uidColumn" msprop:Generator_ColumnPropNameInRow="uid" msprop:Generator_UserColumnName="uid" msprop:Generator_ColumnVarNameInTable="columnuid" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

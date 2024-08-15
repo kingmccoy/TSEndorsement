@@ -1,7 +1,232 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Data.SQLite
+Imports System.Net.Mail
+Imports System.Security.Cryptography
 
 Module DataBaseConnection
-    Public dbConn As New SqlConnection("Data Source=10.10.15.25,1444;Initial Catalog=sli_endorsement;Persist Security Info=True;User ID=test;Password=test123;Encrypt=False;Connection Timeout=30;")
+    Public HostName, Port, Username, Password As String
+    'Public dbConn As New SqlConnection("Data Source=10.10.15.25,1444;Initial Catalog=sli_endorsement;Persist Security Info=True;User ID=test;Password=test123;Encrypt=False;Connection Timeout=30;")
+    Public dbLocalConn As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\LocalConnection.db;Version=3;FailIfMissing=True;")
+    Public dbConn As New SqlConnection("Data Source=" & Local_Hostname() & "," & Local_Port() & ";" & "Initial Catalog=sli_endorsement;Persist Security Info=True;User ID=" & Local_Username() & ";" & "Password=" & Local_Password() & ";" & "Encrypt=False;Connection Timeout=30;")
+    Public user
+
+    Public Sub Load_LocalDb()
+        Try
+            Dim dbQuery = "SELECT * FROM SQLServerConnection"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        FrmDBReference.TboxDBSvrName.Text = dbReader("server_name").ToString
+                        FrmDBReference.TboxDBPort.Text = dbReader("port").ToString
+                        FrmDBReference.TboxDBUsername.Text = dbReader("username").ToString
+                        FrmDBReference.TboxDBPass.Text = dbReader("password").ToString
+
+                        'HostName = dbReader("server_name").ToString
+                        'Port = dbReader("port")
+                        'Username = dbReader("username").ToString
+                        'Password = dbReader("password").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Public Sub Load_CurrentUser()
+        Try
+            Dim dbQuery = "SELECT current_user FROM CurrentUser"
+            Dim dbTable As New DataTable
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        user = dbReader("current_user").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Public Function Local_Hostname()
+        Try
+            Dim dbQuery = "SELECT * FROM SQLServerConnection"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        HostName = dbReader("server_name").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+        Return HostName
+    End Function
+
+    Public Function Local_Port()
+        Try
+            Dim dbQuery = "SELECT * FROM SQLServerConnection"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        Port = dbReader("port").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+        Return Port
+    End Function
+
+    Public Function Local_Username()
+        Try
+            Dim dbQuery = "SELECT * FROM SQLServerConnection"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        Username = dbReader("username").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+        Return Username
+    End Function
+
+    Public Function Local_Password()
+        Try
+            Dim dbQuery = "SELECT * FROM SQLServerConnection"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        Password = dbReader("Password").ToString
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch ex As SQLiteException
+            MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbLocalConn.State = ConnectionState.Open Then
+                dbLocalConn.Close()
+            End If
+        End Try
+        Return Password
+    End Function
+
+    Sub Send_eMail(ByVal EndtNo As TextBox, ByVal EndorsedBy As TextBox, ByVal TotaLEndorsedQty As Label)
+        Try
+            ' Create a new MailMessage object and set the sender address.
+            Dim mail As New MailMessage With {
+                .From = New MailAddress("te.smt@ionics-ems.com")
+            }
+
+            ' Set the recipient address.
+            mail.To.Add("te.smt@ionics-ems.com") ' Replace with the recipient's email address.
+            'mail.To.Add("nicole.duran@ionics-ems.com") ' Replace with the recipient's email address.
+
+            ' Set the subject and body.
+            mail.Subject = "Notification: New Endorsement Created - No. " & EndtNo.Text
+
+            mail.Body = "Dear Team," & vbCrLf & vbCrLf &
+            "This is to inform you that a new endorsement has been created with the following details:" & vbCrLf & vbCrLf &
+            "Endorsement Number: " & EndtNo.Text & vbCrLf & vbCrLf
+
+            For Each lotNo In FrmMain.LotNumber_List
+                Dim iLot = FrmMain.LotNumber_List.IndexOf(lotNo)
+                mail.Body &= "Lot Number: " & lotNo & vbCrLf
+                mail.Body &= "Model: " & FrmMain.Model_List.Item(iLot) & vbCrLf
+                mail.Body &= "Endorsed Quantity: " & FrmMain.EndorsedQty_List.Item(iLot) & vbCrLf & vbCrLf
+            Next
+
+            mail.Body &= "Total Endorsed Quantity: " & TotaLEndorsedQty.Text & vbCrLf
+            mail.Body &= "Endorsed by: " & EndorsedBy.Text
+
+            mail.Body &= vbCrLf & vbCrLf & "Auto Generated Email"
+
+            ' Uncomment the following section if you want to add an attachment later
+            ' Add an attachment using a Using block to ensure it is properly closed.
+            ' Dim attachmentPath As String = fileTxt ' Replace with your file path.
+            ' Using attachment As New Attachment(attachmentPath)
+            '     mail.Attachments.Add(attachment)
+            ' End Using
+
+            ' Create a new SmtpClient object for Outlook.com.
+            Dim smtpServer As New SmtpClient("smtp.office365.com") With {
+            .Credentials = New Net.NetworkCredential("te.smt@ionics-ems.com", "mwstspktqrjckwdm"),
+            .Port = 587,
+            .EnableSsl = True
+        }
+
+            ' Send the email.
+            smtpServer.Send(mail)
+
+            'MessageBox.Show("The email with subject '" & mail.Subject & "' has been successfully sent to the recipients.",
+            '             "Email Sent Successfully",
+            '             MessageBoxButtons.OK,
+            '             MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("An error occurred while sending the email:" & vbCrLf & vbCrLf &
+                       "Error Message: " & ex.Message & vbCrLf & vbCrLf &
+                       "Please check the email settings and try again.",
+                       "Email Sending Error",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Error)
+        End Try
+    End Sub
 
     Public Sub Load_Model_Variant()
         Try
@@ -14,6 +239,7 @@ Module DataBaseConnection
                 End Using
             End Using
             dbConn.Close()
+
             FrmMain.CBoxModel.DataSource = dbTable
             FrmMain.CBoxModel.DisplayMember = "variant"
             FrmMain.CBoxModel.Text = Nothing
@@ -847,7 +1073,7 @@ Module DataBaseConnection
                     dbAdapter.Fill(dbTable)
                 End Using
 
-                FrmMain.LblInqTotalUnverified.Text = dbCmd.ExecuteScalar
+                FrmMain.LblInqTotalUnverified.Text = dbCmd.ExecuteScalar.ToString
 
                 If FrmMain.LblInqTotalUnverified.Text <> 0 Then
                     FrmMain.LblInqUnverified.ForeColor = Color.DarkRed
@@ -1081,7 +1307,7 @@ Module DataBaseConnection
                     dbAdapter.Fill(dbTable)
                 End Using
 
-                FrmMain.LblInqTotalSearch.Text = dbCmd.ExecuteScalar
+                FrmMain.LblInqTotalSearch.Text = dbCmd.ExecuteScalar.ToString
             End Using
             dbConn.Close()
         Catch ex As SqlException
@@ -2098,7 +2324,7 @@ Module DataBaseConnection
                     dbAdapter.Fill(dbTable)
                 End Using
 
-                FrmMain.LblInqTotalUnverified.Text = dbCmd.ExecuteScalar
+                FrmMain.LblInqTotalUnverified.Text = dbCmd.ExecuteScalar.ToString
 
                 If FrmMain.LblInqTotalUnverified.Text <> 0 Then
                     FrmMain.LblInqUnverified.ForeColor = Color.DarkRed
@@ -2259,27 +2485,83 @@ Module DataBaseConnection
         End Try
     End Sub
 
-    Public Sub Load_Station()
+    Public Sub Load_Station(ByVal Cbox As ComboBox, ByVal CboxValue As String, ByVal DisMem As String)
         Try
             Dim dbTable As New DSStation.DTStationsDataTable
             Dim StoredProcedure = "GetStation"
             dbConn.Open()
             Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
                 dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@variant", FrmMain.CBoxModel.Text)
+                dbCmd.Parameters.AddWithValue("@variant", CboxValue)
                 Using dbAdapter As New SqlDataAdapter(dbCmd)
                     dbAdapter.Fill(dbTable)
                 End Using
             End Using
             dbConn.Close()
-            FrmMain.CBoxStation.DataSource = dbTable
-            FrmMain.CBoxStation.DisplayMember = "station"
-            FrmMain.CBoxStation.Text = Nothing
-            FrmMain.CBoxStation.DropDownHeight = 106
+            Cbox.DataSource = dbTable
+            Cbox.DisplayMember = DisMem
+            Cbox.Text = Nothing
+            'Cbox.DropDownHeight = 106
         Catch ex As SqlException
             MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             dbConn.Close()
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Public Sub Load_FailureSymptoms(ByVal Cbox As ComboBox, ByVal CboxValue As String)
+        Try
+            Dim DbTable As New DSFailureSymptoms.DTFailureSymptomsDataTable
+            Dim Query = "SELECT ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS id, failure_symptoms FROM (SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CboxValue & "') AS distinct_symptoms;"
+            'Dim Query = "SELECT DISTINCT * FROM endorsement WHERE station='" & CBoxStation.Text & "'"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(Query, dbConn)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(DbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            Cbox.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            Cbox.AutoCompleteSource = AutoCompleteSource.ListItems
+            Cbox.DataSource = DbTable
+            Cbox.DisplayMember = "failure_symptoms"
+            Cbox.Text = Nothing
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Public Sub Load_TSData_For_Update(ByVal Cbox As ComboBox, ByVal CboxValue As String)
+        Try
+            Dim DbTable As New DataTable
+            'Dim Query = "SELECT ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS id, failure_symptoms FROM (SELECT DISTINCT failure_symptoms FROM endorsement WHERE station='" & CboxValue & "') AS distinct_symptoms;"
+            Dim Query = "SELECT DISTINCT " & CboxValue & " FROM TS WHERE " & CboxValue & " IS NOT NULL AND " & CboxValue & " <> ''"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(Query, dbConn)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(DbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            Cbox.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            Cbox.AutoCompleteSource = AutoCompleteSource.ListItems
+            Cbox.DataSource = DbTable
+            Cbox.DisplayMember = CboxValue
+            Cbox.Text = Nothing
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
             MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then
@@ -2427,6 +2709,45 @@ Module DataBaseConnection
         Catch ex As Exception
             ' Handle other types of exceptions
             'MessageBox.Show(ex.Message, "Error Dropping Database Table", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Public Sub Load_PPO_Records(ByVal Dgv As DataGridView)
+        Try
+            Dim dbQuery = "SELECT * FROM ppo ORDER BY id DESC"
+            Dim dbTable As New DSPPOReg.DTPPORegDataTable
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                Using dbAdapter As New SqlDataAdapter(dbCmd)
+                    dbAdapter.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            Dgv.DataSource = dbTable
+            Dgv.ClearSelection()
+        Catch ex As SqlException
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            dbConn.Close()
+            MessageBox.Show(ex.Message, "Erro Exeption Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub Load_UID()
+        Try
+            Dim dbQuery = "SELECT * FROM uid "
+            dbConn.Open()
+
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
             MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If dbConn.State = ConnectionState.Open Then

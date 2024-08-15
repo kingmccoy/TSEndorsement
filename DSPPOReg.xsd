@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSPPOReg" targetNamespace="http://tempuri.org/DSPPOReg.xsd" xmlns:mstns="http://tempuri.org/DSPPOReg.xsd" xmlns="http://tempuri.org/DSPPOReg.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSPPOReg" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSPPOReg" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSPPOReg">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTPPOReg" msprop:Generator_RowClassName="DTPPORegRow" msprop:Generator_RowEvHandlerName="DTPPORegRowChangeEventHandler" msprop:Generator_RowDeletedName="DTPPORegRowDeleted" msprop:Generator_RowDeletingName="DTPPORegRowDeleting" msprop:Generator_RowEvArgName="DTPPORegRowChangeEvent" msprop:Generator_TablePropName="DTPPOReg" msprop:Generator_RowChangedName="DTPPORegRowChanged" msprop:Generator_UserTableName="DTPPOReg" msprop:Generator_RowChangingName="DTPPORegRowChanging" msprop:Generator_TableClassName="DTPPORegDataTable" msprop:Generator_TableVarName="tableDTPPOReg">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:string" />
+              <xs:element name="ppo_no" msprop:Generator_UserColumnName="ppo_no" msprop:Generator_ColumnPropNameInTable="ppo_noColumn" msprop:Generator_ColumnPropNameInRow="ppo_no" msprop:Generator_ColumnVarNameInTable="columnppo_no" type="xs:string" minOccurs="0" />
+              <xs:element name="version" msprop:Generator_UserColumnName="version" msprop:Generator_ColumnPropNameInTable="versionColumn" msprop:Generator_ColumnPropNameInRow="version" msprop:Generator_ColumnVarNameInTable="columnversion" type="xs:string" minOccurs="0" />
+              <xs:element name="ppo_date" msprop:Generator_UserColumnName="ppo_date" msprop:Generator_ColumnPropNameInTable="ppo_dateColumn" msprop:Generator_ColumnPropNameInRow="ppo_date" msprop:Generator_ColumnVarNameInTable="columnppo_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="material_no" msprop:Generator_UserColumnName="material_no" msprop:Generator_ColumnPropNameInTable="material_noColumn" msprop:Generator_ColumnPropNameInRow="material_no" msprop:Generator_ColumnVarNameInTable="columnmaterial_no" type="xs:string" minOccurs="0" />
+              <xs:element name="ordering_part_no" msprop:Generator_UserColumnName="ordering_part_no" msprop:Generator_ColumnPropNameInTable="ordering_part_noColumn" msprop:Generator_ColumnPropNameInRow="ordering_part_no" msprop:Generator_ColumnVarNameInTable="columnordering_part_no" type="xs:string" minOccurs="0" />
+              <xs:element name="model" msprop:Generator_UserColumnName="model" msprop:Generator_ColumnPropNameInTable="modelColumn" msprop:Generator_ColumnPropNameInRow="model" msprop:Generator_ColumnVarNameInTable="columnmodel" type="xs:string" minOccurs="0" />
+              <xs:element name="full_trace_code" msprop:Generator_UserColumnName="full_trace_code" msprop:Generator_ColumnPropNameInTable="full_trace_codeColumn" msprop:Generator_ColumnPropNameInRow="full_trace_code" msprop:Generator_ColumnVarNameInTable="columnfull_trace_code" type="xs:string" minOccurs="0" />
+              <xs:element name="lot_no" msprop:Generator_UserColumnName="lot_no" msprop:Generator_ColumnPropNameInTable="lot_noColumn" msprop:Generator_ColumnPropNameInRow="lot_no" msprop:Generator_ColumnVarNameInTable="columnlot_no" type="xs:string" minOccurs="0" />
+              <xs:element name="ppo_qty" msprop:Generator_UserColumnName="ppo_qty" msprop:Generator_ColumnPropNameInTable="ppo_qtyColumn" msprop:Generator_ColumnPropNameInRow="ppo_qty" msprop:Generator_ColumnVarNameInTable="columnppo_qty" type="xs:string" minOccurs="0" />
+              <xs:element name="crd" msprop:Generator_UserColumnName="crd" msprop:Generator_ColumnPropNameInTable="crdColumn" msprop:Generator_ColumnPropNameInRow="crd" msprop:Generator_ColumnVarNameInTable="columncrd" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="special_instruction" msprop:Generator_UserColumnName="special_instruction" msprop:Generator_ColumnPropNameInTable="special_instructionColumn" msprop:Generator_ColumnPropNameInRow="special_instruction" msprop:Generator_ColumnVarNameInTable="columnspecial_instruction" type="xs:string" minOccurs="0" />
+              <xs:element name="date" msprop:Generator_UserColumnName="date" msprop:Generator_ColumnPropNameInTable="dateColumn" msprop:Generator_ColumnPropNameInRow="_date" msprop:Generator_ColumnVarNameInTable="columndate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="time" msprop:Generator_UserColumnName="time" msprop:Generator_ColumnPropNameInTable="timeColumn" msprop:Generator_ColumnPropNameInRow="time" msprop:Generator_ColumnVarNameInTable="columntime" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTPPOReg" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

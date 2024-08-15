@@ -337,7 +337,7 @@ Partial Public Class DSInquiry
         
         Private columnlocation4 As Global.System.Data.DataColumn
         
-        Private columnlocation5 As Global.System.Data.DataColumn
+        Private columntrue_failed As Global.System.Data.DataColumn
         
         Private columnrepaired_by As Global.System.Data.DataColumn
         
@@ -606,9 +606,9 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property location5Column() As Global.System.Data.DataColumn
+        Public ReadOnly Property true_failedColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnlocation5
+                Return Me.columntrue_failed
             End Get
         End Property
         
@@ -733,7 +733,7 @@ Partial Public Class DSInquiry
                     ByVal location2 As String,  _
                     ByVal location3 As String,  _
                     ByVal location4 As String,  _
-                    ByVal location5 As String,  _
+                    ByVal true_failed As String,  _
                     ByVal repaired_by As String,  _
                     ByVal date_repaired As Date,  _
                     ByVal defect_type As String,  _
@@ -742,7 +742,7 @@ Partial Public Class DSInquiry
                     ByVal date_ts As Date,  _
                     ByVal time_ts As String) As DTInquiryRow
             Dim rowDTInquiryRow As DTInquiryRow = CType(Me.NewRow,DTInquiryRow)
-            Dim columnValuesArray() As Object = New Object() {id, endorsement_no, qty_endorsed, qty, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek, date_transact, time_transact, receiver, date_received, time_received, analysis, action_taken, location1, location2, location3, location4, location5, repaired_by, date_repaired, defect_type, status, remarks, date_ts, time_ts}
+            Dim columnValuesArray() As Object = New Object() {id, endorsement_no, qty_endorsed, qty, model, serial_no, ppo_no, ppo_qty, lot_no, work_order, station, failure_symptoms, endorsed_by, date_failed, endorsement_date, workweek, date_transact, time_transact, receiver, date_received, time_received, analysis, action_taken, location1, location2, location3, location4, true_failed, repaired_by, date_repaired, defect_type, status, remarks, date_ts, time_ts}
             rowDTInquiryRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDTInquiryRow)
             Return rowDTInquiryRow
@@ -792,7 +792,7 @@ Partial Public Class DSInquiry
             Me.columnlocation2 = MyBase.Columns("location2")
             Me.columnlocation3 = MyBase.Columns("location3")
             Me.columnlocation4 = MyBase.Columns("location4")
-            Me.columnlocation5 = MyBase.Columns("location5")
+            Me.columntrue_failed = MyBase.Columns("true_failed")
             Me.columnrepaired_by = MyBase.Columns("repaired_by")
             Me.columndate_repaired = MyBase.Columns("date_repaired")
             Me.columndefect_type = MyBase.Columns("defect_type")
@@ -859,8 +859,8 @@ Partial Public Class DSInquiry
             MyBase.Columns.Add(Me.columnlocation3)
             Me.columnlocation4 = New Global.System.Data.DataColumn("location4", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnlocation4)
-            Me.columnlocation5 = New Global.System.Data.DataColumn("location5", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnlocation5)
+            Me.columntrue_failed = New Global.System.Data.DataColumn("true_failed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntrue_failed)
             Me.columnrepaired_by = New Global.System.Data.DataColumn("repaired_by", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnrepaired_by)
             Me.columndate_repaired = New Global.System.Data.DataColumn("date_repaired", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
@@ -1426,16 +1426,16 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property location5() As String
+        Public Property true_failed() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableDTInquiry.location5Column),String)
+                    Return CType(Me(Me.tableDTInquiry.true_failedColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'location5' in table 'DTInquiry' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'true_failed' in table 'DTInquiry' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableDTInquiry.location5Column) = value
+                Me(Me.tableDTInquiry.true_failedColumn) = value
             End Set
         End Property
         
@@ -1870,14 +1870,14 @@ Partial Public Class DSInquiry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function Islocation5Null() As Boolean
-            Return Me.IsNull(Me.tableDTInquiry.location5Column)
+        Public Function Istrue_failedNull() As Boolean
+            Return Me.IsNull(Me.tableDTInquiry.true_failedColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub Setlocation5Null()
-            Me(Me.tableDTInquiry.location5Column) = Global.System.Convert.DBNull
+        Public Sub Settrue_failedNull()
+            Me(Me.tableDTInquiry.true_failedColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
