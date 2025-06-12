@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4987615D-B832-4749-98EF-FC11D172C8D7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>TS_Endorsement.My.MyApplication</StartupObject>
+    <RootNamespace>TS_Endorsement</RootNamespace>
+    <AssemblyName>TS Endorsement</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.8.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ts_logo_no_background_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.WinForms, Version=0.9.7.1, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.WinForms.0.9.7.1\lib\net45\LiveCharts.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="DataBaseConnection.vb" />
+    <Compile Include="DSEmailRecipient.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSEmailRecipient.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSOperator.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSOperator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSPPOReg.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSPPOReg.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSStation.vb">
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSUID.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSUID.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAboutBox.Designer.vb">
+      <DependentUpon>FrmAboutBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAdminPass.Designer.vb">
+      <DependentUpon>FrmAdminPass.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAdminPass.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDBReference.Designer.vb">
+      <DependentUpon>FrmDBReference.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDBReference.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSEndorsementData.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSEndorsementData.vb">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSFailureSymptoms.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSFailureSymptoms.vb">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSInquiry.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSModel.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSStation.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSTS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSTS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DSTSEndorsementData.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmail.Designer.vb">
+      <DependentUpon>FrmEmail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEndtUser.Designer.vb">
+      <DependentUpon>FrmEndtUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEndtUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFlashScreen.Designer.vb">
+      <DependentUpon>FrmFlashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFlashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.vb">
+      <DependentUpon>FrmMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOperator.Designer.vb">
+      <DependentUpon>FrmOperator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmOperator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUserReference.Designer.vb">
+      <DependentUpon>FrmUserReference.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUserReference.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmAboutBox.resx">
+      <DependentUpon>FrmAboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAdminPass.resx">
+      <DependentUpon>FrmAdminPass.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDBReference.resx">
+      <DependentUpon>FrmDBReference.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmail.resx">
+      <DependentUpon>FrmEmail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEndtUser.resx">
+      <DependentUpon>FrmEndtUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFlashScreen.resx">
+      <DependentUpon>FrmFlashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOperator.resx">
+      <DependentUpon>FrmOperator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUserReference.resx">
+      <DependentUpon>FrmUserReference.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DSEmailRecipient.xsc">
+      <DependentUpon>DSEmailRecipient.xsd</DependentUpon>
+    </None>
+    <None Include="DSEmailRecipient.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSEmailRecipient.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSEmailRecipient.xss">
+      <DependentUpon>DSEmailRecipient.xsd</DependentUpon>
+    </None>
+    <None Include="DSEndorsementData.xsc">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSEndorsementData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSEndorsementData.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSEndorsementData.xss">
+      <DependentUpon>DSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSFailureSymptoms.xsc">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </None>
+    <None Include="DSFailureSymptoms.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSFailureSymptoms.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSFailureSymptoms.xss">
+      <DependentUpon>DSFailureSymptoms.xsd</DependentUpon>
+    </None>
+    <None Include="DSInquiry.xsc">
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </None>
+    <None Include="DSInquiry.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSInquiry.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSInquiry.xss">
+      <DependentUpon>DSInquiry.xsd</DependentUpon>
+    </None>
+    <None Include="DSModel.xsc">
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </None>
+    <None Include="DSModel.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSModel.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSModel.xss">
+      <DependentUpon>DSModel.xsd</DependentUpon>
+    </None>
+    <None Include="DSOperator.xsc">
+      <DependentUpon>DSOperator.xsd</DependentUpon>
+    </None>
+    <None Include="DSOperator.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSOperator.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSOperator.xss">
+      <DependentUpon>DSOperator.xsd</DependentUpon>
+    </None>
+    <None Include="DSPPOReg.xsc">
+      <DependentUpon>DSPPOReg.xsd</DependentUpon>
+    </None>
+    <None Include="DSPPOReg.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSPPOReg.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSPPOReg.xss">
+      <DependentUpon>DSPPOReg.xsd</DependentUpon>
+    </None>
+    <None Include="DSStation.xsc">
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </None>
+    <None Include="DSStation.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSStation.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSStation.xss">
+      <DependentUpon>DSStation.xsd</DependentUpon>
+    </None>
+    <None Include="DSTS.xsc">
+      <DependentUpon>DSTS.xsd</DependentUpon>
+    </None>
+    <None Include="DSTS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSTS.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSTS.xss">
+      <DependentUpon>DSTS.xsd</DependentUpon>
+    </None>
+    <None Include="DSTSEndorsementData.xsc">
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSTSEndorsementData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSTSEndorsementData.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSTSEndorsementData.xss">
+      <DependentUpon>DSTSEndorsementData.xsd</DependentUpon>
+    </None>
+    <None Include="DSUID.xsc">
+      <DependentUpon>DSUID.xsd</DependentUpon>
+    </None>
+    <None Include="DSUID.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSUID.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSUID.xss">
+      <DependentUpon>DSUID.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\Silicon_Labs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_color_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ts_logo_no_background_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\developer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ionics_logo_png.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>

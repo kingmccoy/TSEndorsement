@@ -1,4 +1,5 @@
-﻿Imports System
+﻿Imports System.Resources
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,12 +9,12 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Endorsement")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Endorsement")>
-<Assembly: AssemblyCopyright("Copyright ©  2024")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTitle("TS Endorsement")>
+<Assembly: AssemblyDescription("The Endorsement Program is a robust solution designed to streamline the endorsement of test units, providing automation for handling production data and minimizing manual input. This tool facilitates accurate and efficient processing of test units that do not meet production standards, ensuring seamless workflows and reliable data handling.")>
+<Assembly: AssemblyCompany("Ionics EMS, Inc.")>
+<Assembly: AssemblyProduct("TS Endorsement")>
+<Assembly: AssemblyCopyright("This software is protected by copyright laws and international treaties. Unauthorized reproduction, distribution, or use of the Software, in whole or in part, is strictly prohibited. No warranties, either expressed or implied, are provided, including but not limited to implied warranties of merchantability or fitness for a particular purpose.")>
+<Assembly: AssemblyTrademark("Ionics EMS, Inc.")>
 
 <Assembly: ComVisible(False)>
 
@@ -31,5 +32,6 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("1.0.8.0")>
+<Assembly: AssemblyFileVersion("1.0.8.0")>
+<Assembly: NeutralResourcesLanguage("fil-PH")>

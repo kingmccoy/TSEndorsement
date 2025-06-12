@@ -536,7 +536,7 @@ Partial Public Class DSEndorsementData
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddDTEndorsementDataRow( _
-                    ByVal id As String,  _
+                    ByVal id As Long,  _
                     ByVal endorsement_no As String,  _
                     ByVal qty_endorsed As String,  _
                     ByVal qty As String,  _
@@ -563,7 +563,7 @@ Partial Public Class DSEndorsementData
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function FindByid(ByVal id As String) As DTEndorsementDataRow
+        Public Function FindByid(ByVal id As Long) As DTEndorsementDataRow
             Return CType(Me.Rows.Find(New Object() {id}),DTEndorsementDataRow)
         End Function
         
@@ -607,7 +607,7 @@ Partial Public Class DSEndorsementData
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnid = New Global.System.Data.DataColumn("id", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
             Me.columnendorsement_no = New Global.System.Data.DataColumn("endorsement_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnendorsement_no)
@@ -795,9 +795,9 @@ Partial Public Class DSEndorsementData
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property id() As String
+        Public Property id() As Long
             Get
-                Return CType(Me(Me.tableDTEndorsementData.idColumn),String)
+                Return CType(Me(Me.tableDTEndorsementData.idColumn),Long)
             End Get
             Set
                 Me(Me.tableDTEndorsementData.idColumn) = value

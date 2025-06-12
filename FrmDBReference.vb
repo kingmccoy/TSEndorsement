@@ -60,4 +60,8 @@ Public Class FrmDBReference
     Private Sub BtnDBCancel_Click(sender As Object, e As EventArgs) Handles BtnDBCancel.Click
         Me.Close()
     End Sub
+
+    Private Sub FrmDBReference_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose
+    End Sub
 End Class

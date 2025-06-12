@@ -2,12 +2,16 @@
 Imports System.Data.SQLite
 
 Public Class FrmAdminPass
-    Public DBReference, UserReference As Boolean
+    Public DBReference, UserReference, EmailReference, OperatorReference As Boolean
     Dim Pass As String
 
     Private Sub FrmAdminPass_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TboxAdminPass.UseSystemPasswordChar = True
         Load_Admin_Pass()
+    End Sub
+
+    Private Sub FrmAdminPass_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
     End Sub
 
     Private Sub Load_Admin_Pass()
@@ -43,18 +47,32 @@ Public Class FrmAdminPass
     Private Sub BtnAdminOk_Click(sender As Object, e As EventArgs) Handles BtnAdminOk.Click
         If TboxAdminPass.Text = Pass Then
             If DBReference = True Then
-                Me.Close()
+                Me.Dispose()
                 DBReference = False
-                FrmDBReference.ShowDialog()
+                FrmDBReference.ShowDialog(FrmMain)
             End If
 
             If UserReference = True Then
-                Me.Close()
+                Me.Dispose()
                 UserReference = False
-                FrmUserReference.ShowDialog()
+                FrmUserReference.ShowDialog(FrmMain)
+            End If
+
+            If EmailReference = True Then
+                Me.Dispose()
+                EmailReference = False
+                FrmEmail.ShowDialog(FrmMain)
+            End If
+
+            If OperatorReference = True Then
+                Me.Dispose()
+                OperatorReference = False
+                FrmOperator.ShowDialog(FrmMain)
             End If
         Else
             MessageBox.Show("Incorrect administrator passsword.", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            TboxAdminPass.Clear()
+            TboxAdminPass.Focus()
         End If
     End Sub
 End Class

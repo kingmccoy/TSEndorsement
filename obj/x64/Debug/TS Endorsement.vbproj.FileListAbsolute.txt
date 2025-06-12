@@ -1,0 +1,36 @@
+D:\macky_program\TS Endorsement\bin\x64\Debug\TS Endorsement.exe.config
+D:\macky_program\TS Endorsement\bin\x64\Debug\TS Endorsement.exe
+D:\macky_program\TS Endorsement\bin\x64\Debug\TS Endorsement.pdb
+D:\macky_program\TS Endorsement\bin\x64\Debug\EntityFramework.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\EntityFramework.SqlServer.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.WinForms.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.Wpf.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\System.Data.SQLite.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\System.Data.SQLite.EF6.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\System.Data.SQLite.Linq.dll
+D:\macky_program\TS Endorsement\bin\x64\Debug\EntityFramework.xml
+D:\macky_program\TS Endorsement\bin\x64\Debug\EntityFramework.SqlServer.xml
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.pdb
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.xml
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.WinForms.pdb
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.WinForms.xml
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.Wpf.pdb
+D:\macky_program\TS Endorsement\bin\x64\Debug\LiveCharts.Wpf.xml
+D:\macky_program\TS Endorsement\bin\x64\Debug\System.Data.SQLite.xml
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endorsement.vbproj.AssemblyReference.cache
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmAboutBox.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmAdminPass.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmDBReference.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmEmail.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmEndtUser.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmFlashScreen.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmMain.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmOperator.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.FrmUserReference.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS_Endorsement.Resources.resources
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endorsement.vbproj.GenerateResource.cache
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endorsement.vbproj.CoreCompileInputs.cache
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endor.78FBE238.Up2Date
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endorsement.exe
+D:\macky_program\TS Endorsement\obj\x64\Debug\TS Endorsement.pdb

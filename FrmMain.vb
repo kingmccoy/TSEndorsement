@@ -1,4 +1,5 @@
-﻿Imports System.Data.Common
+﻿Imports System.ComponentModel
+Imports System.Data.Common
 Imports System.Data.Entity.Infrastructure
 Imports System.Data.Entity.Infrastructure.DependencyResolution
 Imports System.Data.OleDb
@@ -10,19 +11,29 @@ Imports System.Linq.Expressions
 Imports System.Runtime.InteropServices
 Imports System.Runtime.Remoting.Messaging
 Imports System.Text.RegularExpressions
+'Imports System.Windows.Controls 'Charactercasing is no function when you import this import
 Imports System.Windows.Forms.VisualStyles
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-Imports Endorsement.DSTSEndorsementData
+Imports System.Windows.Markup.Localizer
+Imports System.Windows.Media.Animation
+Imports TS_Endorsement.DSTSEndorsementData
 
 Public Class FrmMain
     'Private dbCon As New SQLiteConnection("Data Source=" & System.Windows.Forms.Application.StartupPath & "\endorsement_proposal.db;Version=3;FailIfMissing=True;")
     Dim DateNow, TimeNow As String
     Dim Invalid_ppoNumber, Invalid_lotNumber, Invalid_workOrder, Invalid_serialNumber As Boolean
     Dim FailureSymptoms As String
+    Dim Search_Verification_Error As Boolean
+
+    Private initValue_TboxPPORegPPONo, initValue_TboxPPORegVersion, initValue_DtpPPORegDate, initValue_TboxPPORegMaterialNo, initValue_TboxPPORegTraceCode, initValue_TboxPPORegLotNo, initValue_TboxPPORegPPOQty, initValue_DtpPPORegCRD, initValue_TboxPPORegSpecialIns As String
 
     Public i As String ' DataGridView ID number
     Public dgvRow As DataGridViewRow ' DataGridView Current Row
     Public dgvIntRow As Integer ' DataGridView Current Row as Integer
+
+    Public operator_switch As Integer
+    Public Username As String
+    Public UserExists As Boolean
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         'Set Datagridview Column Header Fontstyle
@@ -53,15 +64,17 @@ Public Class FrmMain
             dbConn.Close()
         End If
 
+        Load_UID_Timeout()
+
         'SQL Server checking
         Load_PPO_Records(DgvPPORegPPORecords)
+        'BtnPPORegClear.PerformClick()
+        BtnPPORegClear_Click(sender, e)
         Load_Latest_EndorsementNo()
         Load_Model_Variant()
         Load_Station_Inquiry()
         DropTempEndorsementTable() ' Drop the temporary endorsement table
         DropTempTSEndorsementTable() ' Drop the temporary TS endorsement table for scanning serials
-
-        CBoxModel.Enabled = False
 
         TBoxLotNo.ReadOnly = True
         TBoxPPONo.ReadOnly = True
@@ -74,10 +87,10 @@ Public Class FrmMain
 
         'DTPDateFailed.Enabled = False
 
-        BtnEndorseAnotherModel.Enabled = False
+        'BtnEndorseAnotherModel.Enabled = False 'Uncomment in you want to use the Endorsed Another feature
 
         GBoxData.Enabled = False
-        BtnEndorseAnotherModel.Enabled = False
+        'BtnEndorseAnotherModel.Enabled = False 'Uncomment in you want to use the Endorsed Another feature
         BtnSubmit.Enabled = False
         BtnCancel.Enabled = False
     End Sub
@@ -100,6 +113,66 @@ Public Class FrmMain
         End If
     End Sub
 
+    Private Sub Check_Function_Switch()
+        '' SQL Server basis
+        'Try
+        '    Dim dbQuery = "SELECT * FROM operator_switch"
+        '    dbConn.Open()
+        '    Using dbCmd As New SqlCommand(dbQuery, dbConn)
+        '        Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+        '            dbReader.Read()
+        '            If dbReader.HasRows Then
+        '                If dbReader("switch") = 1 Then
+        '                    operator_switch = 1
+        '                End If
+
+        '                If dbReader("switch") = 0 Then
+        '                    operator_switch = 0
+        '                End If
+        '            End If
+        '        End Using
+        '    End Using
+        '    dbConn.Close()
+        'Catch sqlex As SQLiteException
+        '    MessageBox.Show(sqlex.Message, "SQL Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'Catch ex As Exception
+        '    MessageBox.Show(ex.Message, "General Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'Finally
+        '    If dbConn.State = ConnectionState.Open Then
+        '        dbConn.Close()
+        '    End If
+        'End Try
+
+        ' Standalone SQLite basis
+        Try
+            Dim dbQuery = "SELECT * FROM Reference_Switch"
+            dbLocalConn.Open()
+            Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        If dbReader("operator_switch") = 1 Then
+                            operator_switch = 1
+                        End If
+
+                        If dbReader("operator_switch") = 0 Then
+                            operator_switch = 0
+                        End If
+                    End If
+                End Using
+            End Using
+            dbLocalConn.Close()
+        Catch sqlex As SQLiteException
+            MessageBox.Show(sqlex.Message, "SQL Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "General Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
     Private Sub BtnInformationClear_Click(sender As Object, e As EventArgs) Handles BtnInformationClear.Click
         TBoxLotNo.Clear()
         TBoxPPONo.Clear()
@@ -107,15 +180,12 @@ Public Class FrmMain
         TBoxWorkOrder.Clear()
         TBoxQtyEndorsed.Clear()
         DTPEndorsementDate.Value = Today
-
-        CBoxModel.Text = Nothing
     End Sub
 
     Private Sub Reset_Fillup_Form()
         GBoxInformation.Enabled = True
         TBoxEndorsedBy.ReadOnly = False
         TBoxQtyEndorsed.Clear()
-        CBoxModel.Text = Nothing
         TBoxSerialNo.Clear()
         TBoxPPONo.Clear()
         TBoxPPOQty.Clear()
@@ -141,20 +211,21 @@ Public Class FrmMain
 
         LotNumber_List.Clear()
         Model_List.Clear()
-        EndorsedQty_list.Clear()
+        PPO_Qty_List.Clear()
+        EndorsedQty_List.Clear()
     End Sub
 
     Private Sub BtnEndorse_Click(sender As Object, e As EventArgs) Handles BtnEndorse.Click
         If ChkBoxEndtSerialNo.Checked = True And TBoxSerialNo.Enabled = False Then
             If CBoxStation.Text = Nothing Or CBoxFailureSymptoms.Text = Nothing Then
                 'If CBoxStation.Text = Nothing Or CBoxFailureSymptoms.Text.Length = 0 Then
-                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 1", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
         Else
             If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or CBoxFailureSymptoms.Text = Nothing Then
                 'If TBoxSerialNo.TextLength = 0 Or CBoxStation.Text = Nothing Or TBoxFailureSymptoms.Text.Length = 0 Then
-                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information 2", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
         End If
@@ -163,58 +234,58 @@ Public Class FrmMain
             MessageBox.Show("Please ensure all fields with an error mark are in the correct format.", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         Else
-            Try
-                ' Construct the SQL query with parameterization to prevent SQL injection
-                Dim dbQuery As String = "SELECT * FROM uid WHERE uid = @uid"
-                dbConn.Open()
+            If ChkBoxEndtSerialNo.Checked = False Then 'Verify serial number if No serial number is not checked
+                Try
+                    ' Construct the SQL query with parameterization to prevent SQL injection
+                    Dim dbQuery As String = "SELECT * FROM uid WHERE uid = @uid"
+                    dbConn.Open()
 
-                Using dbCmd As New SqlCommand(dbQuery, dbConn)
-                    dbCmd.Parameters.AddWithValue("@uid", TBoxSerialNo.Text.Substring(6))
+                    Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                        dbCmd.Parameters.AddWithValue("@uid", TBoxSerialNo.Text.Substring(6))
 
-                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader()
-                        If dbReader.HasRows Then
-                            dbConn.Close()
+                        Using dbReader As SqlDataReader = dbCmd.ExecuteReader()
+                            If dbReader.HasRows Then
+                                dbConn.Close()
 
-                            ' Check if the UID exists for the specified lot number
-                            Dim dbQuery1 As String = "SELECT * FROM uid WHERE uid = @uid AND lot_no = @lot_no"
-                            dbConn.Open()
-                            Using dbCmd1 As New SqlCommand(dbQuery1, dbConn)
-                                dbCmd1.Parameters.AddWithValue("@uid", TBoxSerialNo.Text.Substring(6))
-                                dbCmd1.Parameters.AddWithValue("@lot_no", TBoxLotNo.Text)
+                                ' Check if the UID exists for the specified lot number
+                                Dim dbQuery1 As String = "SELECT * FROM uid WHERE uid = @uid AND lot_no = @lot_no"
+                                dbConn.Open()
+                                Using dbCmd1 As New SqlCommand(dbQuery1, dbConn)
+                                    dbCmd1.Parameters.AddWithValue("@uid", TBoxSerialNo.Text.Substring(6))
+                                    dbCmd1.Parameters.AddWithValue("@lot_no", TBoxLotNo.Text)
 
-                                Using dbReader1 As SqlDataReader = dbCmd1.ExecuteReader()
-                                    If dbReader1.HasRows Then
-                                        ' UID exists for the specified lot number, you can process further if needed
-                                    Else
-                                        ' UID does not belong to the specified lot number
-                                        MessageBox.Show($"The UID you entered does not belong to lot number {TBoxLotNo.Text}. Please check the UID and lot number, and try again.",
+                                    Using dbReader1 As SqlDataReader = dbCmd1.ExecuteReader()
+                                        If dbReader1.HasRows Then
+                                            ' UID exists for the specified lot number, you can process further if needed
+                                        Else
+                                            ' UID does not belong to the specified lot number
+                                            MessageBox.Show($"The UID you entered does not belong to lot number {TBoxLotNo.Text}. Please check the UID and lot number, and try again.",
                                                         "Wrong UID", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                                        Return
-                                    End If
+                                            Return
+                                        End If
+                                    End Using
                                 End Using
-                            End Using
-                            dbConn.Close()
-                        Else
-                            ' UID does not exist
-                            MessageBox.Show("The UID you entered hasn't been uploaded yet. Please upload the laser UID and try again.",
+                                dbConn.Close()
+                            Else
+                                ' UID does not exist
+                                MessageBox.Show("The UID you entered hasn't been uploaded yet. Please upload the laser UID and try again.",
                                 "UID Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            Return
-                        End If
+                                Return
+                            End If
+                        End Using
                     End Using
-                End Using
-                dbConn.Close()
-
-            Catch ex As SqlException
-                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Catch ex As Exception
-                MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Finally
-                If dbConn.State = ConnectionState.Open Then
                     dbConn.Close()
-                End If
-            End Try
 
-
+                Catch ex As SqlException
+                    MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Finally
+                    If dbConn.State = ConnectionState.Open Then
+                        dbConn.Close()
+                    End If
+                End Try
+            End If
 
             Try
                 Dim Query = "SELECT serial_no FROM TempEndorsement WHERE serial_no='" & TBoxSerialNo.Text & "'"
@@ -245,7 +316,7 @@ Public Class FrmMain
                 End Using
                 dbConn.Close()
             Catch ex As SqlException
-                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "An error occurred while processing your request. Please try again later.", "Database Error - Code 101", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "Error Captururing Duplicate Serial.", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
@@ -311,7 +382,7 @@ Public Class FrmMain
                 MessageBox.Show("Please enter valid numeric values for quantity fields.", "Format Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Catch ex As SqlException
                 ' Handle database-related errors
-                MessageBox.Show("An error occurred while processing your request. Please try again later.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "An error occurred while processing your request. Please try again later.", "Database Error - Code 102", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Catch ex As Exception
                 ' Handle other types of exceptions
                 MessageBox.Show(ex.Message, "Error Endorsing Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -337,12 +408,14 @@ Public Class FrmMain
                 BtnEndorse.Enabled = False
                 BtnDataClear.Enabled = False
 
-                BtnEndorseAnotherModel.Enabled = True
+                'BtnEndorseAnotherModel.Enabled = True 'Uncomment in you want to use the Endorsed Another feature
                 BtnSubmit.Enabled = True
 
                 ChkBoxEndtSerialNo.Checked = False
                 ChkBoxEndtSerialNo.Enabled = False
                 LblSerialNo.Focus()
+
+                DTPDateFailed.Enabled = False
             Else
                 BtnSubmit.Enabled = False
             End If
@@ -441,63 +514,62 @@ Public Class FrmMain
     Private CBoxModelPreviousValue As String
     Private CboxModelIndex As Integer
 
-    Private Sub CBoxModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBoxModel.SelectedIndexChanged
-        Load_Station(CBoxStation, CBoxModel.Text, "station")
-        Load_Station(CboxInqStation, CboxInqModel.Text, "station")
+    'Private Sub CBoxModel_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    Load_Station(CboxInqStation, CboxInqModel.Text, "station")
 
-        '    If CBoxModel.Text = Nothing Then
-        '        TBoxPPONo.ReadOnly = True
-        '        TBoxPPOQty.ReadOnly = True
-        '        TBoxLotNo.ReadOnly = True
-        '        TBoxWorkOrder.ReadOnly = True
-        '        TBoxQtyEndorsed.ReadOnly = True
-        '        'DTPDateFailed.Enabled = False
-        '        DTPEndorsementDate.Enabled = False
+    '    '    If CBoxModel.Text = Nothing Then
+    '    '        TBoxPPONo.ReadOnly = True
+    '    '        TBoxPPOQty.ReadOnly = True
+    '    '        TBoxLotNo.ReadOnly = True
+    '    '        TBoxWorkOrder.ReadOnly = True
+    '    '        TBoxQtyEndorsed.ReadOnly = True
+    '    '        'DTPDateFailed.Enabled = False
+    '    '        DTPEndorsementDate.Enabled = False
 
-        '        CBoxStation.DataSource = Nothing
-        '    Else
-        '        TBoxPPONo.ReadOnly = False
-        '        TBoxPPOQty.ReadOnly = False
-        '        TBoxLotNo.ReadOnly = False
-        '        TBoxWorkOrder.ReadOnly = False
-        '        TBoxQtyEndorsed.ReadOnly = False
-        '        'DTPDateFailed.Enabled = True
-        '        DTPEndorsementDate.Enabled = True
-        '    End If
+    '    '        CBoxStation.DataSource = Nothing
+    '    '    Else
+    '    '        TBoxPPONo.ReadOnly = False
+    '    '        TBoxPPOQty.ReadOnly = False
+    '    '        TBoxLotNo.ReadOnly = False
+    '    '        TBoxWorkOrder.ReadOnly = False
+    '    '        TBoxQtyEndorsed.ReadOnly = False
+    '    '        'DTPDateFailed.Enabled = True
+    '    '        DTPEndorsementDate.Enabled = True
+    '    '    End If
 
-        '    ' Clears the value if selected item is not equal from the previous
-        '    If CBoxModel.Text <> CBoxModelPreviousValue Then
-        '        TBoxPPONo.Clear()
-        '        TBoxPPOQty.Clear()
-        '        TBoxLotNo.Clear()
-        '        TBoxWorkOrder.Clear()
-        '        TBoxQtyEndorsed.Clear()
-        '    End If
+    '    '    ' Clears the value if selected item is not equal from the previous
+    '    '    If CBoxModel.Text <> CBoxModelPreviousValue Then
+    '    '        TBoxPPONo.Clear()
+    '    '        TBoxPPOQty.Clear()
+    '    '        TBoxLotNo.Clear()
+    '    '        TBoxWorkOrder.Clear()
+    '    '        TBoxQtyEndorsed.Clear()
+    '    '    End If
 
-        '    CBoxModelPreviousValue = CBoxModel.Text
-    End Sub
+    '    '    CBoxModelPreviousValue = CBoxModel.Text
+    'End Sub
 
-    Private Sub CBoxModel_TextChanged(sender As Object, e As EventArgs) Handles CBoxModel.TextChanged
-        'If CBoxModel.Text = Nothing Then
-        '    TBoxPPONo.ReadOnly = True
-        '    TBoxPPOQty.ReadOnly = True
-        '    TBoxLotNo.ReadOnly = True
-        '    TBoxWorkOrder.ReadOnly = True
-        '    TBoxQtyEndorsed.ReadOnly = True
-        '    DTPDateFailed.Enabled = False
-        '    DTPEndorsementDate.Enabled = False
+    'Private Sub CBoxModel_TextChanged(sender As Object, e As EventArgs)
+    '    'If CBoxModel.Text = Nothing Then
+    '    '    TBoxPPONo.ReadOnly = True
+    '    '    TBoxPPOQty.ReadOnly = True
+    '    '    TBoxLotNo.ReadOnly = True
+    '    '    TBoxWorkOrder.ReadOnly = True
+    '    '    TBoxQtyEndorsed.ReadOnly = True
+    '    '    DTPDateFailed.Enabled = False
+    '    '    DTPEndorsementDate.Enabled = False
 
-        '    CBoxStation.DataSource = Nothing
-        'Else
-        '    TBoxPPONo.ReadOnly = False
-        '    TBoxPPOQty.ReadOnly = False
-        '    TBoxLotNo.ReadOnly = False
-        '    TBoxWorkOrder.ReadOnly = False
-        '    TBoxQtyEndorsed.ReadOnly = False
-        '    DTPDateFailed.Enabled = True
-        '    DTPEndorsementDate.Enabled = True
-        'End If
-    End Sub
+    '    '    CBoxStation.DataSource = Nothing
+    '    'Else
+    '    '    TBoxPPONo.ReadOnly = False
+    '    '    TBoxPPOQty.ReadOnly = False
+    '    '    TBoxLotNo.ReadOnly = False
+    '    '    TBoxWorkOrder.ReadOnly = False
+    '    '    TBoxQtyEndorsed.ReadOnly = False
+    '    '    DTPDateFailed.Enabled = True
+    '    '    DTPEndorsementDate.Enabled = True
+    '    'End If
+    'End Sub
 
     Private Sub TBoxPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxPPONo.KeyPress
         If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
@@ -587,7 +659,7 @@ Public Class FrmMain
                             TBoxPPOQty.Text = dbReader("ppo_qty").ToString
                             TBoxWorkOrder.ReadOnly = False
                             TBoxQtyEndorsed.ReadOnly = False
-                            DTPEndorsementDate.Enabled = True
+                            'DTPEndorsementDate.Enabled = True
                         ElseIf Not dbReader.HasRows Then
                             If TBoxLotNo.Text.Length = 0 Then
                                 ErrorProviderEndorsement.SetError(TBoxLotNo, Nothing)
@@ -601,7 +673,7 @@ Public Class FrmMain
                             TBoxPPOQty.Clear()
                             TBoxWorkOrder.ReadOnly = True
                             TBoxQtyEndorsed.ReadOnly = True
-                            DTPEndorsementDate.Enabled = False
+                            'DTPEndorsementDate.Enabled = False
                         End If
                     End Using
                 End Using
@@ -609,7 +681,7 @@ Public Class FrmMain
             Catch ex As SqlException
                 MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Catch ex As Exception
-                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
                 If dbConn.State = ConnectionState.Open Then
                     dbConn.Close()
@@ -677,9 +749,8 @@ Public Class FrmMain
         TBoxEndorsedBy.CharacterCasing = CharacterCasing.Upper
         TBoxEndorsedByModified = True
 
+        'If operator_switch = 0 Then
         If TBoxEndorsedBy.TextLength > 0 Then
-            CBoxModel.Enabled = True
-
             TBoxLotNo.ReadOnly = False
             'TboxMaterial.ReadOnly = False
             'TboxModel.ReadOnly = False
@@ -688,8 +759,6 @@ Public Class FrmMain
             'TBoxWorkOrder.ReadOnly = False
             'TBoxQtyEndorsed.ReadOnly = False
         Else
-            CBoxModel.Enabled = False
-
             TBoxLotNo.ReadOnly = True
             'TboxMaterial.ReadOnly = True
             'TboxModel.ReadOnly = True
@@ -698,13 +767,18 @@ Public Class FrmMain
             'TBoxWorkOrder.ReadOnly = True
             'TBoxQtyEndorsed.ReadOnly = True
         End If
+        'End If
     End Sub
 
     Private Sub TBoxEndorsedBy_Leave(sender As Object, e As EventArgs) Handles TBoxEndorsedBy.Leave
         ' Check if the TextBox has been modified and if it's not already disabled
         If TBoxEndorsedByModified AndAlso TBoxEndorsedBy.ReadOnly = False Then
             ' Disable the TextBox
-            TBoxEndorsedBy.ReadOnly = True
+            If TBoxEndorsedBy.TextLength > 0 Then
+                TBoxEndorsedBy.ReadOnly = True
+                TBoxLotNo.Focus()
+                TBoxLotNo.Select()
+            End If
         End If
     End Sub
 
@@ -720,6 +794,7 @@ Public Class FrmMain
                 Invalid_serialNumber = False
             Else
                 ErrorProviderEndorsement.SetError(TBoxSerialNo, "Invalid serial number")
+                Search_Verification_Error = True
                 Invalid_serialNumber = True
             End If
         Else
@@ -759,6 +834,7 @@ Public Class FrmMain
 
     Public LotNumber_List As New List(Of String)
     Public Model_List As New List(Of String)
+    Public PPO_Qty_List As New List(Of Int32)
     Public EndorsedQty_List As New List(Of Int32)
 
     Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles BtnScan.Click
@@ -776,14 +852,73 @@ Public Class FrmMain
             MessageBox.Show("Please ensure all fields with an error mark are in the correct format.", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         Else
-            GBoxInformation.Enabled = False
+            ' Check existing lot checking
+            Dim existing_lot_checking As Boolean = False
+
+            ' Check if function enabled
+            Try
+                Dim dbQuery = "SELECT * FROM Reference_Switch"
+                dbLocalConn.Open()
+                Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+                    Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+                        dbReader.Read()
+                        If dbReader.HasRows Then
+                            existing_lot_checking = Int(dbReader("lotno_check_switch").ToString)
+                        End If
+                    End Using
+                End Using
+                dbLocalConn.Close()
+            Catch ex As SQLiteException
+                MessageBox.Show(ex.Message, "SQLite Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbLocalConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+
+            If existing_lot_checking = True Then
+                Dim Existing As Boolean = False
+                Try
+                    Dim dbQuery = "SELECT * FROM endorsement WHERE lot_no = @lotno"
+                    dbConn.Open()
+                    Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                        dbCmd.Parameters.AddWithValue("@lotno", TBoxLotNo.Text)
+                        Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                            dbReader.Read()
+                            If dbReader.HasRows Then
+                                Existing = True
+                            End If
+                        End Using
+                    End Using
+                    dbConn.Close()
+                Catch ex As SqlException
+                    MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Finally
+                    If dbConn.State = ConnectionState.Open Then
+                        dbConn.Close()
+                    End If
+                End Try
+
+                If Existing = True Then
+                    MessageBox.Show("Lot number already endorsed. Please call the attention of TE personel for assistance.", TBoxLotNo.Text & " already endorsed.", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
+            End If
+                '-------End checking Here-------------
+
+                GBoxInformation.Enabled = False
             GBoxData.Enabled = True
-            BtnEndorseAnotherModel.Enabled = False
+            'BtnEndorseAnotherModel.Enabled = False 'Uncomment in you want to use the Endorsed Another feature
 
             TBoxSerialNo.Enabled = True
             CBoxStation.Enabled = True
             'TBoxFailureSymptoms.Enabled = True
             CBoxFailureSymptoms.Enabled = True
+            DTPDateFailed.Enabled = True
             BtnEndorse.Enabled = True
             BtnDataClear.Enabled = True
             BtnReturn.Enabled = True
@@ -797,6 +932,7 @@ Public Class FrmMain
             If Not LotNumber_List.Contains(TBoxLotNo.Text) Then
                 LotNumber_List.Add(TBoxLotNo.Text)
                 Model_List.Add(TboxModel.Text)
+                PPO_Qty_List.Add(TBoxPPOQty.Text)
                 EndorsedQty_List.Add(TBoxQtyEndorsed.Text)
             End If
 
@@ -840,7 +976,7 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub BtnScanEnter_KeyPress(sender As Object, e As KeyEventArgs) Handles TBoxQtyEndorsed.KeyDown, CBoxModel.KeyDown, TBoxPPONo.KeyDown, TBoxPPOQty.KeyDown, TBoxLotNo.KeyDown, TBoxWorkOrder.KeyDown, TBoxEndorsedBy.KeyDown, DTPEndorsementDate.KeyDown
+    Private Sub BtnScanEnter_KeyPress(sender As Object, e As KeyEventArgs) Handles TBoxQtyEndorsed.KeyDown, TBoxPPONo.KeyDown, TBoxPPOQty.KeyDown, TBoxLotNo.KeyDown, TBoxWorkOrder.KeyDown, TBoxEndorsedBy.KeyDown, DTPEndorsementDate.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnScan.PerformClick()
         End If
@@ -850,7 +986,6 @@ Public Class FrmMain
         GBoxInformation.Enabled = True
         BtnReset.Enabled = False
         GBoxData.Enabled = False
-        CBoxModel.Text = Nothing
         TBoxSerialNo.Clear()
         CBoxStation.Text = Nothing
         'TBoxFailureSymptoms.Clear()
@@ -864,7 +999,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
-        'Send_eMail(TboxEndorsementNo, TBoxEndorsedBy, LblTotalQty) 'this is for trial sending
+        'Send_eMail(TboxEndorsementNo, TBoxEndorsedBy, LblTotalQty) 'this is for trial sending 
         Dim dialogResult As DialogResult = MessageBox.Show("Do you want to cancel endorsement?" & vbCrLf & vbCrLf & "Please take note that it will remove all the data you've scanned.", "Confirm Cancellation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If dialogResult = DialogResult.Yes Then
@@ -893,14 +1028,17 @@ Public Class FrmMain
             CBoxStation.Text = Nothing
             'TBoxFailureSymptoms.Clear()
             CBoxFailureSymptoms.Text = Nothing
+            ChkBoxEndtSerialNo.Enabled = False
+            ChkBoxEndtSerialNo.Checked = False
         End If
     End Sub
 
     Private Sub BtnReset_Click(sender As Object, e As EventArgs) Handles BtnReset.Click
-        CBoxModel.Text = Nothing
         TBoxEndorsedBy.Clear()
         TBoxEndorsedBy.ReadOnly = False
+        TBoxEndorsedBy.Select()
 
+        Load_Latest_EndorsementNo()
         BtnInformationClear.PerformClick()
     End Sub
 
@@ -909,6 +1047,7 @@ Public Class FrmMain
 
         LotNumber_List.Remove(TBoxLotNo.Text)
         Model_List.RemoveAt(iLot)
+        PPO_Qty_List.RemoveAt(iLot)
         EndorsedQty_List.RemoveAt(iLot)
 
         GBoxInformation.Enabled = True
@@ -1141,15 +1280,19 @@ Public Class FrmMain
                 'MessageBox.Show("The input serial number is invalid.", " Invalid Serial Number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 LblTSVerification.Visible = True
                 LblTSVerification.Text = "INVALID SERIAL NUMBER"
+                Search_Verification_Error = True
                 LblTSVerification.ForeColor = Color.DarkRed
                 GBoxTSData.Enabled = False
                 BtnTSUpdate.Enabled = False
+                TboxTSSerialNo.Focus()
+                TboxTSSerialNo.SelectAll()
                 Return
             End If
 
             If TboxTSSerialNo.TextLength = 0 Then
                 LblTSVerification.Visible = True
                 LblTSVerification.Text = "NO SERIAL NUMBER"
+                Search_Verification_Error = True
                 LblTSVerification.ForeColor = Color.DarkRed
                 GBoxTSData.Enabled = False
                 BtnTSUpdate.Enabled = False
@@ -1377,6 +1520,7 @@ Public Class FrmMain
                 LblTSVerification.Visible = True
                 LblTSVerification.Text = "NO DATA TO SEARCH"
                 LblTSVerification.ForeColor = Color.DarkRed
+
                 Return
             End If
 
@@ -1425,6 +1569,8 @@ Public Class FrmMain
                     dbConn.Close()
                     DGVTSEndorsementData.DataSource = dbTablewoSerial
                     DGVTSEndorsementData.ClearSelection()
+                    LblTSGuide.Visible = True
+                    LblTSGuide.Text = "SELECT ROW TO UPDATE"
                     LblTSDataQRCode.Text = Nothing
                     LblTSVerification.Text = Nothing
                     LblTSReceivedDateTitle.Visible = False
@@ -1492,6 +1638,7 @@ Public Class FrmMain
                 ErrorProviderEndorsement.SetError(TboxTSSerialNo, Nothing)
             Else
                 ErrorProviderEndorsement.SetError(TboxTSSerialNo, "Invalid serial number")
+                Search_Verification_Error = True
                 ClearFetchData()
             End If
         Else
@@ -1896,9 +2043,9 @@ Public Class FrmMain
             TBoxSerialNo.Clear()
         Else
             If ChkBoxEndtSerialNo.Checked = False Then
-                If TBoxSerialNo.Enabled = True Then
-                    TBoxSerialNo.Enabled = True
-                End If
+                'If TBoxSerialNo.Enabled = True Then
+                TBoxSerialNo.Enabled = True
+                'End If
             End If
         End If
     End Sub
@@ -1925,6 +2072,46 @@ Public Class FrmMain
         '    Load_InquiryDateFailed()
         '    Load_InquirywDateDataCount()
         'End If
+
+        'If ChkBoxInqAll.Checked = True Then
+        '    MsgBox("search all")
+        '    Load_All_Inquiry(DgvInqSummary)
+        '    Load_All_Count_Inquiry()
+        'Else
+        '    If ChkBoxInqUnverified.Checked = True Then
+        '        If ChkBoxInqUnverified.Enabled = True Then
+        '            MsgBox("search unverified")
+        '            Load_Unverified_Inquiry(DgvInqSummary)
+        '            Load_Unverified_Count_Inquiry()
+        '        End If
+        '    Else
+        '        If ChkBoxInqUnverified.Enabled = True Then
+        '            MsgBox("search verified")
+        '            Load_Verified_Inquiry(DgvInqSummary)
+        '            Load_Verified_Count_Inquiry()
+        '        End If
+        '    End If
+        'End If
+
+        If RBtnInqAll.Checked = True Then
+            Load_All_Inquiry(DgvInqSummary)
+            'Load_All_Count_Inquiry()
+            Count_Inquiry_All_And_Verified()
+        End If
+
+        If RBtnInqVerified.Checked Then
+            Load_Verified_Inquiry(DgvInqSummary)
+            'Load_Verified_Count_Inquiry()
+            Count_Inquiry_All_And_Verified()
+        End If
+
+        If RBtnInqUnverified.Checked Then
+            Load_Unverified_Inquiry(DgvInqSummary)
+            'Load_Unverified_Count_Inquiry()
+            Count_Inquiry_Unverified()
+        End If
+
+        Return ' Dont use the hard code below as its already revised with the hard code above
 
         If Inquiry = True Then 'Inquiry witout endorsement number and dates
             Load_Inquiry()
@@ -2257,7 +2444,7 @@ Public Class FrmMain
 
     Private Sub UserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserToolStripMenuItem.Click
         FrmAdminPass.UserReference = True
-        FrmAdminPass.Show(Me)
+        FrmAdminPass.ShowDialog(Me)
     End Sub
 
     Private Sub TboxTSFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles TboxTSFailureSymptoms.TextChanged
@@ -2303,28 +2490,39 @@ Public Class FrmMain
     End Sub
 
     Private Sub CboxInqStation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboxInqStation.SelectedIndexChanged
-        Load_FailureSymptoms(CboxInqFailureSymptoms, CboxInqStation.Text)
+        'Load_FailureSymptoms(CboxInqFailureSymptoms, CboxInqStation.Text)
+        Load_FailureSymptoms(CBoxFailureSymptoms, CBoxStation.Text)
     End Sub
 
     Private Sub CBoxFailureSymptoms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBoxFailureSymptoms.SelectedIndexChanged
 
     End Sub
 
-    Private Sub CboxInqFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles CboxInqFailureSymptoms.TextChanged
-        Dim selectionStart As Integer = CboxInqFailureSymptoms.SelectionStart
-        CboxInqFailureSymptoms.Text = CboxInqFailureSymptoms.Text.ToUpper()
-        CboxInqFailureSymptoms.SelectionStart = selectionStart
-    End Sub
+    'Private Sub CboxInqFailureSymptoms_TextChanged(sender As Object, e As EventArgs) Handles CboxInqFailureSymptoms.TextChanged
+    '    Dim selectionStart As Integer = CboxInqFailureSymptoms.SelectionStart
+    '    CboxInqFailureSymptoms.Text = CboxInqFailureSymptoms.Text.ToUpper()
+    '    CboxInqFailureSymptoms.SelectionStart = selectionStart
+    'End Sub
 
     Private Sub CBoxTSAnalysis_TextChanged(sender As Object, e As EventArgs) Handles CBoxTSAnalysis.TextChanged
         Dim selectionStart As Integer = CBoxTSAnalysis.SelectionStart
         CBoxTSAnalysis.Text = CBoxTSAnalysis.Text.ToUpper()
         CBoxTSAnalysis.SelectionStart = selectionStart
 
-        If CBoxTSAnalysis.Text = Nothing Then
-            ErrorProviderEndorsement.SetError(CBoxTSAnalysis, "Please fill the information")
-        Else
-            ErrorProviderEndorsement.SetError(CBoxTSAnalysis, Nothing)
+        If Search_Verification_Error = True Then
+            If CBoxTSAnalysis.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSAnalysis, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSAnalysis, Nothing)
+                Search_Verification_Error = False
+            End If
+        ElseIf Search_Verification_Error = False Then
+            If CBoxTSAnalysis.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSAnalysis, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSAnalysis, Nothing)
+                Search_Verification_Error = False
+            End If
         End If
     End Sub
 
@@ -2333,10 +2531,20 @@ Public Class FrmMain
         CBoxTSDefectType.Text = CBoxTSDefectType.Text.ToUpper()
         CBoxTSDefectType.SelectionStart = selectionStart
 
-        If CBoxTSDefectType.Text = Nothing Then
-            ErrorProviderEndorsement.SetError(CBoxTSDefectType, "Please fill the information")
-        Else
-            ErrorProviderEndorsement.SetError(CBoxTSDefectType, Nothing)
+        If Search_Verification_Error = True Then
+            If CBoxTSDefectType.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSDefectType, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSDefectType, Nothing)
+                Search_Verification_Error = False
+            End If
+        ElseIf Search_Verification_Error = False Then
+            If CBoxTSDefectType.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSDefectType, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSDefectType, Nothing)
+                Search_Verification_Error = False
+            End If
         End If
     End Sub
 
@@ -2345,10 +2553,20 @@ Public Class FrmMain
         CBoxTSActionTaken.Text = CBoxTSActionTaken.Text.ToUpper()
         CBoxTSActionTaken.SelectionStart = selectionStart
 
-        If CBoxTSActionTaken.Text = Nothing Then
-            ErrorProviderEndorsement.SetError(CBoxTSActionTaken, "Please fill the information")
-        Else
-            ErrorProviderEndorsement.SetError(CBoxTSActionTaken, Nothing)
+        If Search_Verification_Error = True Then
+            If CBoxTSActionTaken.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSActionTaken, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSActionTaken, Nothing)
+                Search_Verification_Error = False
+            End If
+        ElseIf Search_Verification_Error = False Then
+            If CBoxTSActionTaken.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSActionTaken, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSActionTaken, Nothing)
+                Search_Verification_Error = False
+            End If
         End If
     End Sub
 
@@ -2387,10 +2605,20 @@ Public Class FrmMain
         CBoxTSStatus.Text = CBoxTSStatus.Text.ToUpper()
         CBoxTSStatus.SelectionStart = selectionStart
 
-        If CBoxTSStatus.Text = Nothing Then
-            ErrorProviderEndorsement.SetError(CBoxTSStatus, "Please fill the information")
-        Else
-            ErrorProviderEndorsement.SetError(CBoxTSStatus, Nothing)
+        If Search_Verification_Error = True Then
+            If CBoxTSStatus.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSStatus, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSStatus, Nothing)
+                Search_Verification_Error = False
+            End If
+        ElseIf Search_Verification_Error = False Then
+            If CBoxTSStatus.Text = Nothing Then
+                ErrorProviderEndorsement.SetError(CBoxTSStatus, "Please fill the information")
+            Else
+                ErrorProviderEndorsement.SetError(CBoxTSStatus, Nothing)
+                Search_Verification_Error = False
+            End If
         End If
     End Sub
 
@@ -2412,8 +2640,8 @@ Public Class FrmMain
             TboxTSEndtNo.Enabled = True
             'LblTSFailureSymptoms.Enabled = True
             'TboxTSFailureSymptoms.Enabled = True
-            LblTSGuide.Visible = True
-            LblTSGuide.Text = "SELECT ROW TO UPDATE"
+            'LblTSGuide.Visible = True
+            'LblTSGuide.Text = "SELECT ROW TO UPDATE"
             DGVTSEndorsementData.DataSource = Nothing
             'LblTSDataSerialNumber.Text = "ID NUMBER:"
             'MsgBox("checked")
@@ -2609,6 +2837,8 @@ Public Class FrmMain
         DtpInqTSDateFrom.Value = Today
         DtpInqTSDateTo.Value = Today
         LblInqTotalUnverified.Text = 0.ToString
+        LblInqTotalGood.Text = 0.ToString
+        LblInqTotalScrap.Text = 0.ToString
         LblInqTotalSearch.Text = 0.ToString
         InquirywDateFailed = False
         InquirywEndtDate = False
@@ -2653,75 +2883,167 @@ Public Class FrmMain
         TboxInqSerialNo.CharacterCasing = CharacterCasing.Upper
     End Sub
 
+    Private BtnPPORegSubmit_init As Boolean
+
     Private Sub BtnPPORegSubmit_Click(sender As Object, e As EventArgs) Handles BtnPPORegSubmit.Click
-        If TboxPPORegPPONo.Text = Nothing Or TboxPPORegVersion.Text = Nothing Or TboxPPORegMaterialNo.Text = Nothing Or TboxPPORegOrderingPartNo.Text = Nothing Or TboxPPORegModel.Text = Nothing Or TboxPPORegFirmware.Text = Nothing Or TboxPPORegTraceCode.Text = Nothing Or TboxPPORegLotNo.Text = Nothing Or TboxPPORegPPOQty.Text = Nothing Then
-            MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        BtnPPORegSubmit_init = True
+
+        If BtnPPORegSubmit.Text = "Submit" Then
+            'BtnPPORegSubmit_init = False
+            If TboxPPORegPPONo.Text = Nothing Or TboxPPORegVersion.Text = Nothing Or TboxPPORegMaterialNo.Text = Nothing Or TboxPPORegOrderingPartNo.Text = Nothing Or TboxPPORegModel.Text = Nothing Or TboxPPORegTraceCode.Text = Nothing Or TboxPPORegLotNo.Text = Nothing Or TboxPPORegPPOQty.Text = Nothing Then
+                MessageBox.Show("Please ensure all fields are filled out before proceeding.", "Incomplete Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            'Check existing lot number
+            Try
+                Dim dbQuery = "SELECT lot_no FROM ppo WHERE lot_no = '" & TboxPPORegLotNo.Text & "'"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                        dbReader.Read()
+                        If dbReader.HasRows Then
+                            MessageBox.Show("Lot number already registered.", "PPO Registration", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            dbConn.Close()
+                            Return
+                        End If
+                    End Using
+                End Using
+                dbConn.Close()
+            Catch ex As SqlException
+                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+
+            DateNow = DateTime.Now.ToString("MMM dd, yyyy")
+            TimeNow = DateTime.Now.ToString("HH:mm:ss")
+
+            'Insert data to ppo
+            Try
+                Dim dbStoredProcedure = "Insert_PPO_Registration"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(dbStoredProcedure, dbConn)
+                    dbCmd.CommandType = CommandType.StoredProcedure
+                    dbCmd.Parameters.AddWithValue("@ppo_no", TboxPPORegPPONo.Text)
+                    dbCmd.Parameters.AddWithValue("@ver", TboxPPORegVersion.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_date", DtpPPORegDate.Value.ToString("MMM dd, yyyy"))
+                    dbCmd.Parameters.AddWithValue("@material_no", TboxPPORegMaterialNo.Text)
+                    dbCmd.Parameters.AddWithValue("@ordering_part_no", TboxPPORegOrderingPartNo.Text)
+                    dbCmd.Parameters.AddWithValue("@model", TboxPPORegModel.Text)
+                    dbCmd.Parameters.AddWithValue("@firmware", TboxPPORegFirmware.Text)
+                    dbCmd.Parameters.AddWithValue("@full_trace_code", TboxPPORegTraceCode.Text)
+                    dbCmd.Parameters.AddWithValue("@lot_no", TboxPPORegLotNo.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_qty", TboxPPORegPPOQty.Text)
+                    dbCmd.Parameters.AddWithValue("@CRD", DtpPPORegCRD.Value.ToString("MMM dd, yyyy"))
+                    dbCmd.Parameters.AddWithValue("@special_instruction", TboxPPORegSpecialIns.Text)
+                    dbCmd.Parameters.AddWithValue("@date", DateNow)
+                    dbCmd.Parameters.AddWithValue("@time", TimeNow)
+                    dbCmd.ExecuteNonQuery()
+                End Using
+                dbConn.Close()
+            Catch ex As SqlException
+                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+
+            Load_PPO_Records(DgvPPORegPPORecords)
+            BtnPPORegClear.PerformClick()
+
+            TboxPPORegPPONo.ReadOnly = False
+            TboxPPORegVersion.ReadOnly = False
+            DtpPPORegDate.Enabled = True
+            TboxPPORegMaterialNo.ReadOnly = False
+            TboxPPORegTraceCode.ReadOnly = False
+            TboxPPORegLotNo.ReadOnly = False
+            TboxPPORegPPOQty.ReadOnly = False
+            DtpPPORegCRD.Enabled = True
+            TboxPPORegSpecialIns.ReadOnly = False
+        End If
+
+        If BtnPPORegSubmit.Text = "Edit" Then
+            BtnPPORegSubmit.Text = "Update"
+            GboxPPORegPPORecords.Enabled = False
+
+            TboxPPORegPPONo.ReadOnly = False
+            TboxPPORegVersion.ReadOnly = False
+            DtpPPORegDate.Enabled = True
+            TboxPPORegMaterialNo.ReadOnly = False
+            TboxPPORegTraceCode.ReadOnly = False
+            TboxPPORegLotNo.ReadOnly = False
+            TboxPPORegPPOQty.ReadOnly = False
+            DtpPPORegCRD.Enabled = True
+            TboxPPORegSpecialIns.ReadOnly = False
+
+            initValue_TboxPPORegPPONo = TboxPPORegPPONo.Text
+            initValue_TboxPPORegVersion = TboxPPORegVersion.Text
+            initValue_DtpPPORegDate = DtpPPORegDate.Value.ToString("yyyy-MM-dd")
+            initValue_TboxPPORegMaterialNo = TboxPPORegMaterialNo.Text
+            initValue_TboxPPORegTraceCode = TboxPPORegTraceCode.Text
+            initValue_TboxPPORegLotNo = TboxPPORegLotNo.Text
+            initValue_TboxPPORegPPOQty = TboxPPORegPPOQty.Text
+            initValue_DtpPPORegCRD = DtpPPORegCRD.Value.ToString("yyyy-MM-dd")
+            initValue_TboxPPORegSpecialIns = TboxPPORegSpecialIns.Text
             Return
         End If
 
-        'Check existing lot number
-        Try
-            Dim dbQuery = "SELECT lot_no FROM ppo WHERE lot_no = '" & TboxPPORegLotNo.Text & "'"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(dbQuery, dbConn)
-                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
-                    dbReader.Read()
-                    If dbReader.HasRows Then
-                        MessageBox.Show("Lot number already registered.", "PPO Registration", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        dbConn.Close()
-                        Return
-                    End If
+        If BtnPPORegSubmit.Text = "Update" Then
+            If initValue_TboxPPORegPPONo = TboxPPORegPPONo.Text AndAlso
+               initValue_TboxPPORegVersion = TboxPPORegVersion.Text AndAlso
+               initValue_DtpPPORegDate = DtpPPORegDate.Value.ToString("yyyy-MM-dd") AndAlso
+               initValue_TboxPPORegMaterialNo = TboxPPORegMaterialNo.Text AndAlso
+               initValue_TboxPPORegTraceCode = TboxPPORegTraceCode.Text AndAlso
+               initValue_TboxPPORegLotNo = TboxPPORegLotNo.Text AndAlso
+               initValue_TboxPPORegPPOQty = TboxPPORegPPOQty.Text AndAlso
+               initValue_DtpPPORegCRD = DtpPPORegCRD.Value.ToString("yyyy-MM-dd") AndAlso
+               initValue_TboxPPORegSpecialIns = TboxPPORegSpecialIns.Text Then
+                MessageBox.Show("No updated content", "No Changes Detected", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
+
+            Try
+                Dim StoredProcedure = "Update_PPO_Records"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                    dbCmd.CommandType = CommandType.StoredProcedure
+                    dbCmd.Parameters.AddWithValue("@id", i)
+                    dbCmd.Parameters.AddWithValue("@ppo_no", TboxPPORegPPONo.Text)
+                    dbCmd.Parameters.AddWithValue("@version", TboxPPORegVersion.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_date", DtpPPORegDate.Value.ToString("yyyy-MM-dd"))
+                    dbCmd.Parameters.AddWithValue("@material_no", TboxPPORegMaterialNo.Text)
+                    dbCmd.Parameters.AddWithValue("@ordering_part_no", TboxPPORegOrderingPartNo.Text)
+                    dbCmd.Parameters.AddWithValue("@model", TboxPPORegModel.Text)
+                    dbCmd.Parameters.AddWithValue("@firmware", TboxPPORegFirmware.Text)
+                    dbCmd.Parameters.AddWithValue("@full_trace_code", TboxPPORegTraceCode.Text)
+                    dbCmd.Parameters.AddWithValue("@lot_no", TboxPPORegLotNo.Text)
+                    dbCmd.Parameters.AddWithValue("@ppo_qty", TboxPPORegPPOQty.Text)
+                    dbCmd.Parameters.AddWithValue("@crd", DtpPPORegCRD.Value)
+                    dbCmd.Parameters.AddWithValue("@special_instruction", TboxPPORegSpecialIns.Text)
+                    dbCmd.ExecuteNonQuery()
                 End Using
-            End Using
-            dbConn.Close()
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
-            End If
-        End Try
-
-        DateNow = DateTime.Now.ToString("MMM dd, yyyy")
-        TimeNow = DateTime.Now.ToString("HH:mm:ss")
-
-        'Insert data to ppo
-        Try
-            Dim dbStoredProcedure = "Insert_PPO_Registration"
-            dbConn.Open()
-            Using dbCmd As New SqlCommand(dbStoredProcedure, dbConn)
-                dbCmd.CommandType = CommandType.StoredProcedure
-                dbCmd.Parameters.AddWithValue("@ppo_no", TboxPPORegPPONo.Text)
-                dbCmd.Parameters.AddWithValue("@ver", TboxPPORegVersion.Text)
-                dbCmd.Parameters.AddWithValue("@ppo_date", DtpPPORegDate.Value.ToString("MMM dd, yyyy"))
-                dbCmd.Parameters.AddWithValue("@material_no", TboxPPORegMaterialNo.Text)
-                dbCmd.Parameters.AddWithValue("@ordering_part_no", TboxPPORegOrderingPartNo.Text)
-                dbCmd.Parameters.AddWithValue("@model", TboxPPORegModel.Text)
-                dbCmd.Parameters.AddWithValue("@firmware", TboxPPORegFirmware.Text)
-                dbCmd.Parameters.AddWithValue("@full_trace_code", TboxPPORegTraceCode.Text)
-                dbCmd.Parameters.AddWithValue("@lot_no", TboxPPORegLotNo.Text)
-                dbCmd.Parameters.AddWithValue("@ppo_qty", TboxPPORegPPOQty.Text)
-                dbCmd.Parameters.AddWithValue("@CRD", DtpPPORegCRD.Value.ToString("MMM dd, yyyy"))
-                dbCmd.Parameters.AddWithValue("@special_instruction", TboxPPORegSpecialIns.Text)
-                dbCmd.Parameters.AddWithValue("@date", DateNow)
-                dbCmd.Parameters.AddWithValue("@time", TimeNow)
-                dbCmd.ExecuteNonQuery()
-            End Using
-            dbConn.Close()
-            BtnPPORegClear.PerformClick()
-        Catch ex As SqlException
-            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If dbConn.State = ConnectionState.Open Then
-                dbConn.Close()
-            End If
-        End Try
-
-        Load_PPO_Records(DgvPPORegPPORecords)
+                Load_PPO_Records(DgvPPORegPPORecords)
+                MessageBox.Show("PPO record successfully update.", "Update PPO", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                BtnPPORegClear.PerformClick()
+            Catch ex As SqlException
+                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+        End If
     End Sub
 
     Private Sub TboxInqPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxInqPPONo.KeyPress
@@ -2782,20 +3104,71 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnUIDSubmit_Click(sender As Object, e As EventArgs) Handles BtnUIDSubmit.Click
+        If String.IsNullOrEmpty(TboxUIDSourceFile.Text) Then
+            MessageBox.Show("Please select the correct text file first.", "No file selected", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
         If Check_Duplicate_UID() Then
             Return
         End If
 
         Submit_UIDs()
+        Upload_Laser_Log()
         BtnUIDClear.PerformClick()
     End Sub
 
-    Private Function Check_Duplicate_UID() As Boolean
+    Private Sub Load_UID_Timeout()
+        Try
+            Dim dbQuery = "SELECT * FROM uid_timeout"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        TBoxUIDTimeout.Text = dbReader("timeout").ToString
+                    End If
+                End Using
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub Update_UID_Timeout()
+        Try
+            Dim dbQuery = "UPDATE uid_timeout SET timeout = @timeout"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                dbCmd.Parameters.AddWithValue("@timeout", TBoxUIDTimeout.Text)
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Function Check_Duplicate_UID_Old() As Boolean
         Try
             Dim StoredProcedure = "Check_Duplicate_UID"
             dbConn.Open()
             Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
                 dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.CommandTimeout = TBoxUIDTimeout.Text ' 60 - 1 minute
                 Using dbReader As SqlDataReader = dbCmd.ExecuteReader
                     While dbReader.Read
                         If dbReader.HasRows Then
@@ -2810,8 +3183,13 @@ Public Class FrmMain
             dbConn.Close()
         Catch ex As SqlException
             MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
+        Catch ex As TimeoutException
+            MessageBox.Show(ex.Message, "Timeout expired", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
         Finally
             If dbConn.State = ConnectionState.Open Then
                 dbConn.Close()
@@ -2820,6 +3198,49 @@ Public Class FrmMain
 
         Return False ' No duplicates found
     End Function
+
+    Private Function Check_Duplicate_UID() As Boolean
+        Try
+            Dim StoredProcedure As String = "Check_Duplicate_UID"
+            dbConn.Open()
+
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.CommandTimeout = TBoxUIDTimeout.Text ' 20 minutes
+
+                Dim count As Integer = 0
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader()
+                    If dbReader.Read() Then
+                        count = Convert.ToInt32(dbReader("MatchingUIDCount"))
+                    End If
+                End Using
+
+                ' Only show the message if there are duplicates
+                If count > 0 Then
+                    MessageBox.Show($"A total of {count} UID(s) have already been uploaded. Please review the entries and make necessary corrections.",
+                                    "Duplicate UID Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return True
+                End If
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
+        Catch ex As TimeoutException
+            MessageBox.Show(ex.Message, "Timeout expired", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return True
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+
+        Return False ' No duplicates found
+    End Function
+
 
     Private Sub Submit_UIDs()
         Try
@@ -2842,6 +3263,32 @@ Public Class FrmMain
         End Try
     End Sub
 
+    Private Sub Upload_Laser_Log()
+        Try
+            Dim StoredProcedure = "Upload_Laser_Log"
+            dbConn.Open()
+            Using dbcmd As New SqlCommand(StoredProcedure, dbConn)
+                dbcmd.CommandType = CommandType.StoredProcedure
+                dbcmd.Parameters.AddWithValue("@FilePath", OFDUID.FileName)
+                dbcmd.Parameters.AddWithValue("@lot_no", TboxUIDLotNo.Text)
+                'dbcmd.CommandTimeout = 600
+                dbcmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Dim uidLotNo_edit As Boolean = False
+    Dim initUIDLotNo As String
+
     Private Sub TboxUIDLotNo_TextChanged(sender As Object, e As EventArgs) Handles TboxUIDLotNo.TextChanged
         TboxUIDLotNo.MaxLength = 10
 
@@ -2857,9 +3304,14 @@ Public Class FrmMain
         '    BtnUIDSubmit.Enabled = False
         'End If
 
+        If uidLotNo_edit = True Then
+            If TboxUIDLotNo.Text <> initUIDLotNo Then
+                DgvUID.DataSource = Nothing
+                TboxUIDSourceFile.Clear()
+            End If
+        End If
 
-
-        Dim LotNum = Regex.Match(TboxUIDLotNo.Text, "^71[0-9]{5}\.(?:[2-9]|[1-9][0-9])$")
+            Dim LotNum = Regex.Match(TboxUIDLotNo.Text, "^71[0-9]{5}\.(?:[2-9]|[1-9][0-9])$")
 
         If TboxUIDLotNo.Text.Length > 0 Then
             If TboxUIDLotNo.Text = LotNum.Value Then
@@ -2869,6 +3321,8 @@ Public Class FrmMain
                 'GboxUIDLaserLogs.Enabled = True
                 'BtnUIDSubmit.Enabled = True
                 'BtnUIDClear.Enabled = True
+                uidLotNo_edit = True
+                initUIDLotNo = TboxUIDLotNo.Text
             Else
                 ErrorProviderEndorsement.SetError(TboxUIDLotNo, "Invalid lot number")
                 TboxUIDSourceFile.Clear()
@@ -2878,6 +3332,9 @@ Public Class FrmMain
                 DgvUID.Enabled = False
                 BtnUIDSubmit.Enabled = False
                 'BtnUIDClear.Enabled = False
+
+                DgvUID.DataSource = Nothing
+                uidLotNo_edit = False
             End If
         Else
             If TboxUIDLotNo.Text.Length = 0 Then
@@ -2894,6 +3351,8 @@ Public Class FrmMain
                 'GboxUIDLaserLogs.Enabled = False
                 'BtnUIDSubmit.Enabled = False
                 'BtnUIDClear.Enabled = False
+                DgvUID.DataSource = Nothing
+                uidLotNo_edit = True
             End If
         End If
 
@@ -2939,6 +3398,25 @@ Public Class FrmMain
         'DgvUID.DataSource = Nothing
         'BtnUIDClear.Enabled = False
         'BtnUIDSubmit.Enabled = False
+
+        'Drop UID temporary table
+        Try
+            Dim dbProcedure = "DropTempLaserUIDswID"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(dbProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.ExecuteNonQuery()
+            End Using
+            dbConn.Close()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
     End Sub
 
     Private Sub TboxPPORegLotNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxPPORegLotNo.KeyPress
@@ -2995,13 +3473,572 @@ Public Class FrmMain
         'End If
     End Sub
 
+    Private Sub BtnUIDSearch_Click(sender As Object, e As EventArgs) Handles BtnUIDSearchInq.Click
+        If TboxUIDInquiry.Text.Length > 0 Then
+            If ErrorProviderEndorsement.GetError(TboxUIDInquiry) = "Invalid UID" Then
+                MessageBox.Show("Please input the valid UID.", "Invalid UID", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            Try
+                Dim dbQuery = "SELECT * FROM ppo WHERE lot_no = (SELECT lot_no FROM uid WHERE uid = @uid)"
+                dbConn.Open()
+                Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                    dbCmd.Parameters.AddWithValue("@uid", TboxUIDInquiry.Text.Substring(6))
+                    Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                        If dbReader.Read() Then
+                            TboxUIDPPONoInq.Text = dbReader("ppo_no").ToString()
+                            TboxUIDVersionInq.Text = dbReader("version").ToString()
+                            TboxUIDDateInq.Text = dbReader.GetDateTime(dbReader.GetOrdinal("ppo_date")).ToString("MMMM dd, yyyy")
+                            TboxUIDMatNoInq.Text = dbReader("material_no").ToString()
+                            TboxUIDOPNInq.Text = dbReader("ordering_part_no").ToString()
+                            TboxUIDModelInq.Text = dbReader("model").ToString()
+                            TboxUIDFwInq.Text = dbReader("firmware").ToString()
+                            TboxUIDTraceCodeInq.Text = dbReader("full_trace_code").ToString()
+                            TboxUIDLotNoInq.Text = dbReader("lot_no").ToString()
+                            TboxUIDPPOQtyInq.Text = dbReader("ppo_qty").ToString()
+                            TboxUIDCRDInq.Text = dbReader.GetDateTime(dbReader.GetOrdinal("crd")).ToString("MMMM dd, yyyy")
+                            TboxUIDSIInq.Text = dbReader("special_instruction").ToString()
+                        Else
+                            TboxUIDPPONoInq.Clear()
+                            TboxUIDVersionInq.Clear()
+                            TboxUIDDateInq.Clear()
+                            TboxUIDMatNoInq.Clear()
+                            TboxUIDOPNInq.Clear()
+                            TboxUIDModelInq.Clear()
+                            TboxUIDFwInq.Clear()
+                            TboxUIDTraceCodeInq.Clear()
+                            TboxUIDLotNoInq.Clear()
+                            TboxUIDPPOQtyInq.Clear()
+                            TboxUIDCRDInq.Clear()
+                            TboxUIDSIInq.Clear()
+                            MessageBox.Show("No record found.", "UID", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                    End Using
+                End Using
+                dbConn.Close()
+            Catch ex As SqlException
+                MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If dbConn.State = ConnectionState.Open Then
+                    dbConn.Close()
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub TboxUIDInquiry_TextChanged(sender As Object, e As EventArgs) Handles TboxUIDInquiry.TextChanged
+        TboxUIDInquiry.MaxLength = 11
+        TboxUIDInquiry.CharacterCasing = CharacterCasing.Upper
+
+        Dim RegexSerialNo = Regex.Match(TboxUIDInquiry.Text, "[0-9]{2}[0-9]{2}BC[2-9A-HJ-NP-Z]{5}")
+
+        If TboxUIDInquiry.Text.Length > 0 Then
+            If TboxUIDInquiry.Text = RegexSerialNo.Value Then
+                ErrorProviderEndorsement.SetError(TboxUIDInquiry, Nothing)
+                Clear_UID_Search()
+            Else
+                ErrorProviderEndorsement.SetError(TboxUIDInquiry, "Invalid UID")
+                Clear_UID_Search()
+            End If
+        Else
+            If TboxUIDInquiry.TextLength = 0 Then
+                ErrorProviderEndorsement.SetError(TboxUIDInquiry, Nothing)
+            End If
+        End If
+    End Sub
+
+    Private Sub Clear_UID_Search()
+        If BtnUIDClearInq_Clicked = True Then
+            TboxUIDInquiry.Clear()
+            BtnUIDClearInq_Clicked = False
+        End If
+
+        TboxUIDPPONoInq.Clear()
+        TboxUIDVersionInq.Clear()
+        TboxUIDDateInq.Clear()
+        TboxUIDMatNoInq.Clear()
+        TboxUIDOPNInq.Clear()
+        TboxUIDModelInq.Clear()
+        TboxUIDFwInq.Clear()
+        TboxUIDTraceCodeInq.Clear()
+        TboxUIDLotNoInq.Clear()
+        TboxUIDPPOQtyInq.Clear()
+        TboxUIDCRDInq.Clear()
+        TboxUIDSIInq.Clear()
+    End Sub
+
+    Dim BtnUIDClearInq_Clicked As Boolean = False
+
+    Private Sub BtnUIDClearInq_Click(sender As Object, e As EventArgs) Handles BtnUIDClearInq.Click
+        BtnUIDClearInq_Clicked = True
+        Clear_UID_Search()
+    End Sub
+
+    Private Sub ChkBoxInqDateFailed_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxInqDateFailed.CheckedChanged
+        If ChkBoxInqDateFailed.Checked = True Then
+            LblInqDateFailed.Enabled = True
+            DtpInqDateFailed.Enabled = True
+        ElseIf ChkBoxInqDateFailed.Checked = False Then
+            LblInqDateFailed.Enabled = False
+            DtpInqDateFailed.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChkBoxInqEndtDate_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxInqEndtDate.CheckedChanged
+        If ChkBoxInqEndtDate.Checked = True Then
+            LblInqEndtDate.Enabled = True
+            DtpInqEndtDate.Enabled = True
+        ElseIf ChkBoxInqEndtDate.Checked = False Then
+            LblInqEndtDate.Enabled = False
+            DtpInqEndtDate.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChkBoxInqTSDate_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxInqTSDate.CheckedChanged
+        If ChkBoxInqTSDate.Checked = True Then
+            LblInqTSDateFrom.Enabled = True
+            DtpInqTSDateFrom.Enabled = True
+            LblInqTSDateTo.Enabled = True
+            DtpInqTSDateTo.Enabled = True
+        ElseIf ChkBoxInqTSDate.Checked = False Then
+            LblInqTSDateFrom.Enabled = False
+            DtpInqTSDateFrom.Enabled = False
+            LblInqTSDateTo.Enabled = False
+            DtpInqTSDateTo.Enabled = False
+        End If
+    End Sub
+
+    'Private Sub ChkBoxInqAll_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxInqAll.CheckedChanged
+    '    If ChkBoxInqAll.Checked = True Then
+    '        ChkBoxInqUnverified.Enabled = False
+    '    Else
+    '        ChkBoxInqUnverified.Enabled = True
+    '    End If
+    'End Sub
+
+    Private Sub LblInqTotalUnverified_Click(sender As Object, e As EventArgs) Handles LblInqTotalUnverified.Click
+
+    End Sub
+
+    Private Sub EmailToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmailToolStripMenuItem.Click
+        FrmAdminPass.EmailReference = True
+        FrmAdminPass.Show(Me)
+        'FrmEmail.ShowDialog
+    End Sub
+
+    Private Sub RBtnInqAll_CheckedChanged(sender As Object, e As EventArgs) Handles RBtnInqAll.CheckedChanged
+        LblInqStatus.Enabled = True
+        TboxInqStatus.Enabled = True
+    End Sub
+
+    Private Sub RBtnInqVerified_CheckedChanged(sender As Object, e As EventArgs) Handles RBtnInqVerified.CheckedChanged
+        'If RBtnInqVerified.Checked = True Then
+        LblInqStatus.Enabled = False
+        TboxInqStatus.Enabled = False
+        TboxInqStatus.Clear()
+        'End If
+    End Sub
+
+    Private Sub RBtnInqUnverified_CheckedChanged(sender As Object, e As EventArgs) Handles RBtnInqUnverified.CheckedChanged
+        LblInqStatus.Enabled = False
+        TboxInqStatus.Enabled = False
+        TboxInqStatus.Clear()
+    End Sub
+
+    Private Sub BtnPPORegSearchInfSearch_Click(sender As Object, e As EventArgs) Handles BtnPPORegSearchInfSearch.Click
+        Try
+            Dim StoredProcedure = "Search_PPO_Records"
+            Dim dbTable As New DSPPOReg.DTPPORegDataTable
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(StoredProcedure, dbConn)
+                dbCmd.CommandType = CommandType.StoredProcedure
+                dbCmd.Parameters.AddWithValue("@ppo_no", TboxPPORegSearchPPONo.Text)
+                dbCmd.Parameters.AddWithValue("@lot_no", TboxPPORegSearchLotNo.Text)
+                dbCmd.Parameters.AddWithValue("@model", CboxPPORegSearchModel.Text)
+                dbCmd.Parameters.AddWithValue("@trace_code", TboxPPORegSearchTraceCode.Text)
+                Using dbAdapater As New SqlDataAdapter(dbCmd)
+                    dbAdapater.Fill(dbTable)
+                End Using
+            End Using
+            dbConn.Close()
+            DgvPPORegPPORecords.DataSource = dbTable
+            DgvPPORegPPORecords.ClearSelection()
+            BtnPPORegClear.PerformClick()
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+    End Sub
+
+    Private Sub BtnPPORegSearchInfClear_Click(sender As Object, e As EventArgs) Handles BtnPPORegSearchInfClear.Click
+        TboxPPORegSearchPPONo.Clear()
+        TboxPPORegSearchLotNo.Clear()
+        CboxPPORegSearchModel.Text = Nothing
+        TboxPPORegSearchTraceCode.Clear()
+        Load_PPO_Records(DgvPPORegPPORecords)
+        BtnPPORegClear.PerformClick()
+    End Sub
+
+    Private Sub TboxPPORegSearchTraceCode_TextChanged(sender As Object, e As EventArgs) Handles TboxPPORegSearchTraceCode.TextChanged
+        TboxPPORegSearchTraceCode.MaxLength = 10
+        TboxPPORegSearchTraceCode.CharacterCasing = CharacterCasing.Upper
+
+        If TboxPPORegSearchTraceCode.Text.Length > 0 Then
+            BtnPPORegSearchInfClear.Enabled = True
+            BtnPPORegSearchInfSearch.Enabled = True
+        ElseIf TboxPPORegSearchTraceCode.Text.Length = 0 Then
+            BtnPPORegSearchInfClear.Enabled = False
+            BtnPPORegSearchInfSearch.Enabled = False
+        End If
+    End Sub
+
+    Private Sub TboxPPORegSearchPPONo_TextChanged(sender As Object, e As EventArgs) Handles TboxPPORegSearchPPONo.TextChanged
+        TboxPPORegSearchPPONo.MaxLength = 10
+
+        If TboxPPORegSearchPPONo.Text.Length > 0 Then
+            BtnPPORegSearchInfClear.Enabled = True
+            BtnPPORegSearchInfSearch.Enabled = True
+        ElseIf TboxPPORegSearchPPONo.Text.Length = 0 Then
+            BtnPPORegSearchInfClear.Enabled = False
+            BtnPPORegSearchInfSearch.Enabled = False
+        End If
+    End Sub
+
+    Private Sub TboxPPORegSearchPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxPPORegSearchPPONo.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
+
+        If TboxPPORegPPONo.TextLength = 0 Then
+            If e.KeyChar = "0" Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub TboxPPORegSearchLotNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxPPORegSearchLotNo.KeyPress
+        If TboxPPORegSearchLotNo.TextLength = 0 Then
+            If e.KeyChar = "." Then
+                e.Handled = True
+            End If
+        End If
+
+        If Char.IsLetter(e.KeyChar) Or Char.IsWhiteSpace(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+            If TboxPPORegSearchLotNo.TextLength > 0 Then
+                If e.KeyChar = "." Then
+                    e.Handled = False
+                End If
+            End If
+        End If
+
+        If TboxPPORegSearchLotNo.Text.Contains(".") Then
+            If e.KeyChar = "." Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub DgvPPORegPPORecords_SelectionChanged(sender As Object, e As EventArgs) Handles DgvPPORegPPORecords.SelectionChanged
+        Dim iRowIndex As Integer
+        Dim iRow As String
+
+        For n As Integer = 0 To DgvPPORegPPORecords.SelectedCells.Count - 1
+            iRowIndex = DgvPPORegPPORecords.SelectedCells.Item(n).RowIndex
+            iRow = DgvPPORegPPORecords.Rows(iRowIndex).Cells(0).Value.ToString
+            i = iRow
+            'MsgBox(n)
+            'MsgBox(i & " & Row index " & Format(iRowIndex) & " " & iRowIndex)
+        Next
+
+        dgvIntRow = iRowIndex
+        'MsgBox("selection change " & i)
+
+        Load_Selected_PPO()
+    End Sub
+
+    Private Sub Load_Selected_PPO()
+        Try
+            Dim ppo_no As String = Nothing
+            Dim ver As String = Nothing
+            Dim ppo_date As Date = Date.Now
+            Dim mat_no As String = Nothing
+            Dim opn As String = Nothing
+            Dim model As String = Nothing
+            Dim fw As String = Nothing
+            Dim trace_code As String = Nothing
+            Dim lot_no As String = Nothing
+            Dim qty As String = Nothing
+            Dim crd As Date = Date.Now
+            Dim special_ins As String = Nothing
+
+            Dim dbQuery = "SELECT * FROM ppo WHERE id = '" & i & "'"
+            dbConn.Open()
+            Using dbCmd As New SqlCommand(dbQuery, dbConn)
+                Using dbReader As SqlDataReader = dbCmd.ExecuteReader
+                    dbReader.Read()
+                    If dbReader.HasRows Then
+                        'dbReader("ppo_number").ToString()
+                        'TBoxTSRepairedBy.Text = If(Not dbReader.IsDBNull(dbReader.GetOrdinal("repaired_by")), dbReader.GetString(dbReader.GetOrdinal("repaired_by")), "")
+
+                        ppo_no = dbReader("ppo_no").ToString
+                        ver = dbReader("version").ToString
+                        ppo_date = dbReader.GetDateTime(dbReader.GetOrdinal("ppo_date"))
+                        mat_no = dbReader("material_no").ToString
+                        opn = dbReader("ordering_part_no").ToString
+                        model = dbReader("model").ToString
+                        fw = dbReader("firmware").ToString
+                        trace_code = dbReader("full_trace_code").ToString
+                        lot_no = dbReader("lot_no").ToString
+                        qty = dbReader("ppo_qty").ToString
+                        crd = dbReader.GetDateTime(dbReader.GetOrdinal("crd"))
+                        special_ins = dbReader("special_instruction").ToString
+                    End If
+                End Using
+            End Using
+            dbConn.Close()
+
+            TboxPPORegPPONo.Text = ppo_no
+            TboxPPORegVersion.Text = ver
+            DtpPPORegDate.Value = ppo_date
+            TboxPPORegMaterialNo.Text = mat_no
+            TboxPPORegOrderingPartNo.Text = opn
+            TboxPPORegModel.Text = model
+            TboxPPORegFirmware.Text = fw
+            TboxPPORegTraceCode.Text = trace_code
+            TboxPPORegLotNo.Text = lot_no
+            TboxPPORegPPOQty.Text = qty
+            DtpPPORegCRD.Value = crd
+            TboxPPORegSpecialIns.Text = special_ins
+        Catch ex As SqlException
+            MessageBox.Show(ex.Message, "SQL Exception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MsgBox("jere?")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Excception Handling", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MsgBox("jere2?")
+        Finally
+            If dbConn.State = ConnectionState.Open Then
+                dbConn.Close()
+            End If
+        End Try
+
+        TboxPPORegPPONo.ReadOnly = True
+        TboxPPORegVersion.ReadOnly = True
+        DtpPPORegDate.Enabled = False
+        TboxPPORegMaterialNo.ReadOnly = True
+        TboxPPORegTraceCode.ReadOnly = True
+        TboxPPORegLotNo.ReadOnly = True
+        TboxPPORegPPOQty.ReadOnly = True
+        DtpPPORegCRD.Enabled = False
+        TboxPPORegSpecialIns.ReadOnly = True
+
+        'BtnPPORegSubmit.Text = "Update"
+        If BtnPPORegSubmit_init = False Then
+            BtnPPORegSubmit.Text = "Edit"
+            BtnPPORegClear.Text = "Cancel"
+        End If
+    End Sub
+
+    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
+        i = -1
+        dgvIntRow = -1
+    End Sub
+
+    Private Sub DgvPPORegPPORecords_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvPPORegPPORecords.CellContentClick
+        'MsgBox(e.RowIndex)
+        If e.RowIndex >= 0 Then
+            dgvRow = DgvPPORegPPORecords.Rows(e.RowIndex) ' get the row index of the selected datagridview
+            dgvIntRow = DgvPPORegPPORecords.SelectedCells.Item(0).RowIndex ' get the row index of the selected column of row index
+            i = dgvRow.Cells(0).Value.ToString() ' get the value of the 1st column of selected row index
+
+            'MsgBox("dgv " & dgvIntRow)
+        End If
+
+        'MsgBox("selection change " & i)
+        BtnPPORegSubmit_init = False
+        Load_Selected_PPO()
+    End Sub
+
+    Private Sub GboxPPORegInformation_Enter(sender As Object, e As EventArgs) Handles GboxPPORegInformation.Enter
+        'DgvPPORegPPORecords.Enabled = False
+    End Sub
+
+    Private Sub DgvPPORegPPORecords_Enter(sender As Object, e As EventArgs) Handles DgvPPORegPPORecords.Enter
+
+    End Sub
+
+    Private Sub TboxPPORegSearchLotNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxPPORegSearchLotNo.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnPPORegSearchInfSearch.PerformClick()
+        End If
+    End Sub
+
+    Private Sub TboxPPORegSearchLotNo_TextChanged(sender As Object, e As EventArgs) Handles TboxPPORegSearchLotNo.TextChanged
+        TboxPPORegSearchLotNo.MaxLength = 10
+
+        If TboxPPORegSearchLotNo.Text.Length > 0 Then
+            BtnPPORegSearchInfClear.Enabled = True
+            BtnPPORegSearchInfSearch.Enabled = True
+        ElseIf TboxPPORegSearchLotNo.Text.Length = 0 Then
+            BtnPPORegSearchInfClear.Enabled = False
+            BtnPPORegSearchInfSearch.Enabled = False
+        End If
+    End Sub
+
+    Private Sub CboxPPORegSearchModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboxPPORegSearchModel.SelectedIndexChanged
+        If CboxPPORegSearchModel.Text = Nothing Then
+            BtnPPORegSearchInfClear.Enabled = False
+            BtnPPORegSearchInfSearch.Enabled = False
+        Else
+            BtnPPORegSearchInfClear.Enabled = True
+            BtnPPORegSearchInfSearch.Enabled = True
+        End If
+    End Sub
+
     Private Sub TboxInqWorkOrder_TextChanged(sender As Object, e As EventArgs) Handles TboxInqWorkOrder.TextChanged
         TboxInqWorkOrder.MaxLength = 7
         TboxInqWorkOrder.CharacterCasing = CharacterCasing.Upper
     End Sub
 
+    Private Sub CartesianChart1_ChildChanged(sender As Object, e As Integration.ChildChangedEventArgs)
+
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        FrmAboutBox.ShowDialog()
+    End Sub
+
     Private Sub TboxInqActionTaken_TextChanged(sender As Object, e As EventArgs) Handles TboxInqActionTaken.TextChanged
         TboxInqActionTaken.CharacterCasing = CharacterCasing.Upper
+    End Sub
+
+    Private Sub TBoxEndorsedBy_MouseClick(sender As Object, e As MouseEventArgs) Handles TBoxEndorsedBy.MouseClick
+        Check_Function_Switch()
+
+        If TBoxEndorsedBy.ReadOnly = False And TBoxEndorsedBy.TextLength = 0 Then
+            Username = Nothing
+            ' check operator switch
+            'Dim enable, disable As Boolean
+            'Try
+            '    Dim dbQuery = "SELECT * FROM Operator_Switch"
+            '    dbLocalConn.Open()
+            '    Using dbCmd As New SQLiteCommand(dbQuery, dbLocalConn)
+            '        Using dbReader As SQLiteDataReader = dbCmd.ExecuteReader
+            '            dbReader.Read()
+            '            If dbReader.HasRows Then
+            '                If dbReader("switch") = 1 Then
+            '                    enable = True
+            '                    disable = False
+            '                End If
+
+            '                If dbReader("switch") = 0 Then
+            '                    disable = True
+            '                    enable = False
+            '                End If
+            '            End If
+            '        End Using
+            '    End Using
+            '    dbLocalConn.Close()
+            'Catch sqlex As SQLiteException
+            '    MessageBox.Show(sqlex.Message, "SQL Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'Catch ex As Exception
+            '    MessageBox.Show(ex.Message, "General Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'Finally
+            '    If dbLocalConn.State = ConnectionState.Open Then
+            '        dbLocalConn.Close()
+            '    End If
+            'End Try
+
+            'If enable Then
+            '    'TBoxEndorsedBy.ReadOnly = True
+            '    FrmEndtUser.ShowDialog()
+            'End If
+
+            'If disable Then
+            '    'TBoxEndorsedBy.ReadOnly = False
+            'End If
+
+            If operator_switch = 1 Then
+                FrmEndtUser.ShowDialog()
+
+                If Username <> Nothing Then
+                    TBoxEndorsedBy.Text = Username
+                    TBoxEndorsedBy.ReadOnly = True
+                    TBoxLotNo.Select()
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub OperatorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OperatorToolStripMenuItem.Click
+        FrmAdminPass.OperatorReference = True
+        FrmAdminPass.ShowDialog(Me)
+    End Sub
+
+    Private Sub TBoxEndorsedBy_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxEndorsedBy.KeyPress
+        Username = Nothing
+
+        Check_Function_Switch()
+
+        If operator_switch = 1 Then
+            If TBoxEndorsedBy.ReadOnly = False Then
+                e.Handled = True
+                FrmEndtUser.ShowDialog()
+
+                If Username <> Nothing Then
+                    TBoxEndorsedBy.Text = Username
+                    TBoxEndorsedBy.ReadOnly = True
+                    TBoxLotNo.Select()
+                End If
+            End If
+        End If
+
+        If operator_switch = 0 Then
+            e.Handled = False
+        End If
+    End Sub
+
+    Private Sub TBoxEndorsedBy_ReadOnlyChanged(sender As Object, e As EventArgs) Handles TBoxEndorsedBy.ReadOnlyChanged
+
+    End Sub
+
+    Private Sub TboxUIDInquiry_KeyDown(sender As Object, e As KeyEventArgs) Handles TboxUIDInquiry.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            BtnUIDSearchInq.PerformClick()
+        End If
+    End Sub
+
+    Private Sub TBoxUIDTimeout_Leave(sender As Object, e As EventArgs) Handles TBoxUIDTimeout.Leave
+        Update_UID_Timeout()
+    End Sub
+
+    Private Sub TBoxUIDTimeout_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxUIDTimeout.KeyPress
+        'If Not Char.IsNumber(e.KeyChar) Then
+        '    e.Handled = True
+        'End If
+
+        If Char.IsLetter(e.KeyChar) OrElse
+           Char.IsWhiteSpace(e.KeyChar) OrElse
+           Char.IsPunctuation(e.KeyChar) OrElse
+           Char.IsSymbol(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TboxUIDLotNo_Leave(sender As Object, e As EventArgs) Handles TboxUIDLotNo.Leave
+
+    End Sub
+
+    Private Sub TboxUIDLotNo_Enter(sender As Object, e As EventArgs) Handles TboxUIDLotNo.Enter
+
     End Sub
 
     Private Sub TboxInqDefType_TextChanged(sender As Object, e As EventArgs) Handles TboxInqDefType.TextChanged
@@ -3054,19 +4091,65 @@ Public Class FrmMain
         End If
     End Sub
 
+    Dim SubmitClick As Boolean
+
     Private Sub BtnPPORegClear_Click(sender As Object, e As EventArgs) Handles BtnPPORegClear.Click
-        TboxPPORegPPONo.Clear()
-        TboxPPORegVersion.Clear()
-        DtpPPORegDate.Value = Today
-        TboxPPORegMaterialNo.Clear()
-        TboxPPORegOrderingPartNo.Clear()
-        TboxPPORegModel.Clear()
-        TboxPPORegFirmware.Clear()
-        TboxPPORegTraceCode.Clear()
-        TboxPPORegLotNo.Clear()
-        TboxPPORegPPOQty.Clear()
-        DtpPPORegCRD.Value = Today
-        TboxPPORegSpecialIns.Clear()
+        If BtnPPORegClear.Text = "Clear" Then
+            TboxPPORegPPONo.Clear()
+            TboxPPORegVersion.Clear()
+            DtpPPORegDate.Value = Today
+            TboxPPORegMaterialNo.Clear()
+            TboxPPORegOrderingPartNo.Clear()
+            TboxPPORegModel.Clear()
+            TboxPPORegFirmware.Clear()
+            TboxPPORegTraceCode.Clear()
+            TboxPPORegLotNo.Clear()
+            TboxPPORegPPOQty.Clear()
+            DtpPPORegCRD.Value = Today
+            TboxPPORegSpecialIns.Clear()
+        End If
+
+        If SubmitClick = True Then
+            TboxPPORegPPONo.ReadOnly = False
+            TboxPPORegVersion.ReadOnly = False
+            DtpPPORegDate.Enabled = True
+            TboxPPORegMaterialNo.ReadOnly = True
+            TboxPPORegTraceCode.ReadOnly = True
+            TboxPPORegLotNo.ReadOnly = True
+            TboxPPORegPPOQty.ReadOnly = True
+            DtpPPORegCRD.Enabled = True
+            TboxPPORegSpecialIns.ReadOnly = True
+            SubmitClick = False
+        End If
+
+        If BtnPPORegClear.Text = "Cancel" Then
+            TboxPPORegPPONo.Clear()
+            TboxPPORegVersion.Clear()
+            DtpPPORegDate.Value = Today
+            TboxPPORegMaterialNo.Clear()
+            TboxPPORegOrderingPartNo.Clear()
+            TboxPPORegModel.Clear()
+            TboxPPORegFirmware.Clear()
+            TboxPPORegTraceCode.Clear()
+            TboxPPORegLotNo.Clear()
+            TboxPPORegPPOQty.Clear()
+            DtpPPORegCRD.Value = Today
+            TboxPPORegSpecialIns.Clear()
+            BtnPPORegSubmit.Text = "Submit"
+            BtnPPORegClear.Text = "Clear"
+            GboxPPORegPPORecords.Enabled = True
+
+            TboxPPORegPPONo.ReadOnly = False
+            TboxPPORegVersion.ReadOnly = False
+            DtpPPORegDate.Enabled = True
+            TboxPPORegMaterialNo.ReadOnly = False
+            TboxPPORegTraceCode.ReadOnly = False
+            TboxPPORegLotNo.ReadOnly = False
+            TboxPPORegPPOQty.ReadOnly = False
+            DtpPPORegCRD.Enabled = True
+            TboxPPORegSpecialIns.ReadOnly = False
+            BtnPPORegSubmit_init = False
+        End If
     End Sub
 
     Private Sub TboxPPORegPPONo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxPPORegPPONo.KeyPress
@@ -3202,9 +4285,45 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub Enter_KeyPress(sender As Object, e As KeyEventArgs) Handles TboxPPORegPPONo.KeyDown, TboxPPORegVersion.KeyDown, DtpPPORegDate.KeyDown, TboxPPORegMaterialNo.KeyDown, TboxPPORegOrderingPartNo.KeyDown, TboxPPORegModel.KeyDown, TboxPPORegFirmware.KeyDown, TboxPPORegTraceCode.KeyDown, TboxPPORegLotNo.KeyDown, TboxPPORegPPOQty.KeyDown, DtpPPORegCRD.KeyDown, TboxPPORegSpecialIns.KeyDown
+    Private Sub Enter_KeyPress(sender As Object, e As KeyEventArgs) Handles TboxPPORegPPONo.KeyDown, TboxPPORegVersion.KeyDown, DtpPPORegDate.KeyDown, TboxPPORegMaterialNo.KeyDown, TboxPPORegOrderingPartNo.KeyDown, TboxPPORegModel.KeyDown, TboxPPORegFirmware.KeyDown, TboxPPORegTraceCode.KeyDown, TboxPPORegLotNo.KeyDown, TboxPPORegPPOQty.KeyDown, DtpPPORegCRD.KeyDown ', TboxPPORegSpecialIns.KeyDown
         If e.KeyCode = Keys.Enter Then
             BtnPPORegSubmit.PerformClick()
         End If
     End Sub
+
+    'Private Sub TboxPPORegPPONo_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegPPONo.GotFocus
+    '    initValue_TboxPPORegPPONo = TboxPPORegPPONo.Text
+    'End Sub
+
+    'Private Sub TboxPPORegVersion_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegVersion.GotFocus
+    '    initValue_TboxPPORegVersion = TboxPPORegVersion.Text
+    'End Sub
+
+    'Private Sub DtpPPORegDate_GotFocus(sender As Object, e As EventArgs) Handles DtpPPORegDate.GotFocus
+    '    initValue_DtpPPORegDate = DtpPPORegDate.Value.ToString("yyyy-mm-dd")
+    'End Sub
+
+    'Private Sub TboxPPORegMaterialNo_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegMaterialNo.GotFocus
+    '    initValue_TboxPPORegMaterialNo = TboxPPORegMaterialNo.Text
+    'End Sub
+
+    'Private Sub TboxPPORegTraceCode_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegTraceCode.GotFocus
+    '    initValue_TboxPPORegTraceCode = TboxPPORegTraceCode.Text
+    'End Sub
+
+    'Private Sub TboxPPORegLotNo_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegLotNo.GotFocus
+    '    initValue_TboxPPORegLotNo = TboxPPORegLotNo.Text
+    'End Sub
+
+    'Private Sub TboxPPORegPPOQty_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegPPOQty.GotFocus
+    '    initValue_TboxPPORegPPOQty = TboxPPORegPPOQty.Text
+    'End Sub
+
+    'Private Sub DtpPPORegCRD_GotFocus(sender As Object, e As EventArgs) Handles DtpPPORegCRD.GotFocus
+    'initValue_DtpPPORegCRD = DtpPPORegCRD.Value.ToString("yyyy-MM-dd")
+    'End Sub
+
+    'Private Sub TboxPPORegSpecialIns_GotFocus(sender As Object, e As EventArgs) Handles TboxPPORegSpecialIns.GotFocus
+    '    initValue_TboxPPORegSpecialIns = TboxPPORegSpecialIns.Text
+    'End Sub
 End Class

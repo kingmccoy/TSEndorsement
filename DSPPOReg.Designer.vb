@@ -495,7 +495,7 @@ Partial Public Class DSPPOReg
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDTPPORegRow(ByVal id As String, ByVal ppo_no As String, ByVal version As String, ByVal ppo_date As Date, ByVal material_no As String, ByVal ordering_part_no As String, ByVal model As String, ByVal full_trace_code As String, ByVal lot_no As String, ByVal ppo_qty As String, ByVal crd As Date, ByVal special_instruction As String, ByVal _date As Date, ByVal time As String) As DTPPORegRow
+        Public Overloads Function AddDTPPORegRow(ByVal id As Integer, ByVal ppo_no As Long, ByVal version As String, ByVal ppo_date As Date, ByVal material_no As String, ByVal ordering_part_no As String, ByVal model As String, ByVal full_trace_code As String, ByVal lot_no As Decimal, ByVal ppo_qty As String, ByVal crd As Date, ByVal special_instruction As String, ByVal _date As Date, ByVal time As String) As DTPPORegRow
             Dim rowDTPPORegRow As DTPPORegRow = CType(Me.NewRow,DTPPORegRow)
             Dim columnValuesArray() As Object = New Object() {id, ppo_no, version, ppo_date, material_no, ordering_part_no, model, full_trace_code, lot_no, ppo_qty, crd, special_instruction, _date, time}
             rowDTPPORegRow.ItemArray = columnValuesArray
@@ -505,7 +505,7 @@ Partial Public Class DSPPOReg
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function FindByid(ByVal id As String) As DTPPORegRow
+        Public Function FindByid(ByVal id As Integer) As DTPPORegRow
             Return CType(Me.Rows.Find(New Object() {id}),DTPPORegRow)
         End Function
         
@@ -545,9 +545,9 @@ Partial Public Class DSPPOReg
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnid = New Global.System.Data.DataColumn("id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
-            Me.columnppo_no = New Global.System.Data.DataColumn("ppo_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnppo_no = New Global.System.Data.DataColumn("ppo_no", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnppo_no)
             Me.columnversion = New Global.System.Data.DataColumn("version", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnversion)
@@ -561,7 +561,7 @@ Partial Public Class DSPPOReg
             MyBase.Columns.Add(Me.columnmodel)
             Me.columnfull_trace_code = New Global.System.Data.DataColumn("full_trace_code", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfull_trace_code)
-            Me.columnlot_no = New Global.System.Data.DataColumn("lot_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnlot_no = New Global.System.Data.DataColumn("lot_no", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnlot_no)
             Me.columnppo_qty = New Global.System.Data.DataColumn("ppo_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnppo_qty)
@@ -725,9 +725,9 @@ Partial Public Class DSPPOReg
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property id() As String
+        Public Property id() As Integer
             Get
-                Return CType(Me(Me.tableDTPPOReg.idColumn),String)
+                Return CType(Me(Me.tableDTPPOReg.idColumn),Integer)
             End Get
             Set
                 Me(Me.tableDTPPOReg.idColumn) = value
@@ -736,10 +736,10 @@ Partial Public Class DSPPOReg
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property ppo_no() As String
+        Public Property ppo_no() As Long
             Get
                 Try 
-                    Return CType(Me(Me.tableDTPPOReg.ppo_noColumn),String)
+                    Return CType(Me(Me.tableDTPPOReg.ppo_noColumn),Long)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ppo_no' in table 'DTPPOReg' is DBNull.", e)
                 End Try
@@ -841,10 +841,10 @@ Partial Public Class DSPPOReg
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property lot_no() As String
+        Public Property lot_no() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tableDTPPOReg.lot_noColumn),String)
+                    Return CType(Me(Me.tableDTPPOReg.lot_noColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'lot_no' in table 'DTPPOReg' is DBNull.", e)
                 End Try

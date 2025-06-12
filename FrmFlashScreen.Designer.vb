@@ -31,7 +31,7 @@ Partial Class FrmFlashScreen
         '
         'PictureBoxLogo
         '
-        Me.PictureBoxLogo.Image = Global.Endorsement.My.Resources.Resources.ts_logo_no_background
+        Me.PictureBoxLogo.Image = Global.TS_Endorsement.My.Resources.Resources.ts_logo_no_background
         Me.PictureBoxLogo.Location = New System.Drawing.Point(12, 12)
         Me.PictureBoxLogo.Name = "PictureBoxLogo"
         Me.PictureBoxLogo.Size = New System.Drawing.Size(776, 402)

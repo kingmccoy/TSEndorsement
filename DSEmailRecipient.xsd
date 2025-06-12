@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSEmailRecipient" targetNamespace="http://tempuri.org/DSEmailRecipient.xsd" xmlns:mstns="http://tempuri.org/DSEmailRecipient.xsd" xmlns="http://tempuri.org/DSEmailRecipient.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSEmailRecipient" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSEmailRecipient" msprop:Generator_DataSetName="DSEmailRecipient">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTEmailRecipient" msprop:Generator_RowEvHandlerName="DTEmailRecipientRowChangeEventHandler" msprop:Generator_RowDeletedName="DTEmailRecipientRowDeleted" msprop:Generator_RowDeletingName="DTEmailRecipientRowDeleting" msprop:Generator_RowEvArgName="DTEmailRecipientRowChangeEvent" msprop:Generator_TablePropName="DTEmailRecipient" msprop:Generator_RowChangedName="DTEmailRecipientRowChanged" msprop:Generator_RowChangingName="DTEmailRecipientRowChanging" msprop:Generator_TableClassName="DTEmailRecipientDataTable" msprop:Generator_RowClassName="DTEmailRecipientRow" msprop:Generator_TableVarName="tableDTEmailRecipient" msprop:Generator_UserTableName="DTEmailRecipient">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="email" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_ColumnVarNameInTable="columnemail" msprop:Generator_UserColumnName="email" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DTEmailRecipient" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
